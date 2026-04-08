@@ -34,6 +34,7 @@ https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/st
 | 02 | [用編輯器寫長 Prompt](02-external-editor.md) | `Ctrl+G` 跳到熟悉的編輯器，不再跟輸入框搏鬥 | ⭐ |
 | 03 | [安全三件套](03-safe-delete.md) | 垃圾桶 + 危險指令黑名單 + 權限模式引導選擇，一次裝好 | ⭐ |
 | 04 | [MCP 推薦清單](04-mcp-essentials.md) | 讓 AI 讀信、抓網頁、操作瀏覽器、讀寫檔案（互動式選裝） | ⭐⭐ |
+| 06 | [Status Line 狀態列](06-statusline.md) | 終端機顯示模型、額度、Git、最後訊息時間（互動式選裝） | ⭐ |
 
 ### 主題懶人包（Skills & 工具組合）
 
@@ -84,7 +85,18 @@ https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/st
 → 完整步驟、指令、驗證、備用方案、踩坑紀錄
 ```
 
-參考範例：`01-terminal-setup.md`、`02-external-editor.md`
+參考範例：`01-terminal-setup.md`、`02-external-editor.md`、`06-statusline.md`（最新金標準）
+
+### 必備元素（2026-04 起的新標準）
+
+1. **腳本 header attribution** — 所有會寫入用戶檔案系統的 bash / shell 腳本，第一段註解必須包含 **Designer / Source / Docs / License** 四項。參考 `06-statusline.md` Section D 的完整範例區塊。
+
+2. **互動式選擇用 AskUserQuestion** — 需要用戶做決定時，請用 `AskUserQuestion` 工具跳出互動框，**不要**在純文字訊息中列「請輸入 1/2/3」要求用戶回覆——新手看到這種問題不知道要回什麼。參考 `03-safe-delete.md` Section C（單選）、`06-statusline.md` Section B/C/E（多選 + 自訂輸入）。
+
+3. **結尾授權區塊** — 每份 `.md` 末尾必須有「## 授權」小節。可以用 3 行 bullet 的溫柔版（01-04 使用），或 06 的完整版：
+   - **License**：MIT + 保留腳本 header 作者資訊的要求
+   - **商標**：品牌名（雷蒙三十 / 雷蒙 Starter Kit）的 fork 限制
+   - **延伸觸點**：迷你課 / 週報 / Threads 用分隔符排成一行，避免看起來像廣告條
 
 ---
 

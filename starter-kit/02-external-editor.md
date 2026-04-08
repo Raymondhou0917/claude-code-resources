@@ -119,4 +119,12 @@ echo $EDITOR
 
 ---
 
+## 授權
+
+- **License**：MIT · 自由使用、修改、分享。fork 或嵌入時請保留腳本 header 的作者資訊（MIT 基本要求）
+- **商標**：「雷蒙三十」「雷蒙 Starter Kit」為品牌名，fork 版請用你自己的名字，不要冠上這些品牌販售
+- **完整版教學** → [Claude Code 迷你課](https://cc.lifehacker.tw) | [雷蒙週報](https://raymondhouch.com/subscribe) | Threads [@raymond0917](https://www.threads.com/@raymond0917)
+
+---
+
 > 📖 更多設定 → [Starter Kit 目錄](README.md) | 🌐 [Claude Code 學習資源站](https://cc.lifehacker.tw)
