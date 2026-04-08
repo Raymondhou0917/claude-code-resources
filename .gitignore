@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if added later)
+node_modules/
+package-lock.json
+
+# Environment
+.env
+.env.local

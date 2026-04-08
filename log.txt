@@ -1,0 +1,2160 @@
+2026-04-07T01:18:02.851Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T01:18:02.852Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T01:18:02.852Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T01:18:02.853Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T01:18:02.854Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T01:18:02.854Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T01:18:02.854Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T01:18:02.854Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T01:18:02.854Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T01:18:02.855Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T01:18:02.855Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T01:18:02.855Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T01:18:02.855Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T01:18:02.855Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T01:18:02.855Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T01:18:02.855Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T01:18:02.855Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T01:18:02.855Z [DEBUG] [API] Environment: development
+2026-04-07T01:18:02.855Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T01:18:02.855Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:18:02.855Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T01:18:02.855Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T01:18:02.855Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:18:02.855Z [DEBUG] [API] Request method: POST
+2026-04-07T01:18:03.750Z [DEBUG] [API] Response status: 403
+2026-04-07T01:18:03.751Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T01:18:03.751Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T01:18:03.751Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T01:18:03.751Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T01:18:03.751Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T01:18:03.751Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T01:18:03.751Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T01:18:03.751Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T01:18:03.751Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T01:18:03.751Z [DEBUG] [API] Environment: development
+2026-04-07T01:18:03.751Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T01:18:03.752Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:18:03.752Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T01:18:03.752Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T01:18:03.752Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:18:03.752Z [DEBUG] [API] Request method: POST
+2026-04-07T01:18:04.255Z [DEBUG] [API] Response status: 403
+2026-04-07T01:18:04.256Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T01:18:04.257Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T01:18:04.257Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T01:18:04.257Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T01:18:04.259Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T01:18:04.259Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T01:18:04.259Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:18:04.259Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:18:04.259Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T01:18:04.259Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:18:04.260Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:18:04.260Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T01:18:04.260Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T01:18:04.260Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:18:04.260Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:18:04.260Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T01:18:04.260Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T01:18:04.260Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T01:18:04.261Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 1ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T01:18:04.261Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 1ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T01:21:10.285Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T01:21:10.286Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T01:21:10.286Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T01:21:10.287Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T01:21:10.289Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T01:21:10.289Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T01:21:10.289Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T01:21:10.289Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T01:21:10.289Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T01:21:10.289Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T01:21:10.289Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T01:21:10.289Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T01:21:10.289Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T01:21:10.289Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T01:21:10.289Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T01:21:10.289Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T01:21:10.289Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T01:21:10.290Z [DEBUG] [API] Environment: development
+2026-04-07T01:21:10.290Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T01:21:10.290Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:21:10.290Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T01:21:10.290Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T01:21:10.290Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:21:10.290Z [DEBUG] [API] Request method: POST
+2026-04-07T01:21:11.065Z [DEBUG] [API] Response status: 403
+2026-04-07T01:21:11.066Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T01:21:11.066Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T01:21:11.066Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T01:21:11.066Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T01:21:11.066Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T01:21:11.066Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T01:21:11.066Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T01:21:11.066Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T01:21:11.067Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T01:21:11.067Z [DEBUG] [API] Environment: development
+2026-04-07T01:21:11.067Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T01:21:11.067Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:21:11.067Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T01:21:11.067Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T01:21:11.067Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T01:21:11.067Z [DEBUG] [API] Request method: POST
+2026-04-07T01:21:11.578Z [DEBUG] [API] Response status: 403
+2026-04-07T01:21:11.579Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T01:21:11.579Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T01:21:11.579Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T01:21:11.579Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:21:11.581Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:21:11.581Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T01:21:11.581Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T01:21:11.581Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:21:11.582Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:21:11.582Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T01:21:11.582Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T01:21:11.582Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T01:21:11.582Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T01:21:11.582Z [INFO] [CLIENT] No request parameters
+2026-04-07T01:21:11.582Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T01:21:11.582Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T01:21:11.582Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T01:21:11.582Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T01:21:11.582Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T01:21:11.582Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T02:21:36.200Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T02:21:36.201Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T02:21:36.201Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T02:21:36.202Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T02:21:36.204Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T02:21:36.204Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T02:21:36.204Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T02:21:36.204Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T02:21:36.204Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T02:21:36.204Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T02:21:36.204Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T02:21:36.204Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T02:21:36.204Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T02:21:36.204Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T02:21:36.204Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T02:21:36.204Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T02:21:36.204Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T02:21:36.204Z [DEBUG] [API] Environment: development
+2026-04-07T02:21:36.205Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T02:21:36.205Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T02:21:36.205Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T02:21:36.205Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T02:21:36.205Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T02:21:36.205Z [DEBUG] [API] Request method: POST
+2026-04-07T02:21:37.107Z [DEBUG] [API] Response status: 403
+2026-04-07T02:21:37.109Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T02:21:37.109Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T02:21:37.109Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T02:21:37.109Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T02:21:37.109Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T02:21:37.109Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T02:21:37.109Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T02:21:37.109Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T02:21:37.109Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T02:21:37.109Z [DEBUG] [API] Environment: development
+2026-04-07T02:21:37.109Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T02:21:37.109Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T02:21:37.109Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T02:21:37.109Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T02:21:37.109Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T02:21:37.109Z [DEBUG] [API] Request method: POST
+2026-04-07T02:21:37.689Z [DEBUG] [API] Response status: 403
+2026-04-07T02:21:37.689Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T02:21:37.690Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T02:21:37.690Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T02:21:37.690Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] No request parameters
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T02:21:37.692Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] No request parameters
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T02:21:37.692Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T02:21:37.692Z [INFO] [CLIENT] No request parameters
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T02:21:37.692Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T02:21:37.692Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T02:21:37.692Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 0ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T02:21:37.692Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T02:21:37.692Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T03:03:55.277Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T03:03:55.279Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T03:03:55.279Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T03:03:55.280Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T03:03:55.281Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T03:03:55.281Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T03:03:55.281Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T03:03:55.281Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T03:03:55.281Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T03:03:55.281Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T03:03:55.282Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T03:03:55.282Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T03:03:55.282Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T03:03:55.282Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T03:03:55.282Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T03:03:55.282Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T03:03:55.282Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T03:03:55.282Z [DEBUG] [API] Environment: development
+2026-04-07T03:03:55.282Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T03:03:55.282Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T03:03:55.282Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T03:03:55.282Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T03:03:55.282Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T03:03:55.282Z [DEBUG] [API] Request method: POST
+2026-04-07T03:03:56.221Z [DEBUG] [API] Response status: 403
+2026-04-07T03:03:56.223Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T03:03:56.223Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T03:03:56.223Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T03:03:56.223Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T03:03:56.223Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T03:03:56.223Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T03:03:56.223Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T03:03:56.223Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T03:03:56.223Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T03:03:56.223Z [DEBUG] [API] Environment: development
+2026-04-07T03:03:56.223Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T03:03:56.223Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T03:03:56.223Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T03:03:56.224Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T03:03:56.224Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T03:03:56.224Z [DEBUG] [API] Request method: POST
+2026-04-07T03:03:56.725Z [DEBUG] [API] Response status: 403
+2026-04-07T03:03:56.725Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T03:03:56.725Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T03:03:56.725Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T03:03:56.725Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T03:03:56.727Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T03:03:56.727Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T03:03:56.727Z [INFO] [CLIENT] No request parameters
+2026-04-07T03:03:56.727Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T03:03:56.727Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T03:03:56.727Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] No request parameters
+2026-04-07T03:03:56.728Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T03:03:56.728Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T03:03:56.728Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T03:03:56.728Z [INFO] [CLIENT] No request parameters
+2026-04-07T03:03:56.728Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T03:03:56.728Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T03:03:56.728Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T03:03:56.728Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T03:03:56.728Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T03:03:56.728Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T04:17:46.969Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T04:17:46.971Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T04:17:46.972Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T04:17:46.972Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T04:17:46.974Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T04:17:46.974Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T04:17:46.974Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T04:17:46.974Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T04:17:46.974Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T04:17:46.974Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T04:17:46.974Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T04:17:46.974Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T04:17:46.974Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T04:17:46.975Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T04:17:46.975Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T04:17:46.975Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T04:17:46.975Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T04:17:46.975Z [DEBUG] [API] Environment: development
+2026-04-07T04:17:46.975Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T04:17:46.975Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T04:17:46.975Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T04:17:46.975Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T04:17:46.975Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T04:17:46.975Z [DEBUG] [API] Request method: POST
+2026-04-07T04:17:47.785Z [DEBUG] [API] Response status: 403
+2026-04-07T04:17:47.786Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T04:17:47.786Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T04:17:47.786Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T04:17:47.786Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T04:17:47.786Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T04:17:47.787Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T04:17:47.787Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T04:17:47.787Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T04:17:47.787Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T04:17:47.787Z [DEBUG] [API] Environment: development
+2026-04-07T04:17:47.787Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T04:17:47.787Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T04:17:47.787Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T04:17:47.787Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T04:17:47.787Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T04:17:47.787Z [DEBUG] [API] Request method: POST
+2026-04-07T04:17:48.251Z [DEBUG] [API] Response status: 403
+2026-04-07T04:17:48.252Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T04:17:48.252Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T04:17:48.252Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T04:17:48.252Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T04:17:48.254Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T04:17:48.254Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T04:17:48.254Z [INFO] [CLIENT] No request parameters
+2026-04-07T04:17:48.254Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T04:17:48.254Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T04:17:48.254Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] No request parameters
+2026-04-07T04:17:48.255Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T04:17:48.255Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T04:17:48.255Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T04:17:48.255Z [INFO] [CLIENT] No request parameters
+2026-04-07T04:17:48.255Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T04:17:48.255Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T04:17:48.255Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T04:17:48.255Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T04:17:48.255Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T04:17:48.255Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:15:38.092Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:15:38.094Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:15:38.094Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:15:38.094Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:15:38.096Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:15:38.096Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:15:38.096Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:15:38.096Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:15:38.096Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:15:38.096Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:15:38.096Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:15:38.096Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:15:38.096Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:15:38.096Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:15:38.097Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:15:38.097Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:15:38.097Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:15:38.097Z [DEBUG] [API] Environment: development
+2026-04-07T08:15:38.097Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:15:38.097Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:15:38.097Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:15:38.097Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:15:38.097Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:15:38.097Z [DEBUG] [API] Request method: POST
+2026-04-07T08:15:39.010Z [DEBUG] [API] Response status: 403
+2026-04-07T08:15:39.012Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:15:39.012Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:15:39.012Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:15:39.012Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:15:39.012Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:15:39.012Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:15:39.012Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:15:39.013Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:15:39.013Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:15:39.013Z [DEBUG] [API] Environment: development
+2026-04-07T08:15:39.013Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:15:39.013Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:15:39.013Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:15:39.013Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:15:39.013Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:15:39.013Z [DEBUG] [API] Request method: POST
+2026-04-07T08:15:39.586Z [DEBUG] [API] Response status: 403
+2026-04-07T08:15:39.587Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:15:39.587Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:15:39.587Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:15:39.587Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:15:39.589Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:15:39.589Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:15:39.589Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:15:39.589Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:15:39.589Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:15:39.589Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 0ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:15:39.590Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 1ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:15:39.590Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 1ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:22:43.658Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:22:43.660Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:22:43.660Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:22:43.661Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:22:43.662Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:22:43.663Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:22:43.663Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:22:43.663Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:22:43.663Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:22:43.663Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:22:43.663Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:22:43.663Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:22:43.663Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:22:43.663Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:22:43.663Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:22:43.663Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:22:43.663Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:22:43.663Z [DEBUG] [API] Environment: development
+2026-04-07T08:22:43.663Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:22:43.664Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:22:43.664Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:22:43.664Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:22:43.664Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:22:43.664Z [DEBUG] [API] Request method: POST
+2026-04-07T08:22:44.682Z [DEBUG] [API] Response status: 403
+2026-04-07T08:22:44.683Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:22:44.683Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:22:44.683Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:22:44.683Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:22:44.683Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:22:44.683Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:22:44.683Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:22:44.683Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:22:44.684Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:22:44.684Z [DEBUG] [API] Environment: development
+2026-04-07T08:22:44.684Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:22:44.684Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:22:44.684Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:22:44.684Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:22:44.684Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:22:44.684Z [DEBUG] [API] Request method: POST
+2026-04-07T08:22:45.246Z [DEBUG] [API] Response status: 403
+2026-04-07T08:22:45.247Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:22:45.247Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:22:45.247Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:22:45.247Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:22:45.249Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:22:45.249Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:22:45.249Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:22:45.249Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:22:45.250Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:22:45.250Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:22:45.250Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:22:45.250Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:22:45.250Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:22:45.250Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:22:45.250Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:22:45.250Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:22:45.250Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:22:45.250Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:22:45.250Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:22:45.250Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:25:36.780Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:25:36.783Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:25:36.783Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:25:36.783Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:25:36.785Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:25:36.785Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:25:36.785Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:25:36.785Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:25:36.785Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:25:36.785Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:25:36.785Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:25:36.785Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:25:36.785Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:25:36.785Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:25:36.786Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:25:36.786Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:25:36.786Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:25:36.786Z [DEBUG] [API] Environment: development
+2026-04-07T08:25:36.786Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:25:36.786Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:25:36.786Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:25:36.786Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:25:36.786Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:25:36.786Z [DEBUG] [API] Request method: POST
+2026-04-07T08:25:37.735Z [DEBUG] [API] Response status: 403
+2026-04-07T08:25:37.737Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:25:37.737Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:25:37.737Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:25:37.737Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:25:37.737Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:25:37.737Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:25:37.737Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:25:37.737Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:25:37.737Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:25:37.737Z [DEBUG] [API] Environment: development
+2026-04-07T08:25:37.737Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:25:37.737Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:25:37.737Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:25:37.737Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:25:37.737Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:25:37.737Z [DEBUG] [API] Request method: POST
+2026-04-07T08:25:38.320Z [DEBUG] [API] Response status: 403
+2026-04-07T08:25:38.321Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:25:38.321Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:25:38.321Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:25:38.321Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:25:38.323Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:25:38.323Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:25:38.323Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:25:38.323Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:25:38.323Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:25:38.323Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 0ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:25:38.323Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:25:38.323Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:28:15.198Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:28:15.200Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:28:15.200Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:28:15.200Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:28:15.202Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:28:15.202Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:28:15.202Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:28:15.202Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:28:15.202Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:28:15.202Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:28:15.202Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:28:15.202Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:28:15.202Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:28:15.202Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:28:15.203Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:28:15.203Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:28:15.203Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:28:15.203Z [DEBUG] [API] Environment: development
+2026-04-07T08:28:15.203Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:28:15.203Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:28:15.203Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:28:15.203Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:28:15.203Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:28:15.203Z [DEBUG] [API] Request method: POST
+2026-04-07T08:28:16.080Z [DEBUG] [API] Response status: 403
+2026-04-07T08:28:16.082Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:28:16.082Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:28:16.082Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:28:16.082Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:28:16.082Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:28:16.082Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:28:16.082Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:28:16.082Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:28:16.082Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:28:16.082Z [DEBUG] [API] Environment: development
+2026-04-07T08:28:16.082Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:28:16.082Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:28:16.082Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:28:16.082Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:28:16.082Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:28:16.082Z [DEBUG] [API] Request method: POST
+2026-04-07T08:28:16.596Z [DEBUG] [API] Response status: 403
+2026-04-07T08:28:16.596Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:28:16.596Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:28:16.597Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:28:16.597Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:28:16.598Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:28:16.598Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:28:16.598Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:28:16.598Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:28:16.598Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:28:16.599Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:28:16.599Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:28:16.599Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:28:16.599Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:28:16.599Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:28:16.599Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:28:16.599Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:28:16.599Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:28:16.599Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:28:16.599Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:28:16.599Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:30:28.768Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:30:28.771Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:30:28.771Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:30:28.771Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:30:28.773Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:30:28.773Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:30:28.773Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:30:28.773Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:30:28.773Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:30:28.773Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:30:28.773Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:30:28.773Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:30:28.773Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:30:28.774Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:30:28.774Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:30:28.774Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:30:28.774Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:30:28.774Z [DEBUG] [API] Environment: development
+2026-04-07T08:30:28.774Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:30:28.774Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:30:28.774Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:30:28.774Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:30:28.774Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:30:28.774Z [DEBUG] [API] Request method: POST
+2026-04-07T08:30:30.908Z [DEBUG] [API] Response status: 403
+2026-04-07T08:30:30.910Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:30:30.910Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:30:30.910Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:30:30.910Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:30:30.910Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:30:30.910Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:30:30.910Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:30:30.910Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:30:30.910Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:30:30.910Z [DEBUG] [API] Environment: development
+2026-04-07T08:30:30.910Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:30:30.910Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:30:30.910Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:30:30.910Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:30:30.911Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:30:30.911Z [DEBUG] [API] Request method: POST
+2026-04-07T08:30:31.408Z [DEBUG] [API] Response status: 403
+2026-04-07T08:30:31.410Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:30:31.410Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:30:31.411Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:30:31.411Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:30:31.415Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:30:31.415Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:30:31.415Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:30:31.415Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:30:31.415Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:30:31.415Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:30:31.416Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:30:31.416Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:30:31.416Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:30:31.416Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:30:31.416Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:30:31.416Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:30:31.416Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:30:31.416Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:30:31.416Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:30:31.416Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:36:15.179Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T08:36:15.181Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T08:36:15.181Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T08:36:15.182Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T08:36:15.183Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T08:36:15.183Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T08:36:15.184Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T08:36:15.184Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T08:36:15.184Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T08:36:15.184Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T08:36:15.184Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T08:36:15.184Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T08:36:15.184Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T08:36:15.184Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T08:36:15.184Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T08:36:15.184Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:36:15.184Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:36:15.184Z [DEBUG] [API] Environment: development
+2026-04-07T08:36:15.184Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:36:15.184Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:36:15.184Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:36:15.184Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:36:15.185Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:36:15.185Z [DEBUG] [API] Request method: POST
+2026-04-07T08:36:16.071Z [DEBUG] [API] Response status: 403
+2026-04-07T08:36:16.072Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:36:16.072Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T08:36:16.072Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:36:16.072Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T08:36:16.072Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T08:36:16.072Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T08:36:16.072Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T08:36:16.072Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T08:36:16.072Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T08:36:16.072Z [DEBUG] [API] Environment: development
+2026-04-07T08:36:16.072Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T08:36:16.073Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:36:16.073Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T08:36:16.073Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T08:36:16.073Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T08:36:16.073Z [DEBUG] [API] Request method: POST
+2026-04-07T08:36:16.592Z [DEBUG] [API] Response status: 403
+2026-04-07T08:36:16.593Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T08:36:16.593Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T08:36:16.593Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T08:36:16.593Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T08:36:16.595Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T08:36:16.595Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T08:36:16.596Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T08:36:16.596Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T08:36:16.596Z [INFO] [CLIENT] No request parameters
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T08:36:16.596Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T08:36:16.596Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T08:36:16.596Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 0ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:36:16.596Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 0ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T08:36:16.596Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}
+2026-04-07T15:41:25.658Z [INFO] [SYSTEM] Using native fetch API
+2026-04-07T15:41:25.659Z [DEBUG] [PROXY] System proxy support disabled (USE_SYSTEM_PROXY=false)
+2026-04-07T15:41:25.659Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2026-04-07T15:41:25.660Z [INFO] [PROXY] MCP server connected to transport successfully
+2026-04-07T15:41:25.661Z [INFO] [INIT] 📩 Client Initialize Request received
+2026-04-07T15:41:25.662Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code"
+    }
+  }
+}
+2026-04-07T15:41:25.662Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2026-04-07T15:41:25.662Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2026-04-07T15:41:25.662Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "claude-code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.19"
+}
+2026-04-07T15:41:25.662Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2026-04-07T15:41:25.662Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2026-04-07T15:41:25.662Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2026-04-07T15:41:25.662Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "roots": {},
+      "elicitation": {}
+    },
+    "clientInfo": {
+      "name": "claude-code",
+      "version": "2.1.92",
+      "title": "Claude Code",
+      "description": "Anthropic's agentic coding tool",
+      "websiteUrl": "https://claude.com/claude-code",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.19"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2026-04-07T15:41:25.662Z [INFO] [API] Request method: initialize (JSON-RPC)
+2026-04-07T15:41:25.662Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}},"_proxy_request_id":1}}
+2026-04-07T15:41:25.662Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T15:41:25.662Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T15:41:25.662Z [DEBUG] [API] Environment: development
+2026-04-07T15:41:25.662Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T15:41:25.662Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T15:41:25.662Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T15:41:25.662Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T15:41:25.663Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T15:41:25.663Z [DEBUG] [API] Request method: POST
+2026-04-07T15:41:26.522Z [DEBUG] [API] Response status: 403
+2026-04-07T15:41:26.524Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T15:41:26.524Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2026-04-07T15:41:26.524Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T15:41:26.524Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2026-04-07T15:41:26.524Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {
+    "roots": {},
+    "elicitation": {}
+  },
+  "clientInfo": {
+    "name": "claude-code",
+    "version": "2.1.92",
+    "title": "Claude Code",
+    "description": "Anthropic's agentic coding tool",
+    "websiteUrl": "https://claude.com/claude-code",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.19"
+    }
+  }
+}
+2026-04-07T15:41:26.524Z [INFO] [API] Request method: initialize (Simple)
+2026-04-07T15:41:26.524Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{"roots":{},"elicitation":{}},"clientInfo":{"name":"claude-code","version":"2.1.92","title":"Claude Code","description":"Anthropic's agentic coding tool","websiteUrl":"https://claude.com/claude-code","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.19"}}}
+2026-04-07T15:41:26.524Z [INFO] [AUTH] Using JWT token authentication
+2026-04-07T15:41:26.524Z [DEBUG] [AUTH] Token length: 243
+2026-04-07T15:41:26.524Z [DEBUG] [API] Environment: development
+2026-04-07T15:41:26.524Z [DEBUG] [API] Base API URL: https://raymondhouch.com
+2026-04-07T15:41:26.524Z [DEBUG] [API] Final requesting URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T15:41:26.524Z [DEBUG] [API] Using Authorization header for authentication
+2026-04-07T15:41:26.524Z [INFO] [API] Sending request to WordPress API...
+2026-04-07T15:41:26.524Z [DEBUG] [API] Request URL: https://raymondhouch.com/?rest_route=/wp/v2/wpmcp
+2026-04-07T15:41:26.524Z [DEBUG] [API] Request method: POST
+2026-04-07T15:41:27.033Z [DEBUG] [API] Response status: 403
+2026-04-07T15:41:27.034Z [ERROR] [API] API error response: {"code":"invalid_token","message":"Token validation failed: Expired token","data":{"status":403}}
+2026-04-07T15:41:27.034Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 403,
+  "endpoint": "https://raymondhouch.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"invalid_token\",\"message\":\"Token validation failed: Expired token\",\"data\":{\"status\":403}}"
+}
+2026-04-07T15:41:27.034Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2026-04-07T15:41:27.034Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] No request parameters
+2026-04-07T15:41:27.036Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T15:41:27.036Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2026-04-07T15:41:27.036Z [DEBUG] [MCP] Processing ListToolsRequest
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] 📩 Client Message: ListPrompts
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] Request ID: none | Method: prompts/list
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] No request parameters
+2026-04-07T15:41:27.036Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T15:41:27.036Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "prompts/list"
+}
+2026-04-07T15:41:27.036Z [DEBUG] [MCP] Processing ListPromptsRequest
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2026-04-07T15:41:27.036Z [INFO] [CLIENT] No request parameters
+2026-04-07T15:41:27.036Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2026-04-07T15:41:27.037Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2026-04-07T15:41:27.037Z [DEBUG] [MCP] Processing ListResourcesRequest
+2026-04-07T15:41:27.037Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 1ms
+{
+  "error": "Cannot process tools/list: WordPress connection failed during initialization"
+}
+2026-04-07T15:41:27.037Z [ERROR] [CLIENT] ❌ Client Error: ListPrompts failed after 1ms
+{
+  "error": "Cannot process prompts/list: WordPress connection failed during initialization"
+}
+2026-04-07T15:41:27.037Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 0ms
+{
+  "error": "Cannot process resources/list: WordPress connection failed during initialization"
+}

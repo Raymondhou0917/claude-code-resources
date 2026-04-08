@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 學習資源｜精選教學與設定包，非工程師也能上手</title>
+  <meta name="description" content="精選 Claude Code 繁體中文學習資源與設定包，非工程師也能上手，直接丟給 AI 就能用。免費教學 + Starter Kit，由雷蒙三十整理。">
+  <link rel="icon" type="image/svg+xml"
+    href="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="navbar-brand">
+      <span class="brand-text">Claude Code 學習資源</span>
+    </a>
+
+    <ul class="navbar-links">
+      <li><a href="#why">為什麼要學？</a></li>
+      <li><a href="#resources">免費學習資源</a></li>
+      <li><a href="#path">學習路徑</a></li>
+      <li><a href="#showcase">應用案例</a></li>
+      <li><a href="#faq">常見問答</a></li>
+    </ul>
+
+    <div class="navbar-cta">
+      <a href="#path"><span>開始學習</span></a>
+    </div>
+
+    <button class="nav-mobile-toggle" onclick="document.getElementById('mobileMenu').classList.add('open')"
+      aria-label="開啟選單">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round">
+        <line x1="3" y1="7" x2="21" y2="7" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="17" x2="21" y2="17" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')"
+      aria-label="關閉選單">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F4EBE1" stroke-width="2"
+        stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+    <a href="#why" onclick="document.getElementById('mobileMenu').classList.remove('open')">為什麼要學？</a>
+    <a href="#resources" onclick="document.getElementById('mobileMenu').classList.remove('open')">免費學習資源</a>
+    <a href="#path" onclick="document.getElementById('mobileMenu').classList.remove('open')">學習路徑</a>
+    <a href="#showcase" onclick="document.getElementById('mobileMenu').classList.remove('open')">應用案例</a>
+    <a href="#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">常見問答</a>
+    <a href="#path" onclick="document.getElementById('mobileMenu').classList.remove('open')"
+      style="margin-top:12px; padding:12px 32px; background:var(--orange); border-radius:8px; color:#fff;">開始學習</a>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-code-bg">
+      <div class="hero-code-strip hero-code-strip--left">
+        <div class="code-inner">> 我有一個 Excel 檔案，裡面有三千多筆客戶資料，幫我清除重複的、按照地區分類，然後匯出成三個 CSV
+          # Reading 客戶資料.xlsx — 3,847 rows, 12 columns detected
+          # Scanning for duplicates based on email + phone...
+          # Found 23 duplicate entries, removing...
+          ✓ Cleaned: 3,824 unique records
+          # Grouping by region column — 北部、中部、南部、東部
+          ✓ 北部.csv — 1,204 rows saved
+          ✓ 中部.csv — 892 rows saved
+          ✓ 南部.csv — 1,128 rows saved
+          ✓ 東部.csv — 600 rows saved
+
+          > 我想要每天早上自動收到一封信，裡面是昨天的工作摘要，從我的日記檔案裡面抓
+          # Reading CLAUDE.md for journal structure...
+          # Found journal pattern: journals/YYYY-MM-DD.md
+          # Creating daily summary script with email integration
+          # Setting up cron: 每天 08:00 UTC+8
+          ✓ scripts/daily-summary.sh created
+          ✓ Email template configured — subject: 「昨日工作摘要」
+          ✓ Cron job registered: 0 8 * * *
+          ✓ Test email sent to your inbox, check it
+
+          > 幫我把這個舊網站改成 RWD，現在在手機上完全沒辦法看
+          # Analyzing current CSS — fixed widths detected
+          # Converting px to responsive units
+          # Adding viewport meta tag
+          # Restructuring grid layout for mobile
+          # Adding hamburger menu for < 768px ✓ 14 files modified ✓ Responsive breakpoints: 480px, 768px, 1024px ✓
+            Preview: localhost:3000 — try resizing> 我的 Notion 資料太多了，全部匯出成 Markdown 整理到資料夾裡
+            # Notion export detected: 847 pages, nested structure
+            # Parsing page hierarchy and backlinks
+            # Converting Notion blocks to clean Markdown
+            # Organizing by database → folder mapping
+            ✓ 847 files created in notes/
+            ✓ Folder structure mirrors Notion workspace
+            ✓ Internal links converted to [[wikilinks]]
+            ✓ Images downloaded to assets/
+
+            > 我有一個 Excel 檔案，裡面有三千多筆客戶資料，幫我清除重複的、按照地區分類，然後匯出成三個 CSV
+            # Reading 客戶資料.xlsx — 3,847 rows, 12 columns detected
+            # Scanning for duplicates based on email + phone...
+            # Found 23 duplicate entries, removing...
+            ✓ Cleaned: 3,824 unique records
+            # Grouping by region column — 北部、中部、南部、東部
+            ✓ 北部.csv — 1,204 rows saved
+            ✓ 中部.csv — 892 rows saved
+            ✓ 南部.csv — 1,128 rows saved
+            ✓ 東部.csv — 600 rows saved
+
+            > 我想要每天早上自動收到一封信，裡面是昨天的工作摘要，從我的日記檔案裡面抓
+            # Reading CLAUDE.md for journal structure...
+            # Found journal pattern: journals/YYYY-MM-DD.md
+            # Creating daily summary script with email integration
+            # Setting up cron: 每天 08:00 UTC+8
+            ✓ scripts/daily-summary.sh created
+            ✓ Email template configured — subject: 「昨日工作摘要」
+            ✓ Cron job registered: 0 8 * * *
+            ✓ Test email sent to your inbox, check it
+
+            > 幫我把這個舊網站改成 RWD，現在在手機上完全沒辦法看
+            # Analyzing current CSS — fixed widths detected
+            # Converting px to responsive units
+            # Adding viewport meta tag
+            # Restructuring grid layout for mobile
+            # Adding hamburger menu for < 768px ✓ 14 files modified ✓ Responsive breakpoints: 480px, 768px, 1024px ✓
+              Preview: localhost:3000 — try resizing</div>
+        </div>
+        <div class="hero-code-strip hero-code-strip--right">
+          <div class="code-inner">$ claude
+            ╭────────────────────────────────────────────────╮
+            │ ✓ Claude Code — ~/project │
+            ╰────────────────────────────────────────────────╯
+
+            > 我想做一個個人網站，要有首頁、關於我、作品集，風格要簡潔、用米色和橘色配色
+            # Got it. Let me scaffold the project structure first.
+            # Creating index.html, about.html, portfolio.html
+            # Applying color scheme: beige (#F4EBE1) + orange (#DA7B4A)
+            # Setting up responsive navigation
+            # Adding smooth scroll and page transitions
+            ✓ 3 pages created with shared header/footer
+            ✓ CSS variables configured for brand colors
+            ✓ Mobile nav with hamburger menu
+            ✓ Preview ready at localhost:3000
+
+            > 把上週會議的錄音檔轉成逐字稿，然後整理成會議紀錄格式，標出待辦事項
+            # Processing: meeting-2026-03-21.m4a (47 minutes)
+            # Transcribing with Whisper — language: zh-TW
+            # Identifying speakers: 3 participants detected
+            # Extracting action items and decisions
+            ✓ Transcript: meeting-transcript.md (8,240 words)
+            ✓ Summary: meeting-notes.md — 12 key decisions
+            ✓ Action items: 7 tasks extracted with assignees
+            ✓ Follow-up reminders set for next Monday
+
+            > 幫我寫一封給客戶的提案信，我們是做數位行銷的，這個客戶是一家中型電商，主要賣健康食品
+            # Loading brand voice from CLAUDE.md...
+            # Analyzing client profile: mid-size e-commerce, health foods
+            # Drafting proposal with industry benchmarks
+            ✓ Draft: proposal-healthfood.md
+            ✓ Structure: 痛點分析 → 服務內容 → 案例 → 報價 → 時程
+            ✓ Tone: professional but approachable
+            ✓ 3 subject line options included
+            Want me to adjust the tone or add more case studies?
+
+            > 我有五十張產品照片，幫我全部壓縮到 200KB 以下，然後改名成 product-001 到 product-050
+            # Scanning ~/photos — 50 images found (JPG + PNG)
+            # Average size: 4.2MB — target:
+            < 200KB each # Compressing with quality optimization # Renaming sequentially: product-001.jpg ... ✓ 50
+              images compressed — avg: 178KB (-95.8%) ✓ Renamed: product-001.jpg to product-050.jpg ✓ Originals backed
+              up to ~/photos/originals /> 我的部落格文章想要做 SEO 優化，幫我分析前五篇文章的問題，然後給我改善建議
+            # Crawling blog pages — 5 posts found
+            # Checking: meta tags, headings, keyword density, internal links, image alt text, page speed
+            # Comparing against top-ranking competitors
+            ✓ Analysis complete — report: seo-audit.md
+            Post 1: missing meta description, no H2 structure
+            Post 2: keyword stuffing in first paragraph
+            Post 3: good structure, needs internal links
+            Post 4: images missing alt text (6 images)
+            Post 5: title too long (78 chars, recommend < 60) ✓ Rewrote 5 meta descriptions — ready for review $ claude
+              ╭────────────────────────────────────────────────╮ │ ✓ Claude Code — ~/project │
+              ╰────────────────────────────────────────────────╯> 我想做一個個人網站，要有首頁、關於我、作品集，風格要簡潔、用米色和橘色配色
+              # Got it. Let me scaffold the project structure first.
+              # Creating index.html, about.html, portfolio.html
+              # Applying color scheme: beige (#F4EBE1) + orange (#DA7B4A)
+              # Setting up responsive navigation
+              # Adding smooth scroll and page transitions
+              ✓ 3 pages created with shared header/footer
+              ✓ CSS variables configured for brand colors
+              ✓ Mobile nav with hamburger menu
+              ✓ Preview ready at localhost:3000
+
+              > 把上週會議的錄音檔轉成逐字稿，然後整理成會議紀錄格式，標出待辦事項
+              # Processing: meeting-2026-03-21.m4a (47 minutes)
+              # Transcribing with Whisper — language: zh-TW
+              # Identifying speakers: 3 participants detected
+              # Extracting action items and decisions
+              ✓ Transcript: meeting-transcript.md (8,240 words)
+              ✓ Summary: meeting-notes.md — 12 key decisions
+              ✓ Action items: 7 tasks extracted with assignees
+              ✓ Follow-up reminders set for next Monday
+
+              > 幫我寫一封給客戶的提案信，我們是做數位行銷的，這個客戶是一家中型電商，主要賣健康食品
+              # Loading brand voice from CLAUDE.md...
+              # Analyzing client profile: mid-size e-commerce, health foods
+              # Drafting proposal with industry benchmarks
+              ✓ Draft: proposal-healthfood.md
+              ✓ Structure: 痛點分析 → 服務內容 → 案例 → 報價 → 時程
+              ✓ Tone: professional but approachable
+              ✓ 3 subject line options included
+              Want me to adjust the tone or add more case studies?
+
+              > 我有五十張產品照片，幫我全部壓縮到 200KB 以下，然後改名成 product-001 到 product-050
+              # Scanning ~/photos — 50 images found (JPG + PNG)
+              # Average size: 4.2MB — target: < 200KB each # Compressing with quality optimization # Renaming
+                sequentially: product-001.jpg ... ✓ 50 images compressed — avg: 178KB (-95.8%) ✓ Renamed:
+                product-001.jpg to product-050.jpg ✓ Originals backed up to ~/photos/originals/</div>
+          </div>
+        </div>
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>用 Claude Code<br>打造你的<br><span class="highlight"><span class="prompt-caret">&gt;</span> AI 個人助理<span
+                  class="t-cursor"></span></span></h1>
+
+            <p class="hero-sub">免費教學 + 精選資源整理，小白也能快速上手<br>10+ 篇系列文帶你從入門到自動化<br>（持續更新中）</p>
+
+            <div class="hero-actions">
+              <a href="#resources" class="hero-btn-primary">開始學習 →</a>
+              <a href="#resources" class="hero-btn-secondary">探索資源</a>
+            </div>
+          </div>
+
+          <div class="hero-terminal" style="position:relative;">
+            <div class="hand-note hand-note--d1" style="bottom:-40px; left:20px;">
+              <svg viewBox="0 0 32 32">
+                <path d="M22 22c-2 2-6 3-9 1s-4-6-2-9c2-4 5-3 5 0s-4 5-7 4" />
+                <path d="M9 17l-2 3 3 1" />
+              </svg>
+              <span>Interactive demo</span>
+            </div>
+            <div class="terminal-bar">
+              <div class="terminal-dot terminal-dot--red"></div>
+              <div class="terminal-dot terminal-dot--yellow"></div>
+              <div class="terminal-dot terminal-dot--green"></div>
+              <div class="terminal-title">claude — ~/project</div>
+            </div>
+            <div class="terminal-body">
+
+              <br>
+              <div><span class="t-dim">╭──────────────────────────╮</span></div>
+              <div><span class="t-dim">│</span> <span class="t-success">✓</span> <span class="t-cmd">Claude Code</span>
+                <span class="t-dim">│</span>
+              </div>
+              <div><span class="t-dim">╰──────────────────────────╯</span></div>
+              <br>
+              <div><span class="t-prompt">&gt;</span> <span class="t-cmd">幫我建一個自動化日記系統</span></div>
+              <br>
+              <div><span class="t-comment"># 正在讀取 CLAUDE.md...</span></div>
+              <div><span class="t-comment"># 載入 /journal skill...</span></div>
+              <div><span class="t-success">✓</span> <span class="t-dim">已建立 journals/2026-03-28.md</span></div>
+              <div><span class="t-success">✓</span> <span class="t-dim">已設定 Time Log 格式</span></div>
+              <div><span class="t-success">✓</span> <span class="t-dim">完成！你的日記系統已就緒</span></div>
+              <br>
+              <div><span class="t-prompt">&gt;</span> <span class="t-cursor"></span></div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <!-- ===== Why Learn ===== -->
+  <section class="why" id="why" style="position:relative;">
+    <div class="container">
+      <h2>為什麼要學 Claude Code？</h2>
+      <p class="section-desc">AI 已經不只是聊天工具。Claude Code 讓你直接在電腦上指揮 AI 做事——讀檔案、改程式、跑自動化，像請了一個坐在旁邊的助手。</p>
+      <div class="why-grid" style="position:relative;">
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M11.983 1.907a.75.75 0 00-1.292-.657l-8.5 9.5A.75.75 0 002.75 12h6.572l-1.305 6.093a.75.75 0 001.292.657l8.5-9.5A.75.75 0 0017.25 8h-6.572l1.305-6.093z" />
+            </svg>
+          </div>
+          <h3>從「問答」到「做事」</h3>
+          <p>一般 AI 給你答案要你自己做，Claude Code 直接幫你執行。建網頁、整理資料、產報表，講一句話就完成。</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z" />
+            </svg>
+          </div>
+          <h3>非工程師也能用</h3>
+          <p>你不需要懂程式，只要會描述問題。Claude Code 處理技術細節，你專注在「想要什麼結果」就好。</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H4.565a.75.75 0 00-.75.75v3.669a.75.75 0 001.5 0v-2.083l.36.359a7 7 0 0011.712-3.138.75.75 0 00-1.075-.212zm-10.624-2.85a5.5 5.5 0 019.201-2.465l.312.31h-2.433a.75.75 0 000 1.5h3.667a.75.75 0 00.75-.75V3.5a.75.75 0 00-1.5 0v2.083l-.36-.358A7 7 0 002.613 8.362a.75.75 0 001.075.212z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3>打造你的 AI Agent</h3>
+          <p>設定一次，重複使用。用 Skills 和自動化架構，讓 AI 成為你的個人助理，處理日記、筆記、工作流程。</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M12.577 4.878a.75.75 0 01.919-.53l4.78 1.281a.75.75 0 01.531.919l-1.281 4.78a.75.75 0 01-1.449-.387l.81-3.022a19.407 19.407 0 00-5.594 5.203.75.75 0 01-1.139.093L7 10.06l-4.72 4.72a.75.75 0 01-1.06-1.06l5.25-5.25a.75.75 0 011.06 0l3.074 3.073a20.923 20.923 0 015.545-4.931l-3.042.815a.75.75 0 01-.53-.919z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3>最強的 AI Coding 工具</h3>
+          <p>在所有 AI 程式助手中，Claude Code 的程式碼品質、上下文理解、多檔案處理能力目前領先。</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3>安全且可控</h3>
+          <p>每個操作都需要你確認才執行，不會自己亂改東西。你是指揮官，AI 是執行者。</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M10 1a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 1zM5.05 3.05a.75.75 0 011.06 0l1.062 1.06A.75.75 0 116.11 5.173L5.05 4.11a.75.75 0 010-1.06zm9.9 0a.75.75 0 010 1.06l-1.06 1.062a.75.75 0 01-1.062-1.061l1.061-1.06a.75.75 0 011.06 0zM10 7a3 3 0 100 6 3 3 0 000-6zm-6.25 3a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5H3a.75.75 0 01.75.75zm14.5 0a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5H17a.75.75 0 01.75.75zm-12.088 3.828a.75.75 0 010 1.061L5.05 15.95a.75.75 0 01-1.06-1.06l1.06-1.062a.75.75 0 011.062 0zm8.676 0a.75.75 0 011.061 0l1.06 1.062a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.062zM10 16a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 16z" />
+            </svg>
+          </div>
+          <h3>職場新必備技能</h3>
+          <p>AI Agent 是 2026 年最重要的工作能力之一。現在學會，在別人還在觀望時就已經領先。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Three Levels of Claude ===== -->
+  <section class="levels" id="levels">
+    <div class="container--wide">
+      <div class="levels-header">
+        <h2>同樣叫 Claude，<br>能做的事<span class="levels-highlight">天差地遠</span></h2>
+        <p>大多數人停在第一層。你可以直接進化到第三層。</p>
+      </div>
+
+      <div class="levels-grid" style="position:relative;">
+        <div class="hand-note hand-note--light hand-note--d3" style="top:-36px; right:0;">
+          <svg viewBox="0 0 32 32">
+            <path d="M22 22c-2 2-6 3-9 1s-4-6-2-9c2-4 5-3 5 0s-4 5-7 4" />
+            <path d="M9 17l-2 3 3 1" />
+          </svg>
+          <span>This is what we teach</span>
+        </div>
+        <!-- Level 1: Claude Web -->
+        <div class="level-card">
+          <div class="level-tier">Level 1</div>
+          <div class="level-name">Claude 網頁版</div>
+          <div class="level-tagline">你問，它答。<br>回答完，你自己去做。</div>
+          <ul class="level-features">
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              對話問答、翻譯、寫文案、腦力激盪
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              上傳檔案分析（PDF、圖片、Excel）
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              用 Projects 跨對話保留情境設定
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              無法在你的電腦上執行任何動作
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              無法讀寫你硬碟上的檔案
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              無法操作你電腦裡的其他軟體
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              無法 24 小時自動跑任務
+            </li>
+          </ul>
+        </div>
+
+        <!-- Level 2: Claude Cowork -->
+        <div class="level-card">
+          <div class="level-tier">Level 2</div>
+          <div class="level-name">Claude Cowork</div>
+          <div class="level-tagline">住進你的桌面 App，<br>幫你動手做事。</div>
+          <ul class="level-features">
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Claude 網頁版所有功能
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              在指定資料夾內讀取、建立、修改檔案
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              用 CLAUDE.md + Project 記住偏好和工作流
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Skills、Plugins 重複工作一句話觸發
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Connectors 串接多種工具
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              手機 Dispatch 遠端發任務
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Subagent 多個分身並行工作
+            </li>
+            <li class="feat-yes">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Computer Use 操作你電腦裡的其他軟體
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              限制在沙盒資料夾，無法跨專案協作
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              不適合 24/7 背景任務
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              無法寫程式碼打造自己的工具或網頁應用
+            </li>
+            <li class="feat-no">
+              <svg viewBox="0 0 20 20">
+                <path
+                  d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+              沒有 Git 版本控制，改壞了無法回滾
+            </li>
+          </ul>
+        </div>
+
+        <!-- Level 3: Claude Code (Featured) -->
+        <div class="level-card level-card--featured">
+          <div class="level-tier">Level 3</div>
+          <div class="level-name">Claude Code</div>
+          <div class="level-tagline">直接住進你的電腦，<br>幫你打造自己的 AI 系統。</div>
+          <ul class="level-features">
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Cowork 所有功能
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              跨多個資料夾、多個 Git 專案協作
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              從零寫程式碼，打造網頁工具、Bot、自動化腳本
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Git 工作流：commit、branch、改壞了一秒回滾
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              24/7 背景運行（cron + claude -p）
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              Hooks 自訂自動化規則
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              自訂 slash commands 把整套工作流綁成一句話
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              部署到 Zeabur、Cloudflare 等雲端服務
+            </li>
+            <li class="feat-orange">
+              <svg viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              你的 AI 助理分身，能代替你做事
+            </li>
+          </ul>
+          <a href="#path" class="level-cta">
+            從這裡開始學
+            <svg viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <p class="levels-audience">給想做個人事業的創業者、超級個體、想打造個人 AI 系統的商業經營者</p>
+
+    </div>
+  </section>
+
+  <!-- ===== Resources ===== -->
+  <section class="resources" id="resources" style="position:relative;">
+    <div class="hand-note hand-note--d5" style="top:5.5rem; left:42rem;">
+      <svg viewBox="0 0 32 32">
+        <path d="M24 22c-2 2-6 3-9 1s-4-6-2-9c2-4 5-3 5 0s-4 5-7 4" />
+        <path d="M11 17l-3 1 1 3" />
+      </svg>
+      <span>All free, hand-picked</span>
+    </div>
+    <div class="container--wide">
+      <h2>精選免費學習資源</h2>
+      <p class="section-desc">根據你的需求挑選：安裝設定、應用案例、技術和資源補充，都幫你整理好了（持續更新中）</p>
+      <div class="res-tabs">
+        <button class="res-tab active" data-tab="setup">
+          <span class="res-tab-icon"><svg viewBox="0 0 24 24">
+              <path
+                d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1 .1-1.4z"
+                fill="currentColor" stroke="none" />
+            </svg></span>
+          安裝設置
+        </button>
+        <button class="res-tab" data-tab="cases">
+          <span class="res-tab-icon"><svg viewBox="0 0 24 24">
+              <path
+                d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+                fill="currentColor" stroke="none" />
+            </svg></span>
+          案例應用
+        </button>
+        <button class="res-tab" data-tab="docs">
+          <span class="res-tab-icon"><svg viewBox="0 0 24 24">
+              <path
+                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+                fill="currentColor" stroke="none" />
+            </svg></span>
+          技術文件
+        </button>
+      </div>
+
+      <!-- 安裝設置 -->
+      <div class="res-panel active" data-panel="setup">
+        <!-- 影片教學 -->
+        <div class="res-bookmarks">
+          <a href="https://www.youtube.com/watch?v=xo7dE80ktu4" class="res-bookmark" target="_blank">
+            <img class="res-bookmark-thumb" src="https://i.ytimg.com/vi/xo7dE80ktu4/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-bookmark-body">
+              <div class="res-bookmark-title">Claude Code 零基礎入門（上）｜非工程師也能打造 AI 助理的完整配置教學</div>
+              <div class="res-bookmark-desc">從安裝環境到設定 CLAUDE.md、終端機優化、外部編輯器，一步步帶你上手</div>
+              <div class="res-bookmark-url">▶ youtube.com</div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=80kCvbsuniw" class="res-bookmark" target="_blank">
+            <img class="res-bookmark-thumb" src="https://i.ytimg.com/vi/80kCvbsuniw/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-bookmark-body">
+              <div class="res-bookmark-title">Claude Code 零基礎入門（下）｜Vibe Coding 實戰：早報、配圖、報價單一次做完</div>
+              <div class="res-bookmark-desc">安全三件套設定 + 三個實戰案例，用中文指揮 AI 從零做出成品</div>
+              <div class="res-bookmark-url">▶ youtube.com</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Starter Kit Accordion -->
+        <div class="sk-accordion">
+          <div class="sk-header-bar">
+            <span class="sk-status-light"></span>
+            <span class="sk-header-label">Starter Kit 設定包</span>
+            <span class="sk-header-sub">丟連結給 Claude Code，一句話完成設定</span>
+          </div>
+          <div class="sk-item"
+            data-raw="https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/starter-kit/01-terminal-setup.md">
+            <button class="sk-head">
+              <span class="sk-num">1</span>
+              <span class="sk-title">終端機優化：滑鼠支援、減少閃爍、快捷啟動</span>
+              <svg class="sk-chevron" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="sk-body">
+              <div class="sk-body-inner">
+                <p>預設終端機會閃爍、不能用滑鼠選字。裝完後：滑鼠滾輪回看、點擊選取複製、畫面穩定不閃，再加上 <code>cc</code> 快捷啟動。</p>
+                <div class="sk-actions">
+                  <button class="sk-btn sk-btn--primary" onclick="copySKLink(this)">複製安裝連結</button>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/01-terminal-setup.md"
+                    target="_blank">前往文件 →</a>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://youtu.be/xo7dE80ktu4?si=ajTBe2kGJz5fx1fy&t=1137"
+                    target="_blank">▶ 觀看影片</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sk-item"
+            data-raw="https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/starter-kit/02-external-editor.md">
+            <button class="sk-head">
+              <span class="sk-num">2</span>
+              <span class="sk-title">長指令不再痛苦：用編輯器寫 Prompt</span>
+              <svg class="sk-chevron" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="sk-body">
+              <div class="sk-body-inner">
+                <p>終端機的輸入框太小，打超過三行就想崩潰。<code>Ctrl+G</code> 一按，跳到你熟悉的編輯器寫完再送出。</p>
+                <div class="sk-actions">
+                  <button class="sk-btn sk-btn--primary" onclick="copySKLink(this)">複製安裝連結</button>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/02-external-editor.md"
+                    target="_blank">前往文件 →</a>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://youtu.be/xo7dE80ktu4?si=9aYrVRNqDOvN47zL&t=1350"
+                    target="_blank">▶ 觀看影片</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sk-item"
+            data-raw="https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/starter-kit/03-safe-delete.md">
+            <button class="sk-head">
+              <span class="sk-num">3</span>
+              <span class="sk-title">防手殘三件套：垃圾桶 + 危險指令黑名單 + 權限模式</span>
+              <svg class="sk-chevron" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="sk-body">
+              <div class="sk-body-inner">
+                <p>AI 的 <code>rm</code> 是永久刪除。裝完後：刪除改進垃圾桶、擋掉 <code>git push --force</code> 等危險指令、自己選「每次問我」或「自動執行」。</p>
+                <div class="sk-actions">
+                  <button class="sk-btn sk-btn--primary" onclick="copySKLink(this)">複製安裝連結</button>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/03-safe-delete.md"
+                    target="_blank">前往文件 →</a>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://youtu.be/80kCvbsuniw?si=aTdwgzC6_fhs7xkd&t=64"
+                    target="_blank">▶ 觀看影片</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sk-item"
+            data-raw="https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/starter-kit/04-mcp-essentials.md">
+            <button class="sk-head">
+              <span class="sk-num">4</span>
+              <span class="sk-title">MCP 推薦清單</span>
+              <svg class="sk-chevron" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="sk-body">
+              <div class="sk-body-inner">
+                <p>讓 AI 讀信、抓網頁、操作瀏覽器、讀寫檔案。互動式選裝，挑你需要的就好。</p>
+                <div class="sk-actions">
+                  <button class="sk-btn sk-btn--primary" onclick="copySKLink(this)">複製安裝連結</button>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/04-mcp-essentials.md"
+                    target="_blank">前往文件 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sk-item"
+            data-raw="https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/starter-kit/05-deploy-online.md">
+            <button class="sk-head">
+              <span class="sk-num">5</span>
+              <span class="sk-title">線上部署懶人包</span>
+              <svg class="sk-chevron" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="sk-body">
+              <div class="sk-body-inner">
+                <p>Zeabur + Cloudflare 一條龍，讓你用 Claude Code 做的作品能被全世界看到。互動式選裝。</p>
+                <div class="sk-actions">
+                  <button class="sk-btn sk-btn--primary" onclick="copySKLink(this)">複製安裝連結</button>
+                  <a class="sk-btn sk-btn--secondary"
+                    href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/05-deploy-online.md"
+                    target="_blank">前往文件 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="res-grid">
+          <a href="https://raymondhouch.com/lifehacker/digital-workflow/claude-code-tutorial/" class="res-card"
+            target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">非工程師能用 Claude Code 做什麼？</div>
+              <div class="res-card-desc">非工程師視角的完整入門介紹，雷蒙分享從 AI 聊天到 Claude Code 的改變和應用，記錄真實學習過程</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--zh">中文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://claude-code-tutorial.com/" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code 安裝圖文教學</div>
+              <div class="res-card-desc">互動式安裝教學網站，從零開始一步步帶你完成 Claude Code 安裝與設定</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--zh">中文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://madebypan.com/claude-guide" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude 新手百科</div>
+              <div class="res-card-desc">一頁式介紹，從三大 AI 比較、模型選擇到產品線說明，快速搞懂 Claude 全貌</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--zh">中文</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 案例應用 -->
+      <div class="res-panel" data-panel="cases">
+        <h3 class="res-subhead">影片教學</h3>
+        <div class="res-grid">
+          <a href="https://www.youtube.com/watch?v=2pM-7fBXc_M" class="res-card" target="_blank">
+            <img class="res-card-thumb" src="https://i.ytimg.com/vi/2pM-7fBXc_M/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-card-body">
+              <div class="res-card-title">VSCode + Claude Code 實戰案例</div>
+              <div class="res-card-desc">在 VS Code 中搭配 Claude Code 的完整工作流展示</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=QoQBzR1NIqI" class="res-card" target="_blank">
+            <img class="res-card-thumb" src="https://i.ytimg.com/vi/QoQBzR1NIqI/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code Full Course — 4 Hours</div>
+              <div class="res-card-desc">目前 YouTube 上最完整的免費全課程 by Nick Saraev</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=AT4b9kLtQCQ" class="res-card" target="_blank">
+            <img class="res-card-thumb" src="https://i.ytimg.com/vi/AT4b9kLtQCQ/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code 從 0 到 1 全攻略</div>
+              <div class="res-card-desc">深入淺出，涵蓋 SubAgent / Agent Skill by 馬克的技術工作坊</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--zh">中文</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <h3 class="res-subhead">延伸閱讀</h3>
+        <div class="res-grid">
+          <a href="https://natesnewsletter.substack.com/p/claude-code-without-the-code-the" class="res-card"
+            target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code Without the Code</div>
+              <div class="res-card-desc">64 頁指南，專門寫給非工程師：法律工作流、研究系統、商業自動化</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://departmentofproduct.substack.com/p/how-to-use-claude-code-for-non-engineering"
+            class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">非工程師的 Claude Code 用法</div>
+              <div class="res-card-desc">PRD、Jira、SEO 分析、第二大腦、試算表——全是非技術應用場景</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://ccforpms.com" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">CC for PMs</div>
+              <div class="res-card-desc">產品經理專屬 12 小時課程。PRD 撰寫、數據分析、競品策略、平行 Agent 工作流</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 技術文件 -->
+      <div class="res-panel" data-panel="docs">
+        <div class="res-grid">
+          <a href="https://code.claude.com/docs/en/overview" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code 官方文件</div>
+              <div class="res-card-desc">完整參考文件：安裝、指令、CLAUDE.md、Skills、Hooks、Agents</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.anthropic.com/learn" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Anthropic Academy</div>
+              <div class="res-card-desc">官方學習平台，13+ 門免費課程含證書。涵蓋 AI 基礎、Prompt Engineering、Claude Code、MCP 等主題</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://anthropic.skilljar.com/claude-code-in-action" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code in Action</div>
+              <div class="res-card-desc">官方 Claude Code 課程：AI 助手架構、多工具使用、MCP 整合、GitHub 工作流。約 2 小時</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol" class="res-card"
+            target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Introduction to MCP</div>
+              <div class="res-card-desc">從零建立 MCP Server——Tools、Resources、Prompts，用 Python 實作</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://github.com/anthropics/courses" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Anthropic Courses (GitHub)</div>
+              <div class="res-card-desc">開源 Jupyter Notebook 教學——API 基礎、Prompt Engineering、Tool Use</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://github.com/Cranot/claude-code-guide" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code Guide (GitHub)</div>
+              <div class="res-card-desc">社群維護的完整 CLI 指南——指令、Agents、Skills、Hooks 含範例</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://github.com/shanraisshan/claude-code-best-practice" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code Best Practices</div>
+              <div class="res-card-desc">彙整 Anthropic 官方 + 頂尖開發者的最佳實踐，當課程讀也行</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://anthropic.skilljar.com/claude-101" class="res-card" target="_blank">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude 101</div>
+              <div class="res-card-desc">從零認識 Claude，學會核心功能和基礎技能。適合完全新手</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--official">官方</span>
+                <span class="res-badge res-badge--basic">初階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=S2hxDkthTeY" class="res-card" target="_blank">
+            <img class="res-card-thumb" src="https://i.ytimg.com/vi/S2hxDkthTeY/hqdefault.jpg" alt="" loading="lazy">
+            <div class="res-card-body">
+              <div class="res-card-title">Claude Code Masterclass: Beginner to Agent Teams</div>
+              <div class="res-card-desc">從基礎到多 Agent 團隊協作的進階教學</div>
+              <div class="res-card-meta">
+                <span class="res-badge res-badge--advanced">進階</span>
+                <span class="res-badge res-badge--en">英文</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Learning Path ===== -->
+  <section class="path" id="path">
+    <div class="container">
+      <h2>這一堂迷你課，是給你＆你的 AI 學習的。</h2>
+      <p class="section-desc">由淺入深的教學，每篇皆能獨立閱讀＆餵給 Claude Code，它會引導你一起進化，開始打造專屬 AI Agent！</p>
+
+      <div style="margin-top:2.5rem">
+        <!-- Module 1 -->
+        <div class="mg">
+          <div class="mh">
+            <span class="mh-num">Module 1</span>
+            <span class="mh-title">入門篇｜從零開始</span>
+            <span class="mh-sub">01 – 04</span>
+          </div>
+          <div class="ls ls-free" onclick="openLesson(1)">
+            <div class="ls-n">01</div>
+            <div class="ls-body">
+              <div class="ls-t">Claude Code 是什麼？跟 Cowork、NotebookLM 比較，我需要嗎？ <span class="tg tg-r">免費試看</span></div>
+              <div class="ls-d">搞懂 AI 聊天、Claude Cowork、Claude Code 三個層級的差異，找到適合你的工具</div>
+            </div>
+          </div>
+          <div class="ls ls-locked">
+            <div class="ls-n">02</div>
+            <div class="ls-body">
+              <div class="ls-t">安裝教學｜環境準備 + 5 分鐘裝好 Claude Code</div>
+              <div class="ls-d">Mac / Windows 環境準備，從零安裝到第一次啟動</div>
+            </div>
+          </div>
+          <div class="ls ls-locked">
+            <div class="ls-n">03</div>
+            <div class="ls-body">
+              <div class="ls-t">第一次使用｜從打開 Terminal 到完成第一個任務</div>
+              <div class="ls-d">認識介面、下第一個指令、完成第一個作品</div>
+            </div>
+          </div>
+          <div class="ls ls-locked">
+            <div class="ls-n">04</div>
+            <div class="ls-body">
+              <div class="ls-t">Prompt 技巧｜怎麼跟 Claude Code 說話最有效</div>
+              <div class="ls-d">五個最有效的 prompt 模式，讓溝通效率翻倍</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="mg">
+          <div class="mh">
+            <span class="mh-num">Module 2</span>
+            <span class="mh-title">基礎篇｜建立你的 AI 系統</span>
+            <span class="mh-sub">05 – 08</span>
+          </div>
+          <div class="ls ls-locked">
+            <div class="ls-n">05</div>
+            <div class="ls-body">
+              <div class="ls-t">CLAUDE.md 教學｜讓 AI 記住你是誰</div>
+              <div class="ls-d">建立 CLAUDE.md 設定檔，讓 AI 永遠記住你的偏好</div>
+            </div>
+          </div>
+          <div class="ls ls-locked">
+            <div class="ls-n">06</div>
+            <div class="ls-body">
+              <div class="ls-t">筆記與日記管理｜用 AI 幫你寫日記、整理筆記</div>
+              <div class="ls-d">用 Markdown 建立 Claude 自動管理的日記和筆記系統</div>
+            </div>
+          </div>
+          <!-- 07/08 faded teaser, attached directly to Module 2 -->
+          <div style="position:relative; opacity:0.35; pointer-events:none; user-select:none;">
+            <div class="ls">
+              <div class="ls-n">07</div>
+              <div class="ls-body">
+                <div class="ls-t">Plan Mode｜先探索、再規劃、最後動手</div>
+              </div>
+            </div>
+            <div class="ls">
+              <div class="ls-n">08</div>
+              <div class="ls-body">
+                <div class="ls-t">驗證機制｜讓 AI 自己檢查作業</div>
+              </div>
+            </div>
+            <div
+              style="position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, transparent, var(--bg-alt)); pointer-events:none;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Waitlist -->
+        <div id="waitlist" style="text-align:center; padding:2rem 0 0;">
+          <p style="font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:0.3rem;">【迷你課】準備中｜10+ 系列教學內容＆資源設定包</p>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.8;">想要更系統性的學習？<br>怎麼讓 AI 更懂你？建立個人化 AI 分身和知識庫？<br>雷蒙的實戰案例拆解、多 Agent-Team 協作方法？</p>
+          <form class="path-subscribe" onsubmit="kitSubscribe(event, this)">
+            <input type="email" name="email_address" class="subscribe-input" placeholder="your@email.com" required>
+            <button type="submit" class="subscribe-btn">加入等候名單</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== What You'll Build ===== -->
+  <section style="background: var(--bg-alt); padding: 5rem 0;">
+    <div class="container" style="text-align:center;">
+      <h2 style="margin-bottom: 0.5rem;">完成課程後，你會擁有</h2>
+      <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 3rem;">每堂課結束，你都多一個真的能用的東西</p>
+      <div class="deck-wrap">
+        <div class="deck-card" data-spread="rotate(-4.5deg) translateY(6px)" style="z-index:1;">
+          <div class="dc-title">Claude Code 環境</div>
+          <div class="dc-desc">安裝完成、設定好權限和偏好，隨時可用</div>
+        </div>
+        <div class="deck-card" data-spread="rotate(2.2deg) translateY(-4px)" style="z-index:2;">
+          <div class="dc-title">CLAUDE.md 設定檔</div>
+          <div class="dc-desc">記錄你是誰、怎麼工作，Claude 每次開啟都會讀</div>
+        </div>
+        <div class="deck-card" data-spread="rotate(3deg) translateY(-2px)" style="z-index:4;">
+          <div class="dc-title">個人 Skill 庫</div>
+          <div class="dc-desc">重複工作變一鍵指令，用 /skill-name 觸發</div>
+        </div>
+        <div class="deck-card" data-spread="rotate(-2deg) translateY(5px)" style="z-index:5;">
+          <div class="dc-title">MCP 外部連接</div>
+          <div class="dc-desc">Google Calendar、Notion 等工具，一次接好</div>
+        </div>
+        <div class="deck-card" data-spread="rotate(4deg) translateY(-6px)" style="z-index:6;">
+          <div class="dc-title" style="color:var(--orange);">完整的 AI 個人助理</div>
+          <div class="dc-desc">記得你、幫你做事、持續進化的工作系統</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Bonuses ===== -->
+  <section style="background: var(--dark); padding: 5rem 0; position: relative; overflow: hidden;">
+    <div
+      style="position: absolute; top: 27%; left: 50%; transform: translate(-50%, -50%); font-family: 'Inter', sans-serif; font-size: clamp(8rem, 18vw, 16rem); font-weight: 900; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.04); white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: 0.05em;">
+      BONUS</div>
+    <div class="container" style="position: relative; z-index: 1; text-align: center;">
+      <h2 style="color: var(--beige); margin-bottom: 3rem;">你還能獲得</h2>
+      <div
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 800px; margin: 0 auto; text-align: left;">
+        <div class="bonus-c">
+          <div class="b-badge">Skill Templates</div>
+          <div class="b-title">3+ 個實用 Skill 模板</div>
+          <div class="b-desc">我們自己在用的 Skill 直接送你。安裝到 .claude/skills/ 就能用，不用從零建。包含日記管理、內容產出等高頻使用場景。</div>
+        </div>
+        <div class="bonus-c">
+          <div class="b-badge">Live Q&A</div>
+          <div class="b-title">1 小時 QA 直播問答（日期待定）</div>
+          <div class="b-desc">購買後可參加一場線上直播。帶著你的問題來，我們現場回答、現場 demo。不是預錄影片，是真人即時互動。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Showcase: 雷蒙用 AI Agent 做的事 ===== -->
+  <section class="showcase" id="showcase">
+    <div class="container">
+      <h2 style="text-align:center;">雷蒙用 <span class="showcase-h2-accent">AI Agent</span> 做的事</h2>
+      <p class="section-desc" style="text-align:center;">這些全部都是我跟 Claude Code 一起完成的！不用自己寫程式，用 AI 從零打造。</p>
+
+      <!-- 永遠可見的第 1 排（3 張）-->
+      <div class="showcase-grid">
+        <a href="https://tool.lifehacker.tw" class="showcase-card" target="_blank" rel="noopener">
+          <img src="https://image.lifehacker.tw/showcase/toolbox.webp" alt="Toolbox 品牌工具集" loading="lazy">
+          <div class="showcase-overlay">
+            <div class="showcase-title">Toolbox 品牌工具集</div>
+            <div class="showcase-desc">抽獎工具、換行轉換、字幕轉文字等實用小工具，服務超過 5 萬次使用</div>
+          </div>
+        </a>
+        <a href="https://qa.lifehacker.tw" class="showcase-card" target="_blank" rel="noopener">
+          <img src="https://image.lifehacker.tw/showcase/qa-liveboard.jpg" alt="Slido 即時互動看板" loading="lazy">
+          <div class="showcase-overlay">
+            <div class="showcase-title">Slido 即時互動看板</div>
+            <div class="showcase-desc">活動現場即時 Q&amp;A 與投票互動看板，取代 Slido 的自建方案</div>
+          </div>
+        </a>
+        <a href="#" class="showcase-card" onclick="showNotPublic(event)">
+          <img src="https://image.lifehacker.tw/showcase/pulse-dashboard.jpg" alt="Pulse 品牌營運 Dashboard" loading="lazy">
+          <div class="showcase-overlay">
+            <div class="showcase-title">Pulse 品牌營運 Dashboard</div>
+            <div class="showcase-desc">GA4、社群數據、營收指標一覽的品牌總營運儀表板</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 第 2 排（部分遮罩）+ 第 3 排（完全收起，點擊才展開）-->
+      <div class="showcase-more-wrap collapsed">
+        <div class="showcase-grid showcase-more">
+          <a href="#" class="showcase-card" onclick="showNotPublic(event)">
+            <img src="https://image.lifehacker.tw/showcase/finance-dashboard.jpg" alt="家庭記帳系統" loading="lazy">
+            <div class="showcase-overlay">
+              <div class="showcase-title">家庭記帳系統</div>
+              <div class="showcase-desc">柚智夫妻的家庭財務追蹤與預算管理系統</div>
+            </div>
+          </a>
+          <a href="https://testimonials.lifehacker.tw/" class="showcase-card" target="_blank" rel="noopener">
+            <img src="https://image.lifehacker.tw/showcase/testimonials.webp" alt="Testimonial 見證管理" loading="lazy">
+            <div class="showcase-overlay">
+              <div class="showcase-title">Testimonial 見證管理</div>
+              <div class="showcase-desc">學員見證收集、審核與嵌入式展示的一站式管理工具</div>
+            </div>
+          </a>
+          <a href="#" class="showcase-card" onclick="showNotPublic(event)">
+            <img src="https://image.lifehacker.tw/showcase/cis.webp" alt="品牌 CIS 視覺系統" loading="lazy">
+            <div class="showcase-overlay">
+              <div class="showcase-title">品牌 CIS 視覺系統</div>
+              <div class="showcase-desc">雷蒙三十品牌識別設計系統 — Logo、色彩、字型、元件規範</div>
+            </div>
+          </a>
+          <a href="#" class="showcase-card" onclick="showCourseContent(event)">
+            <img src="https://image.lifehacker.tw/showcase/ai-slides.jpg" alt="自動生成品牌風格的簡報、圖卡" loading="lazy">
+            <div class="showcase-overlay">
+              <div class="showcase-title">自動生成品牌風格的簡報、圖卡</div>
+              <div class="showcase-desc">輸入內容或給文章網址，自動轉換成有品牌樣式、視覺風格的社群圖卡</div>
+            </div>
+          </a>
+          <a href="#" class="showcase-card" onclick="showCourseContent(event)">
+            <img src="https://image.lifehacker.tw/showcase/ai-video-editing.jpg" alt="AI 剪輯應用" loading="lazy">
+            <div class="showcase-overlay">
+              <div class="showcase-title">AI 剪輯應用</div>
+              <div class="showcase-desc">讓 AI 自動從逐字稿判斷推理，生成合適的 B-roll 或章節頁</div>
+            </div>
+          </a>
+        </div>
+        <div class="showcase-fade"></div>
+      </div>
+
+      <!-- 觀看更多按鈕 -->
+      <div class="showcase-toggle-wrap">
+        <button class="showcase-toggle" type="button" onclick="toggleShowcase(this)">
+          觀看更多 <span class="showcase-toggle-arrow">↓</span>
+        </button>
+      </div>
+
+      <!-- 雷蒙週報訂閱 -->
+      <div class="showcase-subscribe">
+        <h3>訂閱雷蒙週報，每週一篇 AI 實戰心得</h3>
+        <p>加入 25,000+ 訂閱者，不錯過 Claude Code 新教學與工具更新。</p>
+        <form class="showcase-subscribe-form" onsubmit="kitSubscribe(event, this)">
+          <input type="email" name="email_address" placeholder="your@email.com" required>
+          <button type="submit">免費訂閱</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq" id="faq">
+    <div class="container" style="text-align:center;">
+      <h2>常見問題</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">需要會寫程式嗎？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>不需要。Claude Code 的核心能力就是幫不會寫程式的人執行技術工作。你只需要用自然語言描述你想要的結果，它會處理所有技術細節。我們的教學系列就是專門為非工程師設計的。</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">Claude Code 要付費嗎？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>建議直接用 Claude Pro 訂閱（$20 美元/月），包含 Claude Code 使用額度。用 API 按量計費其實非常貴，重度使用一天就可能花掉一整個月的訂閱費。如果用量很大，可以升級到 Max
+                訂閱（$100 美元/月），像雷蒙現在就是用 Max，不用擔心用量限制。</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">多久能學會？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>基礎操作大約 1-2 天就能上手。要建立完整的 AI Agent 工作流程，跟著我們的 5 篇系列教學走，大約 1-2 週就能完成。關鍵不是花多少時間，而是「動手做」——邊學邊用，進步最快。</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">跟 ChatGPT 有什麼不同？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>ChatGPT 是在瀏覽器裡聊天，它給你答案，你自己去做。Claude Code 直接在你的電腦上運作，它幫你做——讀檔案、寫程式、執行指令、管理專案。打個比方：ChatGPT 是顧問，Claude
+                Code 是坐在你旁邊的助手。</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">我的資料安全嗎？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>Claude Code 在你的本機電腦上運作，每個檔案操作都需要你確認才會執行。你擁有完全的控制權。Anthropic 也承諾不會用你的對話內容來訓練模型（需開啟相關設定）。</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-text">這個網站會持續更新嗎？</span>
+            <span class="faq-q-icon"><svg viewBox="0 0 20 20">
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <p>會。Claude Code 的生態系統發展很快，我們會持續收錄新的學習資源、更新教學內容，並發布新的系列文章。訂閱下方的電子報，就能在有新內容時第一時間收到通知。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <h2><span id="ctaTypewriter"></span><span
+            style="display:inline-block;width:0.25em;height:0.7em;background:var(--orange);animation:blink 1.1s step-end infinite;margin-left:4px;vertical-align:baseline;"></span>
+        </h2>
+        <p>從第一篇教學開始，或直接探索適合你程度的學習資源。不需要任何準備，現在就能開始。</p>
+        <a href="#path" class="btn--primary">從第一步開始 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Article Lightbox ===== -->
+  <div id="lessonLightbox" onclick="if(event.target===this)closeLesson()">
+    <div class="lb-panel">
+      <button class="lb-close" onclick="closeLesson()">&times;</button>
+      <div class="lb-body" id="lessonBody"></div>
+    </div>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <!-- 四欄導覽 -->
+    <div class="container--wide">
+      <div class="footer-grid">
+        <!-- 品牌欄 -->
+        <div class="footer-col">
+          <a href="https://raymondhouch.com" target="_blank"
+            style="display:inline-flex;align-items:center;gap:8px;margin-bottom:0.6rem;">
+            <img src="https://image.lifehacker.tw/brand/logo-raymond30-rounded-v4.png" alt="雷蒙三十" width="36" height="36"
+              style="border-radius:8px;">
+            <span style="font-weight:700;font-size:1rem;color:var(--beige);">雷蒙三十</span>
+          </a>
+          <p class="footer-brand-tagline">聰明工作、好好生活。<br>一人公司 × AI 工作術 × 超級個體。</p>
+          <div class="footer-socials">
+            <!-- YouTube — 柚智夫妻 -->
+            <a href="https://www.youtube.com/c/yuiraymond" target="_blank" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.87.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81zM9.55 15.57V8.43L15.8 12l-6.25 3.57z" />
+              </svg>
+            </a>
+            <!-- Facebook 粉專 -->
+            <a href="https://www.facebook.com/raymondhou0917/" target="_blank" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z" />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/raymond0917/" target="_blank" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.25 2.43.41.61.24 1.05.52 1.51.98.46.46.74.9.98 1.51.17.46.36 1.26.41 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.97-.41 2.43a4.07 4.07 0 0 1-.98 1.51c-.46.46-.9.74-1.51.98-.46.17-1.26.36-2.43.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.25-2.43-.41a4.07 4.07 0 0 1-1.51-.98 4.07 4.07 0 0 1-.98-1.51c-.17-.46-.36-1.26-.41-2.43C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.97.41-2.43.24-.61.52-1.05.98-1.51a4.07 4.07 0 0 1 1.51-.98c.46-.17 1.26-.36 2.43-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.88 5.88 0 0 0-2.16 1.35A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.47 1.35 2.16a5.88 5.88 0 0 0 2.16 1.35c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.16-1.35 5.88 5.88 0 0 0 1.35-2.16c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.35-2.16A5.88 5.88 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.41a1.44 1.44 0 1 0-2.88 0 1.44 1.44 0 0 0 2.88 0z" />
+              </svg>
+            </a>
+            <!-- Threads -->
+            <a href="https://www.threads.com/@raymond0917" target="_blank" aria-label="Threads">
+              <svg viewBox="0 0 192 192" fill="currentColor">
+                <path
+                  d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.229c8.249.053 14.474 2.452 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.626-23.68-1.14-23.82 1.37-39.134 15.27-38.35 34.796.395 9.89 5.197 18.396 13.528 23.964 7.03 4.7 16.088 6.947 25.508 6.33 12.415-.816 22.143-5.624 28.92-14.287 5.147-6.58 8.434-15.06 9.904-25.628 5.94 3.59 10.362 8.327 12.85 14.014 4.227 9.645 4.474 25.49-3.588 33.552-7.108 7.108-15.659 10.165-28.498 10.267-14.258-.114-25.032-4.724-32.015-13.71-6.567-8.453-9.984-20.556-10.164-35.993.18-15.438 3.597-27.54 10.164-35.994C92.88 46.08 103.654 41.47 117.912 41.356c14.37.118 25.333 4.745 32.57 13.757 3.548 4.416 6.226 9.92 8.052 16.37l14.442-3.828c-2.326-8.235-5.906-15.31-10.752-21.138C152.474 34.66 137.472 28.873 117.946 28.728h-.067c-19.414.144-34.35 5.913-44.37 17.148C65.924 54.588 61.884 67.905 61.678 84.005l-.003.348.003.348c.206 16.1 4.246 29.418 11.828 38.13 10.02 11.234 24.956 17.003 44.37 17.147h.067c16.036-.133 28.2-4.373 38.266-13.349 12.79-11.412 12.818-29.547 7.47-41.77-3.632-8.296-10.5-14.9-19.66-19.373l-.462-.227Zm-36.126 44.634c-10.404.682-21.205-4.108-21.8-15.97-.44-8.77 6.255-18.554 25.21-19.644 2.21-.127 4.376-.19 6.495-.19 6.27 0 12.123.593 17.414 1.738-1.982 27.622-16.676 33.393-27.319 34.066Z" />
+              </svg>
+            </a>
+            <!-- Email -->
+            <a href="https://lifehacker.kit.com/ai-agent" target="_blank" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 免費資源 -->
+        <div class="footer-col">
+          <h4>免費資源</h4>
+          <ul>
+            <li><a href="#path">5 篇系列教學</a></li>
+            <li><a href="#resources">精選學習資源</a></li>
+            <li><a href="https://github.com/Raymondhou0917/claude-code-cheatsheet-zh" target="_blank">Claude Code
+                指令速查表</a></li>
+            <li><a href="https://raymondhouch.com/newsletter" target="_blank">雷蒙週報（免費）</a></li>
+          </ul>
+        </div>
+
+        <!-- 系列課程 -->
+        <div class="footer-col">
+          <h4>系列課程</h4>
+          <ul>
+            <li><a href="https://academy.lifehacker.tw" target="_blank">超級個體課程</a></li>
+          </ul>
+        </div>
+
+        <!-- 關於我們 -->
+        <div class="footer-col">
+          <h4>關於我們</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/c/yuiraymond" target="_blank">YouTube 頻道</a></li>
+            <li><a href="https://raymondhouch.com/about/" target="_blank">關於雷蒙</a></li>
+            <li><a href="https://academy.lifehacker.tw" target="_blank">課程產品主站</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部版權 -->
+    <div class="footer-bottom">
+      <div class="container--wide">
+        &copy; 2026 雷蒙三十｜超級個體工作術. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Countdown Bar ===== -->
+  <div id="countdownBar" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
+    <span class="cd-label">迷你課啟動</span>
+    <span style="display:inline-flex; align-items:center; gap:4px;">
+      <span id="cdDays" class="cd-num">00</span><span class="cd-unit">天</span>
+      <span id="cdHours" class="cd-num">00</span><span class="cd-unit">時</span>
+      <span id="cdMins" class="cd-num">00</span><span class="cd-unit">分</span>
+      <span id="cdSecs" class="cd-num">00</span><span class="cd-unit">秒</span>
+    </span>
+    <span class="cd-cta">加入等候</span>
+  </div>
+  <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="course-articles.js"></script>
+  <script>
+    // Navbar scroll — hide on scroll down, show on scroll up
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 40);
+      if (y > lastScrollY && y > 100) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastScrollY = y;
+    }, { passive: true });
+    navbar.style.transition = 'transform 0.3s ease, background 0.3s, box-shadow 0.3s';
+
+    // Top button visibility
+    var topBtn = document.getElementById('topBtn');
+    window.addEventListener('scroll', function () {
+      if (topBtn) topBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    // Terminal parallax — moves slower than scroll, creates depth (desktop only)
+    var terminal = document.querySelector('.hero-terminal');
+    if (terminal && window.innerWidth > 860) {
+      terminal.style.transition = 'none';
+      window.addEventListener('scroll', function () {
+        var y = window.scrollY;
+        var heroH = document.querySelector('.hero').offsetHeight;
+        if (y < heroH * 1.5) {
+          terminal.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+        }
+      }, { passive: true });
+    }
+
+    // Tab switching
+    document.querySelectorAll('.res-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.res-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`[data-panel="${target}"]`).classList.add('active');
+      });
+    });
+
+    // Starter Kit accordion
+    document.querySelectorAll('.sk-head').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.sk-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // 複製 Starter Kit RAW 連結
+    function copySKLink(btn) {
+      const raw = btn.closest('.sk-item').dataset.raw;
+      navigator.clipboard.writeText(raw).then(() => {
+        btn.textContent = '已複製！';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '複製安裝連結';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // Article lightbox
+    function openLesson(num) {
+      var key = 'lesson' + num;
+      var md = window.ARTICLES && window.ARTICLES[key];
+      var el = document.getElementById('lessonBody');
+      if (!md) {
+        el.innerHTML = '<div style="text-align:center;padding:4rem 2rem;"><h3 style="font-size:1.2rem;color:#1A1A1A;margin-bottom:0.5rem;">即將推出</h3><p style="color:#7A6B5D;font-size:0.92rem;">這堂課的內容正在撰寫中，敬請期待。</p></div>';
+      } else {
+        md = md.replace(/^---[\s\S]*?---\n*/, '');
+        if (typeof marked !== 'undefined' && marked.parse) {
+          var renderer = new marked.Renderer();
+          renderer.link = function (href, title, text) {
+            // marked v14+ passes object; v4 passes positional args
+            if (typeof href === 'object') { title = href.title; text = href.text; href = href.href; }
+            return '<a href="' + href + '" target="_blank" rel="noopener"' + (title ? ' title="' + title + '"' : '') + '>' + text + '</a>';
+          };
+          el.innerHTML = marked.parse(md, { renderer: renderer });
+        } else {
+          el.innerHTML = '<pre style="white-space:pre-wrap">' + md + '</pre>';
+        }
+      }
+      document.getElementById('lessonLightbox').classList.add('open');
+      document.getElementById('lessonLightbox').scrollTop = 0;
+    }
+
+    function closeLesson() {
+      document.getElementById('lessonLightbox').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLesson();
+    });
+
+    // Showcase 「暫不公開」提示 — 顯示在被點擊的卡片中央
+    function showNotPublic(e) {
+      e.preventDefault();
+      var card = e.currentTarget;
+      var existing = card.querySelector('.toast-notpublic');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'toast-notpublic';
+      toast.textContent = '暫不公開';
+      card.appendChild(toast);
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 1800);
+      setTimeout(function () { toast.remove(); }, 2150);
+    }
+
+    function showCourseContent(e) {
+      e.preventDefault();
+      var card = e.currentTarget;
+      var existing = card.querySelector('.toast-notpublic');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'toast-notpublic';
+      toast.textContent = '未來教學案例';
+      card.appendChild(toast);
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 1800);
+      setTimeout(function () { toast.remove(); }, 2150);
+    }
+
+    // Showcase 觀看更多 toggle
+    function toggleShowcase(btn) {
+      var wrap = btn.closest('.showcase').querySelector('.showcase-more-wrap');
+      var arrow = btn.querySelector('.showcase-toggle-arrow');
+      if (wrap.classList.contains('collapsed')) {
+        wrap.classList.remove('collapsed');
+        btn.firstChild.textContent = '收起 ';
+        if (arrow) arrow.textContent = '↑';
+      } else {
+        wrap.classList.add('collapsed');
+        btn.firstChild.textContent = '觀看更多 ';
+        if (arrow) arrow.textContent = '↓';
+      }
+    }
+
+    // 自動顯示「觀看更多」按鈕：當 .showcase-more 內有卡片時才顯示
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.showcase').forEach(function (sec) {
+        var more = sec.querySelector('.showcase-more');
+        var toggleWrap = sec.querySelector('.showcase-toggle-wrap');
+        if (more && toggleWrap && more.querySelector('.showcase-card')) {
+          toggleWrap.removeAttribute('hidden');
+        }
+      });
+    });
+
+    // Kit (ConvertKit) 訂閱 — form ID: 9138207
+    function kitSubscribe(e, form) {
+      e.preventDefault();
+      var input = form.querySelector('input[name="email_address"]');
+      var btn = form.querySelector('button');
+      var originalText = btn.textContent;
+      btn.textContent = '送出中...';
+      btn.disabled = true;
+
+      fetch('https://app.kit.com/forms/9138207/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'email_address=' + encodeURIComponent(input.value),
+        mode: 'no-cors'
+      }).then(function () {
+        btn.textContent = '訂閱成功 ✓';
+        btn.style.background = 'var(--orange)';
+        input.value = '';
+        input.disabled = true;
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.disabled = false;
+          input.disabled = false;
+        }, 4000);
+      }).catch(function () {
+        btn.textContent = '請重試';
+        btn.disabled = false;
+        setTimeout(function () { btn.textContent = originalText; }, 3000);
+      });
+    }
+
+    // Countdown timer — set your target date here
+    (function () {
+      // ← 修改這裡設定倒數目標日期（台北時間）
+      var TARGET = new Date('2026-04-19T23:59:00+08:00');
+
+      function tick() {
+        var now = new Date();
+        var diff = TARGET - now;
+        if (diff <= 0) {
+          document.getElementById('countdownBar').style.display = 'none';
+          return;
+        }
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+        document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
+        document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // CTA typewriter
+    (function () {
+      var text = '準備好開始了嗎？';
+      var el = document.getElementById('ctaTypewriter');
+      if (!el) return;
+      var i = 0;
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && i === 0) {
+          observer.disconnect();
+          function type() {
+            if (i <= text.length) {
+              el.textContent = text.slice(0, i);
+              i++;
+              setTimeout(type, 100);
+            }
+          }
+          type();
+        }
+      }, { threshold: 0.1 });
+      observer.observe(el.closest('section') || el.parentElement);
+    })();
+
+    // Deck spread animation — open on enter, collapse on leave
+    (function () {
+      var wrap = document.querySelector('.deck-wrap');
+      if (!wrap) return;
+      var cards = wrap.querySelectorAll('.deck-card');
+      var isOpen = false;
+
+      function collapse() {
+        cards.forEach(function (c) { c.style.marginLeft = '-180px'; c.style.transform = 'rotate(0deg)'; });
+        if (cards[0]) cards[0].style.marginLeft = '0';
+        isOpen = false;
+      }
+
+      function spread() {
+        cards.forEach(function (c, i) {
+          setTimeout(function () {
+            c.style.marginLeft = i === 0 ? '0' : '-35px';
+            c.style.transform = c.dataset.spread || 'rotate(0deg)';
+          }, i * 120);
+        });
+        isOpen = true;
+      }
+
+      collapse();
+
+      var obs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !isOpen) {
+          spread();
+        } else if (!entries[0].isIntersecting && isOpen) {
+          collapse();
+        }
+      }, { threshold: 0.15 });
+      obs.observe(wrap);
+    })();
+
+    // Card tilt effect
+    function tiltCard(e, el) {
+      var rect = el.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = (y - centerY) / centerY * -6;
+      var rotateY = (x - centerX) / centerX * 6;
+      el.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+    }
+
+    function resetCard(el) {
+      el.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+
+</html>
