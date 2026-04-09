@@ -15,7 +15,7 @@
 一頁式的 Claude Code 學習入口，包含：
 
 - **精選免費資源** — 安裝教學、應用案例、技術文件，依場景分類
-- **Starter Kit 設定包** — 5 份可直接丟給 AI 執行的設定文件
+- **Starter Kit 設定包** — 6 份可直接丟給 AI 執行的設定文件
 - **迷你課程導覽** — 由淺入深的系列教學，每篇獨立閱讀
 - **應用案例展示** — 非工程師用 Claude Code 實際打造的工具
 
@@ -31,6 +31,7 @@
 | 03 | [安全三件套](starter-kit/03-safe-delete.md) | 垃圾桶 + 危險指令黑名單 + 權限模式自選 |
 | 04 | [MCP 推薦清單](starter-kit/04-mcp-essentials.md) | 讓 AI 讀信、抓網頁、管行事曆 |
 | 05 | [線上部署](starter-kit/05-deploy-online.md) | 一句話把作品部署上線 |
+| 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git 狀態 |
 
 ## 怎麼用？
 
@@ -40,10 +41,8 @@
 **方法 2：複製 Starter Kit 的 raw 連結，貼給 Claude Code**
 → 點進任一設定包，複製 raw URL，貼到 Claude Code 對話框
 
-**方法 3：Clone 整個 repo**
-```bash
-git clone https://github.com/Raymondhou0917/claude-code-resources.git
-```
+**方法 3：看完整 70 分鐘 Claude Code 超詳細入門教學影片**
+→ [https://youtu.be/xo7dE80ktu4](https://youtu.be/xo7dE80ktu4)
 
 ## 作者
 
@@ -51,7 +50,7 @@ git clone https://github.com/Raymondhou0917/claude-code-resources.git
 經營數位工作術和 AI 應用的線上課程與電子報，用 Claude Code 打造了 20+ 個工具和自動化系統。
 
 - 🌐 [Blog](https://raymondhouch.com)
-- 📺 [YouTube — 柚智夫妻](https://youtube.com/@yuzufufu)
+- 📺 [YouTube — 柚智夫妻](https://www.youtube.com/c/yuiraymond)
 - 📬 [雷蒙週報（免費）](https://lifehacker.kit.com/ai-agent)
 
 ## 授權
