@@ -41,7 +41,7 @@
     </ul>
 
     <div class="navbar-cta">
-      <a href="#path"><span>開始學習</span></a>
+      <a href="#path" data-track-cta="navbar"><span>開始學習</span></a>
     </div>
 
     <button class="nav-mobile-toggle" onclick="document.getElementById('mobileMenu').classList.add('open')"
@@ -70,7 +70,7 @@
     <a href="#path" onclick="document.getElementById('mobileMenu').classList.remove('open')">學習路徑</a>
     <a href="#showcase" onclick="document.getElementById('mobileMenu').classList.remove('open')">應用案例</a>
     <a href="#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">常見問答</a>
-    <a href="#path" onclick="document.getElementById('mobileMenu').classList.remove('open')"
+    <a href="#path" data-track-cta="mobile-menu" onclick="document.getElementById('mobileMenu').classList.remove('open')"
       style="margin-top:12px; padding:12px 32px; background:var(--orange); border-radius:8px; color:#fff;">開始學習</a>
   </div>
 
@@ -243,8 +243,8 @@
             <p class="hero-sub">免費教學 + 精選資源整理，小白也能快速上手<br>10+ 篇系列文帶你從入門到自動化<br>（持續更新中）</p>
 
             <div class="hero-actions">
-              <a href="#resources" class="hero-btn-primary">開始學習 →</a>
-              <a href="#resources" class="hero-btn-secondary">探索資源</a>
+              <a href="#resources" class="hero-btn-primary" data-track-cta="hero-primary">開始學習 →</a>
+              <a href="#resources" class="hero-btn-secondary" data-track-cta="hero-secondary">探索資源</a>
             </div>
           </div>
 
@@ -615,7 +615,7 @@
               你的 AI 助理分身，能代替你做事
             </li>
           </ul>
-          <a href="#path" class="level-cta">
+          <a href="#path" class="level-cta" data-track-cta="levels-cta">
             從這裡開始學
             <svg viewBox="0 0 20 20">
               <path fill-rule="evenodd"
@@ -1123,12 +1123,22 @@
 
         <!-- Waitlist -->
         <div id="waitlist" style="text-align:center; padding:2rem 0 0;">
-          <p style="font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:0.3rem;">【迷你課】準備中｜10+ 系列教學內容＆資源設定包</p>
-          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.8;">想要更系統性的學習？<br>怎麼讓 AI 更懂你？建立個人化 AI 分身和知識庫？<br>雷蒙的實戰案例拆解、多 Agent-Team 協作方法？</p>
-          <form class="path-subscribe" onsubmit="kitSubscribe(event, this)">
-            <input type="email" name="email_address" class="subscribe-input" placeholder="your@email.com" required>
-            <button type="submit" class="subscribe-btn">加入等候名單</button>
-          </form>
+          <p class="waitlist-title">【迷你課】早鳥預購中｜10+ 系列教學內容＆資源設定包</p>
+          <p style="font-size:1rem; color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.8;">想要更系統性的學習？<br>怎麼讓 AI 更懂你？建立個人化 AI 分身和知識庫？<br>雷蒙的實戰案例拆解、多 Agent-Team 協作方法？</p>
+          <a href="https://lifehacker.tw/courses/24hr-claude-code-tutorial?affcode=cc-resources&utm_source=cc-resources&utm_medium=website&utm_campaign=mini-course-preorder&utm_content=waitlist-hero" class="waitlist-hero" target="_blank" rel="noopener" data-track-cta="waitlist-hero">
+            <img src="images/claude-code-package.jpg" alt="Claude Code 迷你課" loading="lazy">
+            <span class="waitlist-hero-shine"></span>
+          </a>
+          <div class="waitlist-countdown">
+            <div class="wl-cd-item"><span class="wl-cd-num" data-cd="days">00</span><span class="wl-cd-unit">天</span></div>
+            <div class="wl-cd-sep">:</div>
+            <div class="wl-cd-item"><span class="wl-cd-num" data-cd="hours">00</span><span class="wl-cd-unit">時</span></div>
+            <div class="wl-cd-sep">:</div>
+            <div class="wl-cd-item"><span class="wl-cd-num" data-cd="mins">00</span><span class="wl-cd-unit">分</span></div>
+            <div class="wl-cd-sep">:</div>
+            <div class="wl-cd-item"><span class="wl-cd-num" data-cd="secs">00</span><span class="wl-cd-unit">秒</span></div>
+          </div>
+          <a href="https://lifehacker.tw/checkout?planId=078b7d85-ed27-4a93-9ec1-e1f129e93cd2&utm_source=cc-resources&utm_medium=website&utm_campaign=mini-course-preorder&utm_content=waitlist-button" class="waitlist-cta" target="_blank" rel="noopener" data-track-cta="waitlist-button">立即預購</a>
         </div>
       </div>
     </div>
@@ -1382,7 +1392,7 @@
             style="display:inline-block;width:0.25em;height:0.7em;background:var(--orange);animation:blink 1.1s step-end infinite;margin-left:4px;vertical-align:baseline;"></span>
         </h2>
         <p>從第一篇教學開始，或直接探索適合你程度的學習資源。不需要任何準備，現在就能開始。</p>
-        <a href="#path" class="btn--primary">從第一步開始 →</a>
+        <a href="#path" class="btn--primary" data-track-cta="cta-bottom">從第一步開始 →</a>
       </div>
     </div>
   </section>
@@ -1490,15 +1500,15 @@
   </footer>
 
   <!-- ===== Countdown Bar ===== -->
-  <div id="countdownBar" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
-    <span class="cd-label">迷你課啟動</span>
+  <div id="countdownBar">
+    <span class="cd-label">早鳥預購中</span>
     <span style="display:inline-flex; align-items:center; gap:4px;">
       <span id="cdDays" class="cd-num">00</span><span class="cd-unit">天</span>
       <span id="cdHours" class="cd-num">00</span><span class="cd-unit">時</span>
       <span id="cdMins" class="cd-num">00</span><span class="cd-unit">分</span>
       <span id="cdSecs" class="cd-num">00</span><span class="cd-unit">秒</span>
     </span>
-    <span class="cd-cta">加入等候</span>
+    <a href="https://lifehacker.tw/checkout?planId=078b7d85-ed27-4a93-9ec1-e1f129e93cd2&utm_source=cc-resources&utm_medium=website&utm_campaign=mini-course-preorder&utm_content=countdown-bar" class="cd-cta" target="_blank" rel="noopener" data-track-cta="countdown-bar"><span>立即預購</span></a>
   </div>
   <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1710,6 +1720,39 @@
       });
     }
 
+    // GA4 追蹤：銷售 CTA 點擊事件
+    // 任何 <a data-track-cta="xxx"> 都會自動送出 cta_click 事件，參數 location = 屬性值
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('[data-track-cta]');
+      if (!link || typeof gtag !== 'function') return;
+      gtag('event', 'cta_click', {
+        cta_location: link.dataset.trackCta,
+        destination: link.href,
+        campaign: 'mini-course-preorder'
+      });
+    });
+
+    // Waitlist hero 3D tilt — 跟著滑鼠傾斜
+    (function () {
+      var hero = document.querySelector('.waitlist-hero');
+      if (!hero) return;
+      hero.addEventListener('mousemove', function (e) {
+        var rect = hero.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = rect.width / 2;
+        var cy = rect.height / 2;
+        var rx = (cy - y) / 6;
+        var ry = (x - cx) / 6;
+        hero.style.transform = 'perspective(1200px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        hero.style.transition = 'transform 0.1s linear, box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      });
+      hero.addEventListener('mouseleave', function () {
+        hero.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+        hero.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      });
+    })();
+
     // Countdown timer — set your target date here
     (function () {
       // ← 修改這裡設定倒數目標日期（台北時間）
@@ -1726,10 +1769,21 @@
         var h = Math.floor((diff % 86400000) / 3600000);
         var m = Math.floor((diff % 3600000) / 60000);
         var s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
-        document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
-        document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
-        document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
+        var ds = String(d).padStart(2, '0');
+        var hs = String(h).padStart(2, '0');
+        var ms = String(m).padStart(2, '0');
+        var ss = String(s).padStart(2, '0');
+        document.getElementById('cdDays').textContent = ds;
+        document.getElementById('cdHours').textContent = hs;
+        document.getElementById('cdMins').textContent = ms;
+        document.getElementById('cdSecs').textContent = ss;
+        // 同步更新 waitlist 區塊的倒數
+        var vals = { days: ds, hours: hs, mins: ms, secs: ss };
+        Object.keys(vals).forEach(function(k) {
+          document.querySelectorAll('[data-cd="' + k + '"]').forEach(function(el) {
+            el.textContent = vals[k];
+          });
+        });
       }
       tick();
       setInterval(tick, 1000);

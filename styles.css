@@ -1320,7 +1320,7 @@ a.path-item .path-num {
   width: 180px; min-height: 100px; object-fit: cover; flex-shrink: 0; border-right: 1px solid rgba(61,46,31,0.08);
 }
 .res-bookmark-body { padding: 0.8rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.25rem; min-width: 0; }
-.res-bookmark-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.res-bookmark-title { font-size: 1rem; font-weight: 700; color: var(--dark); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .res-bookmark-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .res-bookmark-url { font-size: 0.72rem; color: var(--orange); font-family: var(--mono); margin-top: 0.15rem; }
 @media (max-width: 600px) {
@@ -1822,6 +1822,132 @@ a.path-item .path-num {
 }
 
 .subscribe-btn:hover { background: var(--dark-soft); }
+
+/* ========== Waitlist（迷你課早鳥預購區塊）========== */
+.waitlist-title {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+.waitlist-hero {
+  display: block;
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+  margin: 2.25rem auto 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(26, 26, 26, 0.08), 0 1px 4px rgba(26, 26, 26, 0.04);
+  transform: perspective(1200px) rotateX(0) rotateY(0);
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  cursor: pointer;
+}
+.waitlist-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.waitlist-hero-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 42%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.18) 58%,
+    transparent 70%);
+  transform: translateX(-150%);
+  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+.waitlist-hero:hover .waitlist-hero-shine {
+  transform: translateX(150%);
+}
+.waitlist-hero:hover {
+  box-shadow: 0 20px 44px rgba(26, 26, 26, 0.14), 0 6px 14px rgba(26, 26, 26, 0.08);
+}
+.waitlist-countdown {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 0.75rem auto 1.75rem;
+  width: fit-content;
+}
+.wl-cd-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.wl-cd-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+  min-width: 2ch;
+  text-align: center;
+  line-height: 1;
+}
+.wl-cd-unit {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-left: 2px;
+}
+.wl-cd-sep {
+  font-size: 2rem;
+  color: rgba(218, 123, 74, 0.4);
+  font-weight: 300;
+  line-height: 1;
+  transform: translateY(-4px);
+}
+@keyframes waitlist-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(218, 123, 74, 0.28);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 8px 28px rgba(218, 123, 74, 0.48);
+  }
+}
+.waitlist-cta {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff !important;
+  padding: 14px 36px;
+  border-radius: var(--radius);
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  animation: waitlist-breathe 2.8s ease-in-out infinite;
+  transition: background 0.2s ease;
+}
+.waitlist-cta:hover {
+  background: var(--orange-hover);
+  color: #fff !important;
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-cta { animation: none; }
+}
+@media (max-width: 560px) {
+  .waitlist-title { font-size: 1.2rem; }
+  .wl-cd-num { font-size: 1.8rem; }
+  .wl-cd-unit { font-size: 0.82rem; }
+  .wl-cd-sep { font-size: 1.5rem; }
+  .waitlist-countdown { gap: 0.6rem; }
+}
 
 .subscribe-note {
   font-size: 0.875rem;
@@ -2478,8 +2604,36 @@ div.course-lesson,
   #countdownBar .cd-label { font-weight: 600; }
   #countdownBar .cd-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem; color: #fff; }
   #countdownBar .cd-unit { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-right: 2px; }
-  #countdownBar .cd-cta { background: #1A1A1A; color: #fff !important; padding: 10px 24px; border-radius: 100px; font-weight: 700; font-size: 0.875rem; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
-  #countdownBar .cd-cta:hover { background: #2A2420; }
+  #countdownBar .cd-cta {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    isolation: isolate;
+    background: #1A1A1A;
+    color: #fff !important;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  #countdownBar .cd-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--orange);
+    clip-path: circle(0% at 0% 100%);
+    transition: clip-path 0.55s cubic-bezier(0.42, 0, 0.58, 1);
+    z-index: -1;
+  }
+  #countdownBar .cd-cta:hover::before {
+    clip-path: circle(150% at 0% 100%);
+  }
+  #countdownBar .cd-cta span {
+    position: relative;
+    z-index: 1;
+  }
   @media (max-width: 600px) {
     #countdownBar { font-size: 0.75rem; gap: 0.6rem; padding: 8px 8px 8px 16px; }
     #countdownBar .cd-label { display: none; }
