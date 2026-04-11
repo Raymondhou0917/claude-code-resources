@@ -22,6 +22,23 @@
     gtag('js', new Date());
     gtag('config', 'G-B37GWLVFYZ');
   </script>
+
+  <!-- Meta Pixel Code（開課快手-lifehacker.tw，全站共用 Pixel） -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '373761211634972');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=373761211634972&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 
 <body>
@@ -1720,16 +1737,39 @@
       });
     }
 
-    // GA4 追蹤：銷售 CTA 點擊事件
+    // GA4 + Meta Pixel 追蹤：銷售 CTA 點擊事件
     // 任何 <a data-track-cta="xxx"> 都會自動送出 cta_click 事件，參數 location = 屬性值
+    // 銷售 CTA（連外到 checkout）→ InitiateCheckout；站內錨點 CTA → Lead
+    var CHECKOUT_CTAS = ['countdown-bar', 'waitlist-button', 'waitlist-hero'];
     document.addEventListener('click', function (e) {
       var link = e.target.closest('[data-track-cta]');
-      if (!link || typeof gtag !== 'function') return;
-      gtag('event', 'cta_click', {
-        cta_location: link.dataset.trackCta,
-        destination: link.href,
-        campaign: 'mini-course-preorder'
-      });
+      if (!link) return;
+      var location = link.dataset.trackCta;
+
+      // GA4
+      if (typeof gtag === 'function') {
+        gtag('event', 'cta_click', {
+          cta_location: location,
+          destination: link.href,
+          campaign: 'mini-course-preorder'
+        });
+      }
+
+      // Meta Pixel
+      if (typeof fbq === 'function') {
+        if (CHECKOUT_CTAS.indexOf(location) !== -1) {
+          fbq('track', 'InitiateCheckout', {
+            content_name: 'Claude Code 迷你課早鳥預購',
+            content_category: 'mini-course',
+            source: location
+          });
+        } else {
+          fbq('track', 'Lead', {
+            content_name: 'Claude Code 學習資源頁 CTA',
+            source: location
+          });
+        }
+      }
     });
 
     // Waitlist hero 3D tilt — 跟著滑鼠傾斜
