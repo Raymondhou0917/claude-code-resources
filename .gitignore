@@ -15,3 +15,10 @@ package-lock.json
 # Environment
 .env
 .env.local
+
+# Claude Code
+.claude/
+
+# Local logs
+log.txt
+*.log
