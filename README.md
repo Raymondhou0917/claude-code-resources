@@ -22,11 +22,13 @@
 ### 🛠 Starter Kit（開源設定包）
 
 每份設定包上半給人看（為什麼需要、裝完會怎樣），下半給 AI 執行（完整指令 + 驗證）。
-丟給 Claude Code 說「照這份文件幫我設定」就能用。
+丟給 Claude Code 說「照這份文件幫我設定」就能用。支援 **macOS / Linux / Windows**。
+
+AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確認 → 安裝完用白話文條列總結做了什麼。
 
 | # | 設定包 | 解決什麼問題 |
 |:--|:--|:--|
-| 01 | [終端機優化](starter-kit/01-terminal-setup.md) | 滑鼠支援、減少閃爍、`cc` 快捷啟動 |
+| 01 | [終端機優化](starter-kit/01-terminal-setup.md) | 滑鼠支援、減少閃爍、`cc` 快捷啟動（含 Windows + WMUX） |
 | 02 | [外部編輯器](starter-kit/02-external-editor.md) | 長指令不再痛苦，用編輯器寫 Prompt |
 | 03 | [安全三件套](starter-kit/03-safe-delete.md) | 垃圾桶 + 危險指令黑名單 + 權限模式自選 |
 | 04 | [MCP 推薦清單](starter-kit/04-mcp-essentials.md) | 讓 AI 讀信、抓網頁、管行事曆 |
@@ -55,5 +57,5 @@
 
 ## 授權
 
-Starter Kit 設定包以 MIT License 開源。
-網站內容（文章、課程）版權所有 © 2026 雷蒙三十。
+- **Starter Kit 設定包**：[CC BY-NC-SA 4.0](LICENSE) — 歡迎個人使用、學習、分享，禁止商業用途。修改後需以相同授權釋出並標註出處。
+- **網站內容（文章、課程）**：版權所有 © 2026 雷蒙三十，未經授權不得轉載。
