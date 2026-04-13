@@ -71,10 +71,26 @@ echo "alias cc='CLAUDE_CODE_NO_FLICKER=1 claude'" >> ~/.zshrc && source ~/.zshrc
 
 ---
 
-### 建立 `cc` function（Windows 11 + WMUX）
+### 建立 `cc` function（Windows）
 
-> ⚠️ Windows 用戶注意：CMUX 目前不支援 Windows 11，請改用 **WMUX**。
-> WMUX 安裝完成後，用以下步驟設定 `cc` 快速啟動。
+> ⚠️ Windows 用戶注意：CMUX 目前不支援 Windows，請參考以下替代方案。
+> 更完整的「桌面版 vs 終端機」比較 → [這篇文章](https://raymondhouch.com/lifehacker/digital-workflow/claude-code-desktop-vs-terminal/)
+
+#### Windows 終端機選擇
+
+| 終端機 | 適合誰 | 特色 |
+| :-- | :-- | :-- |
+| **Windows Terminal**（內建） | 新手優先試 | Win11 內建、多分頁、自訂顏色，不用額外安裝 |
+| **[WMUX](https://github.com/amirlehmam/wmux)** | 想要 Cmux 體驗的人 | Windows 版 Cmux，分割視窗、多 session 並排、活動指示燈 |
+| **[Tabby](https://tabby.sh/)** | 想要好看 + 跨平台 | 免費開源，視覺效果好看，支援分割視窗 |
+
+> 💡 Claude Code CLI 對終端機沒有特別要求，用什麼終端機開都行。終端機只是「視窗」，Claude Code 的能力完全一樣。
+
+#### WMUX 安裝
+
+到 [WMUX Releases](https://github.com/amirlehmam/wmux/releases) 下載 `wmux-*-win-x64.zip`，解壓縮後直接執行 `wmux.exe`。不需要安裝程式、不需要管理員權限。
+
+#### 設定 `cc` 快速啟動（PowerShell）
 
 Windows 的 PowerShell 不支援 `alias` 語法，改用 `function`，寫入 PowerShell Profile 讓每次開終端機都自動生效。
 
@@ -182,7 +198,7 @@ export CLAUDE_CODE_SCROLL_SPEED=3  # 範圍 1-20，預設值偏慢
 不行，需要退出後用 `cc` 重新啟動。但可以先按 `Ctrl+O` → `[` 把當前對話匯出。
 
 **Q：Windows 也能用嗎？**
-可以。Windows 11 請用 **WMUX**（CMUX 不支援 Windows），`cc` 的設定方式不同，詳見上方「建立 `cc` function（Windows 11 + WMUX）」區塊。
+可以。Windows 用戶可選 Windows Terminal（內建）、[WMUX](https://github.com/amirlehmam/wmux)、或 [Tabby](https://tabby.sh/)，`cc` 用 PowerShell function 設定，詳見上方「建立 `cc` function（Windows）」區塊。完整比較 → [桌面版 vs 終端機](https://raymondhouch.com/lifehacker/digital-workflow/claude-code-desktop-vs-terminal/)
 
 **Q：iTerm2 滾輪不動？**
 需開啟 Mouse Reporting：Settings → Profiles → Terminal → Enable mouse reporting。
