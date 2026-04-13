@@ -4,7 +4,7 @@
 > 免費教學文章 + 可直接丟給 AI 執行的設定包。
 
 🌐 **網站**：[cc.lifehacker.tw](https://cc.lifehacker.tw)
-📬 **電子報**：[免費訂閱 AI 新知](https://lifehacker.kit.com/ai-agent)
+📬 **教學文 & 電子報**：[raymondhouch.com](https://raymondhouch.com/)
 
 ---
 
@@ -51,9 +51,10 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 **[雷蒙三十](https://raymondhouch.com)** — 超級個體、一人公司實踐者。
 經營數位工作術和 AI 應用的線上課程與電子報，用 Claude Code 打造了 20+ 個工具和自動化系統。
 
-- 🌐 [Blog](https://raymondhouch.com)
+- 🌐 [雷蒙公開教學文 & 免費訂閱電子報](https://raymondhouch.com/)
 - 📺 [YouTube — 柚智夫妻](https://www.youtube.com/c/yuiraymond)
-- 📬 [雷蒙週報（免費）](https://lifehacker.kit.com/ai-agent)
+- 💬 [Threads @raymond0917](https://www.threads.com/@raymond0917)
+- 📘 [Facebook](https://www.facebook.com/raymondhou0917)
 
 ## 授權
 
