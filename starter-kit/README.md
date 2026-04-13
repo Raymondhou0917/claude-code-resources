@@ -93,16 +93,16 @@ https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/st
 
 2. **互動式選擇用 AskUserQuestion** — 需要用戶做決定時，請用 `AskUserQuestion` 工具跳出互動框，**不要**在純文字訊息中列「請輸入 1/2/3」要求用戶回覆——新手看到這種問題不知道要回什麼。參考 `03-safe-delete.md` Section C（單選）、`06-statusline.md` Section B/C/E（多選 + 自訂輸入）。
 
-3. **結尾授權區塊** — 每份 `.md` 末尾必須有「## 授權」小節。可以用 3 行 bullet 的溫柔版（01-04 使用），或 06 的完整版：
-   - **License**：MIT + 保留腳本 header 作者資訊的要求
-   - **商標**：品牌名（雷蒙三十 / 雷蒙 Starter Kit）的 fork 限制
+3. **結尾授權區塊** — 每份 `.md` 末尾必須有「## 授權」小節：
+   - **License**：CC BY-NC-SA 4.0 · 個人使用、學習、分享自由；禁止商業用途
+   - **出處標記**：`出自 雷蒙三十 Starter Kit — cc.lifehacker.tw | CC BY-NC-SA 4.0`
    - **延伸觸點**：迷你課 / 週報 / Threads 用分隔符排成一行，避免看起來像廣告條
 
 ---
 
 ## 授權
 
-MIT License — 自由使用、修改、分享。
+[CC BY-NC-SA 4.0](../LICENSE) — 歡迎個人使用、學習、分享，禁止商業用途。修改後需以相同授權釋出並標註出處。
 
 ## 相關資源
 
