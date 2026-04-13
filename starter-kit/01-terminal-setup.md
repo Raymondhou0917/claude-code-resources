@@ -1,6 +1,6 @@
 # 讓 Claude Code 的終端機更好用：不閃爍、能滾動、滑鼠能用、快速啟動
 
-> ⭐ 初學者友善｜2 分鐘｜macOS / Linux
+> ⭐ 初學者友善｜2 分鐘｜macOS / Linux / Windows
 
 ## 你可能遇過這些問題
 
@@ -55,7 +55,7 @@ echo $SHELL
 
 以下用 zsh 示範，bash 把 `.zshrc` 換成 `.bashrc`。
 
-### 建立 `cc` alias
+### 建立 `cc` alias（macOS / Linux）
 
 **方案 A：綁定專案目錄**（請替換 `你的專案路徑`）：
 
@@ -69,7 +69,69 @@ echo "alias cc='cd ~/你的專案路徑 && CLAUDE_CODE_NO_FLICKER=1 claude'" >> 
 echo "alias cc='CLAUDE_CODE_NO_FLICKER=1 claude'" >> ~/.zshrc && source ~/.zshrc
 ```
 
-### 驗證
+---
+
+### 建立 `cc` function（Windows 11 + WMUX）
+
+> ⚠️ Windows 用戶注意：CMUX 目前不支援 Windows 11，請改用 **WMUX**。
+> WMUX 安裝完成後，用以下步驟設定 `cc` 快速啟動。
+
+Windows 的 PowerShell 不支援 `alias` 語法，改用 `function`，寫入 PowerShell Profile 讓每次開終端機都自動生效。
+
+**步驟 1：用系統管理員身分打開 PowerShell**
+
+開始功能表搜尋 `PowerShell` → 右鍵 → 「以系統管理員身分執行」
+
+**步驟 2：允許執行自訂腳本**
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+> 系統詢問時輸入 `Y` 確認。這是允許執行自己寫的腳本，不影響安全性。
+
+**步驟 3：確認 Profile 檔案存在**
+
+```powershell
+if (!(Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+```
+
+**步驟 4：加入 cc function**
+
+方案 A：綁定專案目錄（替換 `C:\你的專案路徑`）：
+
+```powershell
+Add-Content $PROFILE "`nfunction cc { Set-Location 'C:\你的專案路徑'; `$env:CLAUDE_CODE_NO_FLICKER = '1'; claude @args }"
+```
+
+方案 B：不綁目錄，純快速啟動：
+
+```powershell
+Add-Content $PROFILE "`nfunction cc { `$env:CLAUDE_CODE_NO_FLICKER = '1'; claude @args }"
+```
+
+**步驟 5：重新載入 Profile**
+
+```powershell
+. $PROFILE
+```
+
+**步驟 6：驗證**
+
+```powershell
+# 確認 function 生效
+Get-Command cc
+
+# 啟動測試
+cc
+# Claude Code 啟動，畫面不閃爍 = 成功
+```
+
+> 💡 之後每次打開 PowerShell 或 WMUX，直接輸入 `cc` 即可啟動。
+
+---
+
+### 驗證（macOS / Linux）
 
 ```bash
 # 確認 alias 生效
@@ -120,7 +182,7 @@ export CLAUDE_CODE_SCROLL_SPEED=3  # 範圍 1-20，預設值偏慢
 不行，需要退出後用 `cc` 重新啟動。但可以先按 `Ctrl+O` → `[` 把當前對話匯出。
 
 **Q：Windows 也能用嗎？**
-`CLAUDE_CODE_NO_FLICKER=1` 環境變數一樣有效，alias 設定方式不同（PowerShell 用 `Set-Alias`）。
+可以。Windows 11 請用 **WMUX**（CMUX 不支援 Windows），`cc` 的設定方式不同，詳見上方「建立 `cc` function（Windows 11 + WMUX）」區塊。
 
 **Q：iTerm2 滾輪不動？**
 需開啟 Mouse Reporting：Settings → Profiles → Terminal → Enable mouse reporting。
