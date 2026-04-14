@@ -1623,6 +1623,317 @@ a.path-item .path-num {
   .sk-body-inner { padding-left: 1.5rem; }
 }
 
+/* ---- Free Preview Teaser (放在課綱模組之上) ---- */
+#path .free-teaser {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 2rem;
+  background: rgba(218, 123, 74, 0.06);
+  border: 1px dashed rgba(218, 123, 74, 0.5);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+#path .free-teaser:hover {
+  background: rgba(218, 123, 74, 0.12);
+  border-color: var(--orange);
+}
+#path .free-teaser .ls-n { font-size: 1.6rem; }
+
+/* ---- Kit Compare (Starter Kit vs ProKit) ---- */
+.kit-compare-section {
+  background: var(--bg-alt);
+  padding: 4rem 0 5rem;
+}
+.kit-compare-head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+.kit-compare-eyebrow {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.kit-compare-title {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin-bottom: 1rem;
+}
+.kit-compare-vs {
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-style: italic;
+  padding: 0 0.25rem;
+}
+.kit-compare-sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.kit-compare-section .container--wide {
+  max-width: 1240px;
+}
+.kit-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+  max-width: none;
+  margin: 0 auto;
+}
+.kit-card {
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+}
+.kit-card--starter {
+  background: var(--dark);
+}
+.kit-card--pro {
+  background: linear-gradient(160deg, #8A3E1B 0%, #6B2A10 55%, #4A1B07 100%);
+  box-shadow: 0 24px 48px -20px rgba(138, 62, 27, 0.5);
+}
+.kit-card--pro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 8%, rgba(255, 190, 130, 0.22), transparent 55%);
+  pointer-events: none;
+}
+.kit-card-ribbon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3A1505;
+  background: linear-gradient(135deg, #FFC896, #F59547);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px -4px rgba(0,0,0,0.35);
+  font-weight: 700;
+}
+.kit-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1.4rem 1.5rem 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.kit-card-label {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.kit-card-label-sub {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #FFD2A8;
+  letter-spacing: 0;
+  margin-left: 0.1rem;
+}
+.kit-status-light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.6), 0 0 12px rgba(52, 211, 153, 0.3);
+  animation: sk-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.kit-status-light--pro {
+  background: #FFB074;
+  box-shadow: 0 0 6px rgba(255, 176, 116, 0.7), 0 0 12px rgba(255, 176, 116, 0.35);
+}
+.kit-card-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+.kit-card--pro .kit-card-tag {
+  background: rgba(255, 190, 130, 0.16);
+  color: #FFD2A8;
+}
+.kit-card-body {
+  padding: 0.75rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.kit-card-desc {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  line-height: 1.85;
+  margin: 0;
+}
+.kit-card--pro .kit-card-desc {
+  color: rgba(255, 225, 200, 0.82);
+}
+.kit-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.kit-card-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+}
+.kit-card-list .kc-num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.38);
+  min-width: 1.6rem;
+  font-weight: 600;
+}
+.kit-card-list .kc-ref {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.42);
+  font-family: var(--mono);
+  margin-left: 0.35rem;
+  padding: 0.08rem 0.45rem;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+/* ProKit list: 短名稱 + 括號說明（對齊 Starter Kit 的節奏） */
+.kit-card-list .kc-name {
+  font-weight: 600;
+  color: #fff;
+}
+.kit-card--pro .kit-card-list .kc-name {
+  color: #FFE6C9;
+}
+.kit-card-list .kc-detail {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.85rem;
+  margin-left: 0.15rem;
+}
+.kit-card--pro .kit-card-list .kc-detail {
+  color: rgba(255, 210, 168, 0.62);
+}
+/* Coming Soon row (ProKit 05) */
+.kit-card-list li.kc-coming {
+  margin-top: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(255, 180, 120, 0.25);
+  flex-wrap: wrap;
+}
+.kc-badge {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 180, 120, 0.18);
+  color: #FFD2A8;
+  border: 1px solid rgba(255, 180, 120, 0.3);
+  font-weight: 600;
+}
+.kit-card-list code {
+  background: rgba(255,255,255,0.1);
+  color: var(--orange);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.kit-card--pro .kit-card-list li {
+  color: #FFF0E0;
+}
+.kit-card--pro .kit-card-list .kc-num {
+  color: #FFB074;
+}
+.kit-card--pro .kit-card-list .kc-ref {
+  color: rgba(255, 210, 170, 0.65);
+  background: rgba(255, 180, 120, 0.12);
+}
+.kit-card--pro .kit-card-list code {
+  background: rgba(255, 180, 120, 0.18);
+  color: #FFD2A8;
+}
+.kit-card-foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.kit-card--pro .kit-card-foot {
+  border-top-color: rgba(255, 180, 120, 0.22);
+}
+.kit-card-footline {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.52);
+}
+.kit-card--pro .kit-card-footline {
+  color: rgba(255, 210, 168, 0.78);
+}
+.kit-card-btn {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 1.15rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.kit-card-btn--ghost {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+.kit-card-btn--ghost:hover {
+  background: rgba(255,255,255,0.16);
+}
+.kit-card-btn--pro {
+  background: linear-gradient(135deg, #FFBE86 0%, #F08A3E 100%);
+  color: #3A1505;
+  box-shadow: 0 10px 22px -10px rgba(255, 150, 80, 0.7);
+}
+.kit-card-btn--pro:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px -10px rgba(255, 150, 80, 0.85);
+}
+@media (max-width: 780px) {
+  .kit-compare-grid { grid-template-columns: 1fr; }
+  .kit-compare-section { padding: 3rem 0 4rem; }
+}
+
 /* ========== FAQ ========== */
 .faq { background: var(--bg-alt); }
 
