@@ -35,6 +35,12 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 | 05 | [線上部署](starter-kit/05-deploy-online.md) | 一句話把作品部署上線 |
 | 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git 狀態 |
 
+### 🎓 迷你課程
+
+想要更系統性地學？24 小時入門迷你課，從安裝到實戰一次搞定：
+
+→ [**Claude Code 24 小時入門迷你課**](https://lifehacker.tw/courses/24hr-claude-code-tutorial?affcode=git)
+
 ## 怎麼用？
 
 **方法 1：直接看網站**
