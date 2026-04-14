@@ -2008,16 +2008,27 @@ a.path-item .path-num {
 .faq-a {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease;
+  transition: max-height 0.5s ease;
 }
 
-.faq-item.open .faq-a { max-height: 300px; }
+/* 用 1500px 容納多段落答案，只有「開啟的項目」展開時會用到這個上限 */
+.faq-item.open .faq-a { max-height: 1500px; }
 
 .faq-a-inner {
   padding: 0 0 1.25rem;
   font-size: 0.92rem;
   color: var(--text-secondary);
   line-height: 1.85;
+}
+
+/* 多段落答案之間的間距 */
+.faq-a-inner p + p {
+  margin-top: 0.9rem;
+}
+
+.faq-a-inner strong {
+  color: var(--orange);
+  font-weight: 600;
 }
 
 /* ========== CTA ========== */
