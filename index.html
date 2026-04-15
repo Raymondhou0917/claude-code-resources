@@ -1387,6 +1387,7 @@
       <div class="kit-compare-grid">
         <!-- Left: Starter Kit (免費・黑色) -->
         <div class="kit-card kit-card--starter">
+          <div class="kit-glow"></div>
           <div class="kit-card-header">
             <span class="kit-status-light"></span>
             <span class="kit-card-label">Starter Kit</span>
@@ -1411,6 +1412,8 @@
 
         <!-- Right: ProKit (付費・深橘色) -->
         <div class="kit-card kit-card--pro">
+          <div class="kit-gold-border"></div>
+          <div class="kit-glow"></div>
           <div class="kit-card-header">
             <span class="kit-status-light kit-status-light--pro"></span>
             <span class="kit-card-label">ProKit 設定包<span class="kit-card-label-sub">（付費解鎖）</span></span>
@@ -2217,6 +2220,30 @@
     }, { threshold: 0.15 });
 
     reveals.forEach(el => revealObserver.observe(el));
+
+    /* ===== Kit Card mouse-tracking glow ===== */
+    document.querySelectorAll('.kit-card').forEach(card => {
+      const glow = card.querySelector('.kit-glow');
+      if (!glow) return;
+      const isStarter = card.classList.contains('kit-card--starter');
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const color = isStarter
+          ? 'rgba(255,255,255,0.15)'
+          : 'rgba(255,180,120,0.28)';
+        glow.style.background =
+          `radial-gradient(600px circle at ${x}px ${y}px, ${color}, transparent 60%)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        glow.style.opacity = '0';
+      });
+      card.addEventListener('mouseenter', () => {
+        glow.style.opacity = '1';
+      });
+    });
+
   </script>
 </body>
 
