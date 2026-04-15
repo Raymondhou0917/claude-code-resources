@@ -183,10 +183,10 @@ claude mcp add playwright -- npx -y @anthropic-ai/mcp-playwright
 
 ```bash
 # macOS
-brew install googleworkspace/tap/gws
+brew install googleworkspace-cli
 
 # 或用 npm
-npm install -g @anthropic-ai/gws-cli
+npm install -g @googleworkspace/cli
 ```
 
 #### Step 2：建立 Google Cloud Project（需用戶手動操作）
