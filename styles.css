@@ -1635,11 +1635,13 @@ a.path-item .path-num {
   border: 1px dashed rgba(218, 123, 74, 0.5);
   border-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 #path .free-teaser:hover {
   background: rgba(218, 123, 74, 0.12);
   border-color: var(--orange);
+  box-shadow: 0 4px 12px -2px rgba(218, 123, 74, 0.2), 0 1px 3px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
 }
 #path .free-teaser .ls-n { font-size: 1.6rem; }
 
@@ -1846,6 +1848,12 @@ a.path-item .path-num {
   line-height: 1.6;
   color: rgba(255,255,255,0.88);
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.kit-card-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 .kit-card-list .kc-num {
   font-family: var(--mono);
@@ -1882,9 +1890,6 @@ a.path-item .path-num {
 }
 /* Coming Soon row (ProKit 05) */
 .kit-card-list li.kc-coming {
-  margin-top: 0.5rem;
-  padding-top: 0.85rem;
-  border-top: 1px dashed rgba(255, 180, 120, 0.25);
   flex-wrap: wrap;
 }
 .kc-badge {
@@ -1892,11 +1897,11 @@ a.path-item .path-num {
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.18rem 0.5rem;
+  padding: 0.22rem 0.6rem;
   border-radius: 999px;
-  background: rgba(255, 180, 120, 0.18);
-  color: #FFD2A8;
-  border: 1px solid rgba(255, 180, 120, 0.3);
+  background: rgba(255, 180, 120, 0.22);
+  color: #FFD6A8;
+  border: 1px solid rgba(255, 180, 120, 0.4);
   font-weight: 600;
 }
 .kit-card-list code {
@@ -1908,6 +1913,7 @@ a.path-item .path-num {
 }
 .kit-card--pro .kit-card-list li {
   color: #FFF0E0;
+  border-bottom-color: rgba(255,180,120,0.12);
 }
 .kit-card--pro .kit-card-list .kc-num {
   color: #FFB074;
@@ -1923,15 +1929,11 @@ a.path-item .path-num {
 .kit-card-foot {
   margin-top: auto;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   flex-wrap: wrap;
-}
-.kit-card--pro .kit-card-foot {
-  border-top-color: rgba(255, 180, 120, 0.22);
 }
 .kit-card-footline {
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
@@ -1968,6 +1970,8 @@ a.path-item .path-num {
 }
 .kit-card-btn--pro:hover {
   transform: translateY(-1px);
+  background: linear-gradient(135deg, #fff 0%, #FFE8D0 100%);
+  color: #5A2A0A;
   box-shadow: 0 14px 26px -10px rgba(255, 150, 80, 0.85);
 }
 @media (max-width: 780px) {
@@ -2797,6 +2801,8 @@ div.course-lesson,
     #path .ls.ls-locked:hover { background: transparent; }
     #path .ls.ls-free { cursor: pointer; }
     #path .ls.ls-free:hover { background: rgba(218,123,74,0.08); }
+    #path .ls.free-teaser { border: 1px dashed rgba(218, 123, 74, 0.5); transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; }
+    #path .ls.free-teaser:hover { border-color: var(--orange); box-shadow: 0 4px 12px -2px rgba(218, 123, 74, 0.2), 0 1px 3px rgba(0,0,0,0.06); transform: translateY(-2px); }
     #path .ls-n { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; color: var(--beige-mid); line-height: 1.3; }
     #path .ls-t { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; line-height: 1.4; font-family: 'Inter', 'Noto Sans TC', sans-serif; }
     #path .ls-t .tg { display: inline-block; font-family: var(--mono); font-size: 0.875rem; font-weight: 500; letter-spacing: 0; padding: 0; margin-left: 0.6rem; vertical-align: baseline; text-transform: none; background: none; }
