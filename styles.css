@@ -1711,7 +1711,7 @@ a.path-item .path-num {
   opacity: 1;
 }
 .kit-card--starter {
-  background: linear-gradient(160deg, #252018 0%, #1E1A15 55%, #181510 100%);
+  background: #5d4e3c;
 }
 .kit-card--pro {
   background: linear-gradient(160deg, #8A3E1B 0%, #6B2A10 55%, #4A1B07 100%);
@@ -1905,8 +1905,8 @@ a.path-item .path-num {
   font-weight: 600;
 }
 .kit-card-list code {
-  background: rgba(255,255,255,0.1);
-  color: var(--orange);
+  background: rgba(0,0,0,0.2);
+  color: #FFD2A8;
   padding: 0.1em 0.4em;
   border-radius: 4px;
   font-size: 0.85em;
