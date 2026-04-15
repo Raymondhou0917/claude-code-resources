@@ -1711,34 +1711,19 @@ a.path-item .path-num {
   opacity: 1;
 }
 .kit-card--starter {
-  background: #5d4e3c;
+  background: linear-gradient(160deg, #3D332A 0%, #2A2420 55%, #1E1A17 100%);
 }
 .kit-card--pro {
   background: linear-gradient(160deg, #8A3E1B 0%, #6B2A10 55%, #4A1B07 100%);
-  box-shadow: 0 24px 48px -20px rgba(138, 62, 27, 0.5);
+  box-shadow: 0 28px 56px -16px rgba(138, 62, 27, 0.6), 0 12px 24px -8px rgba(0,0,0,0.3);
 }
 .kit-card--pro .kit-gold-border {
   position: absolute;
   inset: 0;
   border-radius: 18px;
-  padding: 2.5px;
-  background: conic-gradient(from var(--gold-angle, 0deg), #FFD6A8, #F5A050 25%, #FFCC88 50%, #F5A050 75%, #FFD6A8);
-  animation: kit-gold-spin 4s linear infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  border: 2px solid rgba(255, 200, 120, 0.45);
   pointer-events: none;
   z-index: 2;
-  filter: drop-shadow(0 0 12px rgba(255,170,100,0.7));
-}
-@property --gold-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes kit-gold-spin {
-  to { --gold-angle: 360deg; }
 }
 .kit-card--pro::before {
   content: '';
@@ -1779,6 +1764,7 @@ a.path-item .path-num {
   letter-spacing: 0.02em;
 }
 .kit-card-label-sub {
+  font-family: 'Noto Sans TC', sans-serif;
   font-size: 0.82rem;
   font-weight: 500;
   color: #FFD2A8;
@@ -1905,8 +1891,8 @@ a.path-item .path-num {
   font-weight: 600;
 }
 .kit-card-list code {
-  background: rgba(0,0,0,0.2);
-  color: #FFD2A8;
+  background: rgba(255,255,255,0.1);
+  color: var(--orange);
   padding: 0.1em 0.4em;
   border-radius: 4px;
   font-size: 0.85em;
