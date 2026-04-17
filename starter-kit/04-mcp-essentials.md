@@ -123,7 +123,7 @@ claude mcp add firecrawl -- npx -y firecrawl-mcp --api-key YOUR_API_KEY
 **前置條件：** 無（內建 MCP server）
 
 ```bash
-claude mcp add filesystem -- npx -y @anthropic-ai/mcp-filesystem --allow-dir ~/Desktop --allow-dir ~/Documents --allow-dir ~/Downloads
+claude mcp add filesystem -- npx -y @modelcontextprotocol/server-filesystem --allow-dir ~/Desktop --allow-dir ~/Documents --allow-dir ~/Downloads
 ```
 
 或手動編輯 `~/.claude.json`：
@@ -132,7 +132,7 @@ claude mcp add filesystem -- npx -y @anthropic-ai/mcp-filesystem --allow-dir ~/D
 "filesystem": {
   "command": "npx",
   "args": [
-    "-y", "@anthropic-ai/mcp-filesystem",
+    "-y", "@modelcontextprotocol/server-filesystem",
     "--allow-dir", "/Users/USERNAME/Desktop",
     "--allow-dir", "/Users/USERNAME/Documents",
     "--allow-dir", "/Users/USERNAME/Downloads"
@@ -159,7 +159,7 @@ npx -y playwright install chromium
 加入 Claude Code MCP 設定：
 
 ```bash
-claude mcp add playwright -- npx -y @anthropic-ai/mcp-playwright
+claude mcp add playwright -- npx -y @playwright/mcp
 ```
 
 或手動編輯 `~/.claude.json`：
@@ -167,7 +167,7 @@ claude mcp add playwright -- npx -y @anthropic-ai/mcp-playwright
 ```json
 "playwright": {
   "command": "npx",
-  "args": ["-y", "@anthropic-ai/mcp-playwright"]
+  "args": ["-y", "@playwright/mcp"]
 }
 ```
 
