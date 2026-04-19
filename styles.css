@@ -1830,7 +1830,7 @@ a.path-item .path-num {
   display: flex;
   align-items: baseline;
   gap: 0.7rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: rgba(255,255,255,0.88);
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
@@ -1868,7 +1868,7 @@ a.path-item .path-num {
 }
 .kit-card-list .kc-detail {
   color: rgba(255,255,255,0.55);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   margin-left: 0.15rem;
 }
 .kit-card--pro .kit-card-list .kc-detail {
@@ -2188,7 +2188,7 @@ a.path-item .path-num {
 .waitlist-hero {
   display: block;
   position: relative;
-  max-width: 320px;
+  max-width: 440px;
   width: 100%;
   margin: 2.25rem auto 2rem;
   border-radius: 16px;
