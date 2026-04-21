@@ -3227,7 +3227,7 @@ div.course-lesson,
 .showcase-more {
   margin-top: 0;
 }
-.showcase-more-wrap.collapsed .showcase-more {
+.showcase-more-wrap.collapsed .showcase-more > :nth-child(n+4) {
   pointer-events: none;
 }
 .showcase-fade {
@@ -3235,11 +3235,15 @@ div.course-lesson,
   bottom: 0;
   left: 0;
   right: 0;
-  height: 62%;
+  height: 55%;
   background: linear-gradient(to bottom,
-    transparent 0%,
-    rgba(255,255,255,0.85) 23%,
-    #fff 65%);
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.08) 15%,
+    rgba(255,255,255,0.25) 32%,
+    rgba(255,255,255,0.5) 50%,
+    rgba(255,255,255,0.75) 68%,
+    rgba(255,255,255,0.92) 85%,
+    #fff 100%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
