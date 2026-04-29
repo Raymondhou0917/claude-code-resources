@@ -1803,7 +1803,7 @@
           <h4>系列課程</h4>
           <ul>
             <li><a href="https://academy.lifehacker.tw" target="_blank">超級個體課程</a></li>
-            <li><a href="https://lifehacker.tw/courses/24hr-claude-code-tutorial" target="_blank">AI Agent 升級包</a></li>
+            <li><a href="https://lifehacker.tw/courses/24hr-claude-code-tutorial?affcode=cc-resources-footer" target="_blank">AI Agent 升級包</a></li>
           </ul>
         </div>
 
@@ -2104,18 +2104,31 @@
       });
     })();
 
-    // Countdown timer — set your target date here
+    // Countdown timer — tiered phases (台北時間)
     (function () {
-      // ← 修改這裡設定倒數目標日期（台北時間）
-      var TARGET = new Date('2026-04-27T23:59:00+08:00');
+      // ← 修改這裡設定階段倒數（end 為該階段最後一秒，下個階段開始前）
+      var PHASES = [
+        { end: new Date('2026-05-04T23:59:59+08:00') },
+        { end: new Date('2026-05-11T23:59:59+08:00') },
+        { end: new Date('2026-05-18T23:59:59+08:00') },
+        { end: new Date('2026-05-25T23:59:59+08:00') }
+      ];
+
+      function currentTarget() {
+        var now = new Date();
+        for (var i = 0; i < PHASES.length; i++) {
+          if (PHASES[i].end - now > 0) return PHASES[i].end;
+        }
+        return null;
+      }
 
       function tick() {
-        var now = new Date();
-        var diff = TARGET - now;
-        if (diff <= 0) {
+        var target = currentTarget();
+        if (!target) {
           document.getElementById('countdownBar').style.display = 'none';
           return;
         }
+        var diff = target - new Date();
         var d = Math.floor(diff / 86400000);
         var h = Math.floor((diff % 86400000) / 3600000);
         var m = Math.floor((diff % 3600000) / 60000);
