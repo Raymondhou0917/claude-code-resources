@@ -209,14 +209,27 @@ SHOW_PROJECT=__SHOW_PROJECT__
 SHOW_LAST_MSG=__SHOW_LAST_MSG__   # 顯示「最後一則訊息的時間」（需要 Section E 的 hook 支援）
 LAST_MSG_FILE="$HOME/.claude/last-session-msg"
 
-# ── 顏色定義 ──
-WH=$'\033[97m'
-GR=$'\033[38;2;80;200;81m'
-YL=$'\033[38;2;255;235;59m'
-OG=$'\033[38;2;255;152;0m'
-RD=$'\033[38;2;244;67;54m'
-MD=$'\033[38;2;246;184;90m'
-DM=$'\033[90m'
+# ── 顏色定義（依 Claude Code 主題自動切換，淺色主題用較深的字色避免對比度不足） ──
+# /theme 指令會把選擇寫入 ~/.claude.json（全域 config），settings.json 為備援
+_THEME=$(jq -r '.theme // empty' ~/.claude.json 2>/dev/null)
+[ -z "$_THEME" ] && _THEME=$(jq -r '.theme // "dark"' ~/.claude/settings.json 2>/dev/null)
+if [[ "$_THEME" == *"light"* ]]; then
+    WH=$'\033[38;2;40;40;40m'
+    GR=$'\033[38;2;20;120;20m'
+    YL=$'\033[38;2;160;100;0m'
+    OG=$'\033[38;2;180;80;0m'
+    RD=$'\033[38;2;160;20;10m'
+    MD=$'\033[38;2;140;80;10m'
+    DM=$'\033[38;2;110;110;110m'
+else
+    WH=$'\033[97m'
+    GR=$'\033[38;2;80;200;81m'
+    YL=$'\033[38;2;255;235;59m'
+    OG=$'\033[38;2;255;152;0m'
+    RD=$'\033[38;2;244;67;54m'
+    MD=$'\033[38;2;246;184;90m'
+    DM=$'\033[90m'
+fi
 RS=$'\033[0m'
 SEP="${DM} │ ${RS}"
 
@@ -633,6 +646,9 @@ echo '{
 
 **Q：顏色怪怪的、看起來灰灰的？**
 你的終端機不支援 24-bit 真彩（truecolor）。建議換成 iTerm2、WezTerm、Alacritty 或 Ghostty，顏色會完全正確顯示。
+
+**Q：我用淺色主題（例如 `light-daltonized`），文字看不清楚怎麼辦？**
+腳本會自動讀 `~/.claude/settings.json` 的 `theme` 欄位，名稱含 `light` 就切到淺色配色（較深的字、較低飽和度），否則用原本的深色配色。如果你改完 theme 但 statusline 沒跟著變，重新開一個 Claude Code 對話即可。想自己調色直接改腳本顏色定義那段的 `if/else` 兩組 RGB。
 
 **Q：Claude Code 不是有內建的 `/statusline` 指令嗎？**
 有。內建的 `/statusline` 會叫 AI 幫你生一個簡單版本，但樣式比較陽春。這份文件提供的是雷蒙調過、有漸層色 + 雙行 + Git 狀態的完整版，而且所有欄位都有開關。內建版的話請打 `/statusline` 就好。
