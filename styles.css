@@ -629,8 +629,6 @@ h3 { font-size: 1.15rem; font-weight: 700; }
   width: clamp(280px, 40vw, 540px);
   border-radius: 16px;
   overflow: hidden;
-  background: var(--dark);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 80px rgba(26, 26, 26, 0.28), 0 10px 28px rgba(26, 26, 26, 0.16);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -658,37 +656,19 @@ h3 { font-size: 1.15rem; font-weight: 700; }
   box-shadow: 0 40px 100px rgba(26, 26, 26, 0.34), 0 16px 40px rgba(26, 26, 26, 0.2);
 }
 
-/* Small tool badge in the corner */
-.hero-shot-badge {
+/* 文字標籤（取代 logo 徽章） */
+.hero-shot-label {
   position: absolute;
   top: 12px;
   left: 12px;
   z-index: 4;
-  display: inline-flex;
-  width: 34px;
-  height: 34px;
-  border-radius: 26%;
-  padding: 6px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-.hero-shot-badge img {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-shot-badge--claude {
-  background: #D97757;
-}
-
-.hero-shot-badge--claude img {
-  filter: brightness(0) invert(1);
-}
-
-.hero-shot-badge--codex {
-  background: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 5px 11px;
+  border-radius: 7px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
 }
 
 @media (max-width: 860px) {
@@ -786,7 +766,13 @@ h3 { font-size: 1.15rem; font-weight: 700; }
 }
 
 /* ========== Why ========== */
-.why { background: var(--bg); }
+.why {
+  background: var(--bg);
+  position: relative;
+  z-index: 2;
+  margin-top: -110px;
+  padding-top: calc(5rem + 110px);
+}
 
 .why-grid {
   display: grid;
@@ -3813,7 +3799,9 @@ div.course-lesson,
   border-radius: var(--radius-lg);
   background: var(--bg);
   overflow: hidden;
+  transition: border-color 0.18s;
 }
+.vs-qa:hover, .vs-qa:focus-within { border-color: #DA7B4A; }
 .vs-qa-q {
   list-style: none;
   cursor: pointer;
@@ -3823,9 +3811,11 @@ div.course-lesson,
   padding: 1.1rem 1.3rem;
   color: var(--dark);
   transition: background 0.18s;
+  outline: none;
 }
 .vs-qa-q::-webkit-details-marker { display: none; }
 .vs-qa-q:hover { background: var(--beige-light); }
+.vs-qa-q:focus-visible { box-shadow: inset 0 0 0 2px #DA7B4A; }
 .vs-qa-badge {
   flex-shrink: 0;
   font-size: 0.75rem; font-weight: 700;
