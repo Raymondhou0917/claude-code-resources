@@ -188,7 +188,7 @@ jq '.permissions.deny' ~/.claude/settings.json
 問題框請照以下設定：
 
 - **header**：`你要哪種權限模式？`
-- **question**：`Claude Code 的「權限模式」決定 AI 每次做事前會不會先問過你。你希望它有多主動？（放心，前面裝的垃圾桶和黑名單會一直在底下保護你，不管你選哪個模式，最嚴重的指令都不會被執行）`
+- **question**：`Claude Code 的「權限模式」決定 AI 每次做事前會不會先問過你。你希望它有多主動？（放心，前面裝的垃圾桶和黑名單會一直在底下保護你，不管你選哪個模式，最常見的那些危險指令寫法都不會被執行）`
 - **multiSelect**：`false`
 - **options**：
 
@@ -274,7 +274,7 @@ jq '.permissions = (.permissions // {}) | .permissions.defaultMode = "bypassPerm
 >
 > **目前你的狀態：**
 > - ✅ 第一層：`rm` → 垃圾桶（誤刪可還原）
-> - ✅ 第二層：20 條危險指令黑名單（最嚴重的 AI 碰不到）
+> - ✅ 第二層：20 條危險指令黑名單（擋掉最常見的危險指令寫法）
 > - ✅ 第三層：權限模式 = **[用戶選的模式]**
 >
 > **最後兩件事你要知道：**
@@ -293,6 +293,7 @@ jq '.permissions = (.permissions // {}) | .permissions.defaultMode = "bypassPerm
 - **為什麼黑名單裡要放 `sudo *`？** 因為新手在 Claude Code 環境裡幾乎不會有正當理由需要 sudo。真的遇到需要的時候，手動在終端機執行比較安全，不要讓 AI 幫你跑 sudo。
 - **為什麼 Auto Mode 沒在選項裡？** Auto Mode 需要 Claude Code Team / Enterprise / API 方案才能使用，個人的 Pro / Max 訂閱看不到這個選項（2026-04 資訊，以官方為準）。
 - **為什麼 Don't Ask 沒在選項裡？** 因為它其實不是一個「模式」，它是靠 allow rules 白名單累積出來的狀態。新手直接用「Yes, and don't ask again」按鈕去練習就好，不用手動設。
+- **為什麼不說黑名單「滴水不漏」？** 因為它比對的是指令的長相（glob pattern），不是理解意圖。真的有心繞過，`find -delete`、變數代換（`X=rm; $X -rf ...`）、`cd 進資料夾再下相對路徑` 都有機會躲掉比對。這 20 條擋的是最常見的誤用和意外操作——打錯字、複製到危險指令、AI 一時失手——不是防惡意繞道。這也是為什麼標題和話術刻意不寫「完全防護」「滴水不漏」，怕新手誤以為裝完就能對 AI 的所有操作完全不設防。
 
 ### 常見問題
 
