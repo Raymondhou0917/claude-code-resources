@@ -28,7 +28,7 @@
 ### 🛠 Starter Kit（開源設定包）
 
 每份設定包上半給人看（為什麼需要、裝完會怎樣），下半給 AI 執行（完整指令 + 驗證）。
-丟給 Claude Code 說「照這份文件幫我設定」就能用。支援 **macOS / Linux / Windows**。
+丟給 Claude Code 或 Codex 說「照這份文件幫我設定」就能用。支援 **macOS / Linux / Windows**。
 
 AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確認 → 安裝完用白話文條列總結做了什麼。
 
@@ -36,8 +36,8 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 |:--|:--|:--|
 | 01 | [終端機優化](starter-kit/01-terminal-setup.md) | 滑鼠支援、減少閃爍、`cc` 快捷啟動（含 Windows + WMUX） |
 | 02 | [外部編輯器](starter-kit/02-external-editor.md) | 長指令不再痛苦，用編輯器寫 Prompt |
-| 03 | [安全三件套](starter-kit/03-safe-delete.md) | 垃圾桶 + 危險指令黑名單 + 權限模式自選 |
-| 04 | [MCP 推薦清單](starter-kit/04-mcp-essentials.md) | 讓 AI 讀信、抓網頁、管行事曆 |
+| 03 | [跨 Agent 安全三件套](starter-kit/03-safe-delete.md) | Claude Code／Codex：垃圾桶 + 危險指令黑名單 + 權限護欄 |
+| 04 | [跨 Agent MCP 推薦清單](starter-kit/04-mcp-essentials.md) | Claude Code／Codex 都能讀網頁、操作瀏覽器與串接 Google Workspace |
 | 05 | [線上部署](starter-kit/05-deploy-online.md) | 一句話把作品部署上線 |
 | 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git 狀態 |
 
@@ -52,8 +52,8 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 **方法 1：直接看網站**
 → [cc.lifehacker.tw](https://cc.lifehacker.tw)
 
-**方法 2：複製 Starter Kit 的 raw 連結，貼給 Claude Code**
-→ 點進任一設定包，複製 raw URL，貼到 Claude Code 對話框
+**方法 2：複製 Starter Kit 的 raw 連結，貼給 Claude Code 或 Codex**
+→ 點進任一設定包，複製 raw URL，貼到 Claude Code 或 Codex 對話框
 
 **方法 3：看完整 70 分鐘 Claude Code 超詳細入門教學影片**
 → [https://youtu.be/xo7dE80ktu4](https://youtu.be/xo7dE80ktu4)
