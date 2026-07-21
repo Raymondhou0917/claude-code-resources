@@ -41,6 +41,12 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 | 05 | [線上部署](starter-kit/05-deploy-online.md) | 一句話把作品部署上線 |
 | 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git 狀態 |
 
+### 🧰 環境安裝包（開源・步驟 0）
+
+Mac 一鍵把 git／Homebrew／GitHub 裝好，再開場選 Claude、ChatGPT／Codex、兩套都裝，或只裝基礎。不綁課程、可重跑。
+
+→ [**env-installer 使用說明**](env-installer/README.md)｜腳本 [`install-mac.sh`](env-installer/install-mac.sh)
+
 ### 🎓 迷你課程
 
 想要更系統性地學？24 小時入門迷你課，從安裝到實戰一次搞定：

@@ -1,225 +1,213 @@
 // 免費試看文章內容
 window.ARTICLES = {
-  lesson1: `# Claude Code 是什麼？跟 Cowork、NotebookLM 比較，我需要嗎？
+  lesson1: `# AI Agent 是什麼？為什麼連 OpenAI 都把 ChatGPT 砍了？
 
-你可能聽過 ChatGPT 可以幫忙寫程式，但你知道 Anthropic 推出了一個更厲害的工具叫 Claude Code 嗎？
+你一定用過 ChatGPT 或 Claude 網頁：問一句、答一句。
 
-它不只是「聊天視窗裡貼程式碼給你」——它是一個直接在你電腦上運作的 AI 程式助手，能自己讀懂你的檔案、幫你改程式、甚至幫你下指令。
+但 2026 年大廠真正在推的，已經不是「更好的聊天框」，而是 **AI Agent**：能讀你的檔案、用工具、把一整件事做完的代理人。
 
-這篇文章會用最白話的方式告訴你：Claude Code 到底是什麼、怎麼裝、能幹嘛，以及就算你完全不會寫程式，它能幫你做到哪些事。
+這篇用最白話講清楚三件事：Agent 是什麼、跟聊天差在哪、為什麼連 OpenAI 都把舊的 ChatGPT 桌面程式整併掉。
 
 ---
 
-## Claude Code 到底是什麼？
+## 先講結論
 
-Claude Code 是 Anthropic（Claude AI 的公司）推出的一個命令列工具（CLI tool）。
-
-用白話說：你打開電腦的終端機（Terminal），跟它說你想做什麼，它就直接幫你做。
-
-### 跟一般 AI 聊天的差別在哪？
-
-| | 一般 AI 聊天（ChatGPT、Claude.ai） | Claude Code |
+| | 聊天型 AI（Lv1） | AI Agent（Lv3） |
 |:--|:--|:--|
-| **在哪裡用** | 瀏覽器網頁 | 你電腦的終端機 |
-| **怎麼運作** | 你問它，它回答文字 | 它直接讀你的檔案、改你的檔案 |
-| **能做什麼** | 給你程式碼，你自己複製貼上 | 直接幫你建檔案、寫程式、跑指令 |
-| **像什麼** | 像問一個顧問 | 像請一個助手坐在你旁邊幫你做 |
+| **像什麼** | 顧問：給你答案 | 實習生：接手任務 |
+| **你在做什麼** | 一直問、一直複製貼上 | 給目標、給規則，讓它跑 |
+| **典型入口** | ChatGPT 的 Chat、claude.ai 網頁 | Claude Code、ChatGPT 的 Codex／Work |
 
-簡單說：一般 AI 聊天是「給你答案」，Claude Code 是「幫你做事」。
-
----
-
-## 誰適合用 Claude Code？
-
-你可能會想：「這聽起來很技術，我又不是工程師。」
-
-但其實 Claude Code 的厲害之處就在於——你只要用中文告訴它你想做什麼就好。
-
-以下是一些「非工程師」也能用的場景：
-
-**行銷人員**
-- 「幫我寫一個 Python 腳本，把這個 CSV 裡的客戶資料整理成報表」
-- 「幫我抓這個網站上的產品價格，存成 Excel」
-
-**創業者 / 老闆**
-- 「幫我做一個簡單的網頁，上面放我的服務介紹跟聯絡表單」
-- 「幫我寫一個 LINE Bot，客人傳訊息可以自動回覆菜單」
-
-**老師 / 研究者**
-- 「幫我寫一個程式，分析這份問卷的回答，畫出統計圖表」
-- 「幫我整理這個資料夾裡所有 PDF 的檔名，列成一張清單」
-
-**自由工作者**
-- 「幫我寫一個自動備份 Google Drive 檔案的腳本」
-- 「幫我建一個記帳用的小工具」
-
-你不需要知道 Python 是什麼、怎麼做。
-你只要會說「我想做什麼」、「跟我討論計劃和需求」，Claude Code 就會幫你把程式寫出來、跑起來。
+一句話：**聊天是「給你答案」；Agent 是「幫你做事」。**
 
 ---
 
-## 安裝教學（5 分鐘搞定）
+## 為什麼說 OpenAI「把 ChatGPT 砍了」？
 
-有兩種方式，選你喜歡的：
+2026 年 7 月起，OpenAI 將官方桌面端以 Codex 為主體，將 AI 應用的主力方向調整成 AI Agent。
 
-### 方式 A：下載桌面 App（最簡單）
+原本大家習慣的純聊天型 AI（ChatGPT），被改名為「ChatGPT Classic」（傳統版）。
 
-到 [claude.com/download](https://claude.com/download) 下載 Claude 桌面 App，安裝後就能同時使用 Cowork 和 Code 功能。跟裝一般軟體一樣，適合完全不想碰終端機的人。
+這款新的桌面版應用，已整合了 Codex 的功能，主要提供兩大模式：
 
-### 方式 B：一行指令安裝（推薦）
+- **Work／Codex**：Agent 模式（規劃、用工具、交成果），吃獨立的訂閱額度
+- **Chat**：問答（你熟悉的聊天，變成輔助任務執行用）
 
-打開終端機（Mac 用「終端機」App，Windows 用 PowerShell），貼上這行：
+Anthropic 也一樣：從網頁聊天，走到桌面、Cowork、再到 **Claude Code** 這種能動本機專案的 Agent。
 
-**Mac / Linux：**
-\`\`\`
-curl -fsSL https://claude.ai/install.sh | bash
-\`\`\`
+大廠的共識很清楚：
 
-**Windows：**
-\`\`\`
-irm https://claude.ai/install.ps1 | iex
-\`\`\`
+> 把「專門寫程式的 Coding Agent」變成「通用 AI 代理人」。
 
-等它跑完，輸入 \`claude\` 就能啟動。第一次使用會請你登入 Claude 帳號，登入後就能開始用了。
-
-不需要裝 Node.js，不需要任何前置作業。就這樣。
-
-> 想看圖文版安裝教學？參考 [Claude Code 安裝圖文教學](https://madebypan.com/claude-guide)
+模型當然還在變強，但真正拉開差距的，是你有沒有一套**能替你執行任務的 Agent**。
 
 ---
 
-## 實際操作：5 個你今天就能試的用法
+## 三層地圖：你現在站在哪？
 
-### 用法 1：把 Excel 資料自動整理成報表
+不用背產品名，先分層：
 
-假設你有一份銷售數據的 CSV 檔案，想要自動整理：
+**Lv1｜聊天型**  
+代表：ChatGPT 的 Chat、claude.ai。  
+適合：臨時問一句。你的角色是操作員，每一步都要自己下指令。
 
-> 讀取 sales.csv，幫我算出每個月的總營收，然後畫一個長條圖存成 chart.png
+**Lv2｜協作型**  
+代表：NotebookLM、Claude Cowork、做簡報／整理文件的 AI。  
+適合：丟進多份資料，一起完成一個領域任務。你的角色是管理者。
 
-Claude Code 會：讀取你的 CSV 檔案 → 寫一個 Python 程式做計算 → 用 matplotlib 畫圖 → 把圖片存到你指定的位置。你全程只打了一句話。
+**Lv3｜代理型（本篇重點）**  
+代表：**Claude Code**、**ChatGPT Codex**（或日常用 Work）。  
+適合：丟一個完整目標，讓它規劃步驟、用工具、交成果。你的角色是定規則、驗收結果。
 
-### 用法 2：快速做一個網頁
-
-> 幫我做一個個人作品集網頁，要有自我介紹、作品展示區（用卡片排列）、聯絡表單。風格簡約，配色用深藍和白色
-
-Claude Code 直接在你的資料夾裡建好 index.html、style.css，打開瀏覽器就能看到成品。
-
-### 用法 3：整理大量檔案
-
-> 把這個資料夾裡所有的照片按拍攝日期分類到子資料夾，格式是 YYYY-MM
-
-它讀取照片的 EXIF 資料，自動建資料夾、搬檔案。手動做可能要一小時，它幾秒就完成。
-
-### 用法 4：分析資料
-
-> 讀取 survey.csv，幫我找出回答滿意度低於 3 分的客戶，統計他們最常抱怨的前 5 個問題
-
-Claude Code 會寫程式讀取資料、做分析、把結果整理好給你。
-
-### 用法 5：自動化重複工作
-
-> 幫我寫一個腳本，每天早上 9 點自動抓取台灣銀行的匯率資料，存到 Google Sheets
-
-它會幫你寫好腳本，並告訴你怎麼設定排程（Mac 用 cron，Windows 用工作排程器）。
+Lv3 學會之後，Lv1／Lv2 的能力通常都涵蓋得到，還多出「真的能接手工作」的那一層。
 
 ---
 
-## 使用小技巧
+## Agent 到底是什麼？（不是更強的模型）
 
-### 1. 說清楚你要什麼
+常見迷思：**Agent ≠ 比較強的 LLM**。
 
-越具體越好。
+Claude、GPT、Gemini 是大腦（模型）。Agent 是一套運作方式：
 
-- **普通**：「幫我做一個網頁」
-- **更好**：「幫我做一個單頁式網頁，上面有三個區塊：hero banner 放一張大圖、中間放服務介紹用三欄排列、最下面放聯絡表單。用繁體中文，手機版要能正常瀏覽」
+> **Agent = LLM（大腦）＋ Harness（規則與工作環境）＋ Tools（手腳）**
 
-### 2. 可以連續下指令
-
-Claude Code 會記得你之前說的話。你可以逐步修改：
-
-> 幫我做一個計算機網頁
-
-（它做完後）
-
-> 加上深色模式
-
-（它改完後）
-
-> 把按鈕改成圓角，間距再大一點
-
-就像跟一個設計師來回溝通一樣。
-
-### 3. 它改東西之前會先問你
-
-Claude Code 在執行指令或修改檔案前，會先告訴你它打算做什麼，等你同意才會動手。所以不用擔心它會亂改你的東西。
-
-### 4. 用 CLAUDE.md 記住你的偏好
-
-在你的資料夾放一個 CLAUDE.md 檔案，寫上你的偏好。例如：
-
-\`\`\`
-- 跟我對話一律使用繁體中文
-- CSS 用 Tailwind
-- 程式碼加上註解，用中文解釋
-- 我不是工程師，請用白話文向我說明技術細節
-\`\`\`
-
-之後每次使用，Claude Code 都會先讀這個檔案，自動遵守你的規則。
+Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不能動哪些檔案。  
+模型人人租得到；真正屬於你的，是你替它設計的那套工作環境。
 
 ---
 
-## Claude Code vs 其他 AI 工具
+## 我該選 Claude 還是 ChatGPT？
 
-| | Claude Code | ChatGPT / Gemini | Cursor |
-|:--|:--|:--|:--|
-| **使用方式** | 終端機（CLI）或桌面 App | 網頁聊天 | 獨立 IDE |
-| **能直接改你的檔案嗎** | 可以 | 不行（只給你程式碼） | 可以 |
-| **能跑指令嗎** | 可以（經你同意） | 不行 | 部分可以 |
-| **理解整個專案** | 可以（讀取所有檔案） | 只看你貼的內容 | 看開啟的檔案 |
-| **繁中支援** | 好 | 好 | 好 |
-| **適合非工程師** | 中等（需要用終端機） | 高（網頁操作） | 中等 |
-| **價格** | 訂閱制 $20 USD 月起 | 免費 / $20 USD 月 | $20 USD 月 |
+短期不用焦慮「選錯廠牌」：
 
-**簡單結論：**
+1. **先選一個約 USD 20 的方案試一個月**（常見起點：Claude Pro 或 ChatGPT Plus）。
+2. **拿不定主意就兩個都試**，用一陣子比看十篇評測準。
+3. 新手入口常見是：
+   - Claude → **Claude 桌面 App**／Claude Code
+   - OpenAI → **ChatGPT 桌面 App** → 開 **Codex** 或 **Work**
 
-- 如果你想要 AI「直接幫你做事」→ **Claude Code**
-- 如果你只是想問問題、拿到程式碼自己貼 → ChatGPT / Gemini
-- 如果你本身是工程師、想要在 IDE 裡有 AI 輔助 → Cursor / Antigravity
+兩邊概念同一套；檔名與介面不同（例如規則檔一邊叫 \`CLAUDE.md\`，一邊常寫 \`AGENTS.md\`）。
 
 ---
 
-## 常見問題
+## 下一步：先把電腦變成「AI 友善基地」
 
-**Q：我完全不會程式，真的能用嗎？**
-可以。Claude Code 最大的特色就是你用自然語言（中文就行）告訴它你想做什麼，它會自己寫程式。但你至少要會基本的終端機操作（開終端機、cd 到資料夾、打字下指令），或是直接下載桌面 App 用 Cowork 模式。
+觀念對了，再來裝工具。
 
-**Q：會不會把我的檔案搞壞？**
-Claude Code 在執行任何動作前都會先告訴你、等你同意。而且它不會碰你沒叫它碰的東西。養成好習慣——重要檔案先備份，或是用 Git 做版本控制。
+如果你是 Mac，可以用我們開源的一鍵環境安裝包：裝 git、Homebrew、GitHub，再開場選 Claude／Codex／兩套都裝／只裝基礎。
 
-**Q：要花多少錢？**
-建議直接用 Claude Pro 訂閱（$20 美元/月），包含 Claude Code 使用額度。用 API 按量計費其實非常貴，重度使用一天就可能花掉一整個月的訂閱費。如果用量很大，可以升級到 Max 訂閱（$100 美元/月），額度會多非常多。
+→ 同一頁下方第二則免費導讀，或直接看 GitHub：  
+[env-installer 使用說明](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)
 
-**Q：台灣能用嗎？**
-可以。Claude Code 在台灣可以正常使用，不需要 VPN。帳號註冊和付費都支援台灣的信用卡。
-
-**Q：跟直接用 Claude.ai 網頁版有什麼差別？**
-Claude.ai 網頁版就像「聊天室」——你問它問題，它回答文字。Claude Code 是「助手」——它直接在你電腦上工作，讀你的檔案、改你的檔案、幫你執行指令。兩個是互補的工具。
-
-**Q：Claude Code 跟 Claude Cowork 差在哪？**
-Cowork 住在桌面 App 裡，適合處理日常工作（整理檔案、做試算表、操作已授權的 App）。Claude Code 跑在終端機，適合「從零打造東西」——做網頁、寫腳本、建系統。如果你的需求是整理和分析，Cowork 就夠；如果你想創造新工具，就用 Code。
+想系統性把 AI 練成自己的分身：  
+[超級 AI 個體｜體驗課](https://shifu.tw/course/trial/aibootcamp)
 
 ---
 
 ## 延伸閱讀
 
-想更深入了解 Claude Code 跟 Claude Cowork（桌面版）的差異？這篇完整比較幫你搞懂該選哪個：
+- 課程附錄級地圖（產品名會變，以官方為準）：可對照 Claude Code × ChatGPT Codex 雙棲說法
+- 完整比較若你還在選工具：可再讀雷蒙站上的 Claude／Cowork／NotebookLM 相關長文
 
-**[Claude Cowork 成熟之後，跟 NotebookLM、Claude Code 該怎麼選？](https://raymondhouch.com/lifehacker/digital-workflow/claude-cowork-vs-notebooklm-vs-code/)**
+*產品名稱變很快；這篇講的是「聊天 → Agent」的方向，細節以各官網為準。*
+`,
 
-想看更完整的入門教學和真實案例？
+  lesson2: `# Mac 一鍵環境安裝包：把電腦調成 AI 友善基地
 
-**[Claude Code 教學｜非工程師的完整入門指南](https://raymondhouch.com/lifehacker/digital-workflow/claude-code-tutorial/)**
+這是「超級 AI 個體」課程開源的 **步驟 0**：給所有想開始用 AI Agent 的人，不綁付費內容。
 
-*想了解更多 Claude Code 的功能和最新更新，可以參考 [Anthropic 官方文件](https://docs.anthropic.com/en/docs/claude-code)。*
+雙擊（或跑一支腳本）大約 10～15 分鐘，把地基裝好；Agent 要 Claude 還是 Codex，開場自己選。
+
+---
+
+## 它會裝什麼
+
+**必裝地基（自動）**
+
+1. git（版本控制／時光機）
+2. Homebrew（Mac 軟體管家；舊系統可能走備用路線）
+3. GitHub CLI（\`gh\`）
+4. GitHub 登入
+
+**開場選一條路線**
+
+| 選項 | 內容 |
+|:--|:--|
+| **[1] Claude** | Claude Code ＋ Claude 桌面版 |
+| **[2] ChatGPT／Codex** | Codex CLI ＋ ChatGPT 桌面版 |
+| **[3] 兩套都裝** | 雙棲一次到位 |
+| **[4] 只裝基礎** | 只有地基；Agent 之後再補 |
+
+直接按 Enter＝只裝基礎。已經裝過的會自動跳過，可重跑。  
+完成畫面依**實際結果**打勾，不會假裝成功。
+
+> 桌面版自己會提示更新；安裝包**不會**幫你排程 \`brew upgrade\`。
+
+---
+
+## 怎麼用
+
+### 新手：等簽名 App（正式下載）
+
+簽名＋公證的 \`超級AI個體 環境安裝.zip\` 打包完成後會放在本 repo Release／說明頁。解壓後**雙擊 App**，選路線，跟著畫面走即可。
+
+### 現在就能跑（熟手／開發預覽）
+
+在本機 clone 這個 repo 後：
+
+\`\`\`bash
+cd env-installer
+chmod +x install-mac.sh
+./install-mac.sh
+\`\`\`
+
+只要工具、不登入 GitHub：
+
+\`\`\`bash
+./install-mac.sh --skip-auth
+\`\`\`
+
+完整說明：[env-installer/README.md](https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md)
+
+---
+
+## 常見「以為壞了」
+
+- **打密碼沒有字**：正常，打完按 Enter。
+- **畫面卡住**：多半在下載（Homebrew 最久約 3～5 分鐘）。
+- **系統擋 App**：未公證的測試檔，對 App 按右鍵 → 打開。
+
+---
+
+## 舊 Mac？
+
+| macOS | 行為 |
+|:--|:--|
+| 14+ | 完整 Homebrew 路線 |
+| 13 | 自動改官方安裝器備用路線 |
+| 12 以下 | 友善停止，導向 Claude 桌面版 |
+
+---
+
+## Windows
+
+一鍵 App 還沒有。PowerShell 可先：
+
+\`\`\`powershell
+winget install --id Git.Git -e
+winget install --id GitHub.cli -e
+irm https://claude.ai/install.ps1 | iex
+gh auth login
+\`\`\`
+
+細節見 README 的 Windows 段落。
+
+---
+
+## 裝完之後
+
+- 終端機打 \`claude\` 或 \`codex\`（依你選的路線），或開對應桌面 App。
+- 想把 AI 練成自己的分身： [超級 AI 個體體驗課](https://shifu.tw/course/trial/aibootcamp)
+- 觀念還沒搞懂？先看同一頁第一則免費導讀：〈AI Agent 是什麼？〉
 `
 };
