@@ -2,7 +2,7 @@
 
 > ⭐ 初學者友善｜5 分鐘｜macOS / Linux（Windows 用 WSL）
 
-![雷蒙的 Status Line 範例](https://image.lifehacker.tw/tutorial/claude-code/Statusline_20260408_205443.jpg)
+![雷蒙的 Status Line 範例（含選配的 Fable 5 專屬額度欄位「F 2D13H 46%」）](https://image.lifehacker.tw/tutorial/claude-code/Statusline_20260722_fable.jpg)
 
 ## 你可能遇過這個問題
 
