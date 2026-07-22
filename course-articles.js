@@ -100,7 +100,7 @@ Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不
 [env-installer 使用說明](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)
 
 想系統性把 AI 練成自己的分身：  
-[超級 AI 個體｜體驗課](https://shifu.tw/course/trial/aibootcamp)
+[超級 AI 個體｜體驗課](https://shifu.tw/course/trial/ai-agent-bootcamp)
 
 ---
 
@@ -207,7 +207,7 @@ gh auth login
 ## 裝完之後
 
 - 終端機打 \`claude\` 或 \`codex\`（依你選的路線），或開對應桌面 App。
-- 想把 AI 練成自己的分身： [超級 AI 個體體驗課](https://shifu.tw/course/trial/aibootcamp)
+- 想把 AI 練成自己的分身： [超級 AI 個體體驗課](https://shifu.tw/course/trial/ai-agent-bootcamp)
 - 觀念還沒搞懂？先看同一頁第一則免費導讀：〈AI Agent 是什麼？〉
 `
 };
