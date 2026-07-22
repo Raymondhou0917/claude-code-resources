@@ -1855,6 +1855,10 @@ a.path-item .path-num {
   cursor: pointer;
   transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
+#path a.free-teaser {
+  text-decoration: none;
+  color: inherit;
+}
 #path .free-teaser:hover {
   background: rgba(218, 123, 74, 0.12);
   border-color: var(--orange);
@@ -2934,6 +2938,16 @@ a.path-item .path-num {
 .lightbox-article hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 .lightbox-article a { color: var(--orange); }
 .lightbox-article strong { font-weight: 600; color: var(--dark); }
+.lightbox-article img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0.6rem 0 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+}
 
 /* ========== Course Modules (from course-preview) ========== */
 .course-modules { margin-top: 2.5rem; }

@@ -1221,20 +1221,20 @@
 
       <div style="margin-top:2.5rem">
         <!-- Free Preview Teasers -->
-        <div class="ls ls-free free-teaser" onclick="openLesson(1)">
+        <a href="#lesson-1" class="ls ls-free free-teaser">
           <div class="ls-n">🎁</div>
           <div class="ls-body">
             <div class="ls-t">免費導讀｜AI Agent 是什麼？為什麼連 OpenAI 都把 ChatGPT 砍了？ <span class="tg tg-r">免費試看</span></div>
             <div class="ls-d">用白話分清聊天型 AI 跟 Agent；搞懂大廠為何把純聊天桌面整併進可做事的工具</div>
           </div>
-        </div>
-        <div class="ls ls-free free-teaser" onclick="openLesson(2)" style="margin-top:0.75rem">
+        </a>
+        <a href="#lesson-2" class="ls ls-free free-teaser" style="margin-top:0.75rem">
           <div class="ls-n">🧰</div>
           <div class="ls-body">
             <div class="ls-t">免費導讀｜Mac 一鍵環境安裝包（開源） <span class="tg tg-r">免費試看</span></div>
-            <div class="ls-d">步驟 0：雙擊或跑腳本，裝好 git／GitHub，再開場選 Claude、Codex、雙棲或只裝基礎</div>
+            <div class="ls-d">步驟 0：雙擊 App，裝好 git／GitHub；開場勾選 Claude／Codex，圖解截圖一步一步帶你做</div>
           </div>
-        </div>
+        </a>
 
         <!-- Module 1 -->
         <div class="mg">
@@ -2240,7 +2240,7 @@
       });
     });
 
-    // Article lightbox
+    // Article lightbox + 固定網址：#lesson-1 / #lesson-2（開啟）、關閉後回到 #path
     function openLesson(num) {
       var key = 'lesson' + num;
       var md = window.ARTICLES && window.ARTICLES[key];
@@ -2261,13 +2261,31 @@
           el.innerHTML = '<pre style="white-space:pre-wrap">' + md + '</pre>';
         }
       }
+      var path = document.getElementById('path');
+      if (path) path.scrollIntoView({ block: 'start' });
       document.getElementById('lessonLightbox').classList.add('open');
       document.getElementById('lessonLightbox').scrollTop = 0;
+      var want = '#lesson-' + num;
+      if (location.hash !== want) history.replaceState(null, '', want);
     }
 
     function closeLesson() {
       document.getElementById('lessonLightbox').classList.remove('open');
+      if (/^#lesson-\d+$/.test(location.hash || '')) {
+        history.replaceState(null, '', '#path');
+      }
     }
+
+    function applyLessonHash() {
+      var m = (location.hash || '').match(/^#lesson-(\d+)$/);
+      if (m) openLesson(parseInt(m[1], 10));
+      else if (document.getElementById('lessonLightbox').classList.contains('open') && (location.hash === '#path' || location.hash === '')) {
+        document.getElementById('lessonLightbox').classList.remove('open');
+      }
+    }
+
+    window.addEventListener('hashchange', applyLessonHash);
+    applyLessonHash();
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeLesson();

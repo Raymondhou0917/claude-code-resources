@@ -94,9 +94,9 @@ Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不
 
 觀念對了，再來裝工具。
 
-如果你是 Mac，可以用我們開源的一鍵環境安裝包：裝 git、Homebrew、GitHub，再開場選 Claude／Codex／兩套都裝／只裝基礎。
+如果你是 Mac，可以用我們開源的一鍵環境安裝包：裝 git、Homebrew、GitHub，再開場用 checkbox 勾選要裝的 Claude／Codex 桌面版或終端機版。
 
-→ 同一頁下方第二則免費導讀，或直接看 GitHub：  
+→ 同一頁下方第二則免費導讀（含圖解截圖），或直接看 GitHub：  
 [env-installer 使用說明](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)
 
 想系統性把 AI 練成自己的分身：  
@@ -116,7 +116,7 @@ Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不
 
 這是「超級 AI 個體」課程開源的 **步驟 0**：給所有想開始用 AI Agent 的人，不綁付費內容。
 
-雙擊（或跑一支腳本）大約 10～15 分鐘，把地基裝好；Agent 要 Claude 還是 Codex，開場自己選。
+雙擊 App 大約 10～15 分鐘，把地基裝好；開場用 checkbox 勾選要裝的 Claude／Codex（可複選）。下面每一步都有截圖，照著做即可。
 
 ---
 
@@ -129,45 +129,108 @@ Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不
 3. GitHub CLI（\`gh\`）
 4. GitHub 登入
 
-**開場選一條路線**
+**挑你要裝的 AI 工具**（↑↓ 移動、空白鍵勾選、可複選；都不勾＝只裝基礎）
 
-| 選項 | 內容 |
+| 選項 | 說明 |
 |:--|:--|
-| **[1] Claude** | Claude Code ＋ Claude 桌面版 |
-| **[2] ChatGPT／Codex** | Codex CLI ＋ ChatGPT 桌面版 |
-| **[3] 兩套都裝** | 雙棲一次到位 |
-| **[4] 只裝基礎** | 只有地基；Agent 之後再補 |
+| ☐ Claude 桌面版 | Claude 官方桌面 App |
+| ☐ Claude 終端機版 | Claude Code |
+| ☐ ChatGPT 桌面版 | ChatGPT 官方桌面 App |
+| ☐ Codex 終端機版 | Codex CLI |
 
-直接按 Enter＝只裝基礎。已經裝過的會自動跳過，可重跑。  
-完成畫面依**實際結果**打勾，不會假裝成功。
+已經裝過的會自動跳過，可重跑。完成畫面依**實際結果**打勾，不會假裝成功。
 
 > 桌面版自己會提示更新；安裝包**不會**幫你排程 \`brew upgrade\`。
 
 ---
 
-## 怎麼用
+## 下載
 
-### 新手：等簽名 App（正式下載）
+已簽名＋公證的 Mac 安裝包：
 
-簽名＋公證的 \`超級AI個體 環境安裝.zip\` 打包完成後會放在本 repo Release／說明頁。解壓後**雙擊 App**，選路線，跟著畫面走即可。
+→ [下載「雷蒙的 AI 基礎環境安裝包(MAC).zip」](env-installer/%E9%9B%B7%E8%92%99%E7%9A%84%20AI%20%E5%9F%BA%E7%A4%8E%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E5%8C%85%28MAC%29.zip)
 
-### 現在就能跑（熟手／開發預覽）
+文字版與 Windows 做法：[env-installer/README.md](https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md)
 
-在本機 clone 這個 repo 後：
+---
 
-\`\`\`bash
-cd env-installer
-chmod +x install-mac.sh
-./install-mac.sh
-\`\`\`
+## 圖解操作步驟
 
-只要工具、不登入 GitHub：
+跟著截圖走。中途只會請你「輸入 Mac 密碼」和「開瀏覽器登入 GitHub」，都是正常關卡。
 
-\`\`\`bash
-./install-mac.sh --skip-auth
-\`\`\`
+### 一、下載到打開
 
-完整說明：[env-installer/README.md](https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md)
+**1. 解壓縮**：下載到的 zip，瀏覽器通常會自動解壓成 App（沒有的話雙擊它）。
+
+![解壓縮下載的 zip](env-installer/images/01-download-unzip.webp)
+
+**2. 雙擊 App**：解壓後會出現星光背包圖示的 App，雙擊它。
+
+![雙擊 App](env-installer/images/02-open-app.webp)
+
+**3. 打開**：已簽名＋公證，系統顯示「已檢查，未偵測到惡意軟體」時按「打開」。
+
+![確認打開](env-installer/images/03-gatekeeper-allow.webp)
+
+### 二、開場：挑你要裝的 AI 工具
+
+基礎環境一定會裝。AI 工具用 **↑↓ 移動、空白鍵勾選（可複選）、Enter 確認**；都不勾＝只裝基礎環境。
+
+![勾選要裝的 AI 工具](env-installer/images/04-select-tools.webp)
+
+### 三、基礎環境
+
+**5. 輸入 Mac 密碼**：安裝 Homebrew 時會請你輸入電腦密碼。打字時看不到字是正常的，打完按 Enter。
+
+![輸入 Mac 密碼](env-installer/images/05-enter-mac-password.webp)
+
+**6. 按 Enter 繼續**：Homebrew 會列出要安裝的位置，按 Enter 讓它繼續。這一站最久，約 3～5 分鐘，畫面卡著是在下載、不是當機。
+
+![Homebrew 按 Enter 繼續](env-installer/images/06-homebrew-continue.webp)
+
+### 四、登入 GitHub
+
+**7. 開始 GitHub 登入**：進到「GitHub 登入」這一站，跟著往下選。
+
+![GitHub 登入引導](env-installer/images/07-github-login-overview.webp)
+
+**8. 選 GitHub.com**：用方向鍵選 \`GitHub.com\`。
+
+![選 GitHub.com](env-installer/images/08-github-choose-host.webp)
+
+**9. 選 HTTPS**：協定選 \`HTTPS\`。
+
+![選 HTTPS 協定](env-installer/images/09-github-choose-protocol.webp)
+
+**10. 複製一次性驗證碼**：終端機會顯示一組 one-time code，先複製起來，按 Enter 會自動開瀏覽器。
+
+![複製一次性驗證碼](env-installer/images/10-github-copy-code.webp)
+
+**11. 瀏覽器：Device Activation**：瀏覽器打開後按「Continue」。
+
+![Device Activation](env-installer/images/11-browser-device-activation.webp)
+
+**12. 貼上驗證碼**：把剛剛複製的驗證碼貼進去，按 Continue。
+
+![貼上驗證碼](env-installer/images/12-browser-paste-code.webp)
+
+**13. 授權**：確認權限後按綠色的「Authorize github」。
+
+![授權 GitHub CLI](env-installer/images/13-browser-authorize.webp)
+
+**14. 連結完成**：看到「Congratulations, you're all set!」就代表登入好了，可關掉瀏覽器回到終端機。
+
+![連結完成](env-installer/images/14-browser-connected.webp)
+
+### 五、其他工具與完成
+
+**15. 繼續安裝你勾選的工具**：接著會自動裝你勾的 AI 工具，跟著跑就好。
+
+![安裝其他工具](env-installer/images/15-install-other-tools.webp)
+
+**16. 完成**：最後畫面會依**實際結果**逐項打勾。看到這張就全部裝好了，按 Enter 關閉視窗即可。
+
+![完成安裝](env-installer/images/16-done.webp)
 
 ---
 
@@ -175,7 +238,7 @@ chmod +x install-mac.sh
 
 - **打密碼沒有字**：正常，打完按 Enter。
 - **畫面卡住**：多半在下載（Homebrew 最久約 3～5 分鐘）。
-- **系統擋 App**：未公證的測試檔，對 App 按右鍵 → 打開。
+- **系統擋 App**：已公證的正式版通常不會；若遇到，對 App 按右鍵 → 打開。
 
 ---
 
@@ -200,14 +263,25 @@ irm https://claude.ai/install.ps1 | iex
 gh auth login
 \`\`\`
 
-細節見 README 的 Windows 段落。
+細節見 [README 的 Windows 段落](https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md#windows-%E5%90%8C%E5%AD%B8%E6%80%8E%E9%BA%BC%E8%BE%A6)。
+
+### 熟手：直接跑腳本
+
+\`\`\`bash
+cd env-installer
+chmod +x install-mac.sh
+./install-mac.sh
+\`\`\`
+
+只要工具、不登入 GitHub：\`./install-mac.sh --skip-auth\`  
+指定工具、不進選單：\`./install-mac.sh --tools=claude|codex|both|base\`
 
 ---
 
 ## 裝完之後
 
-- 終端機打 \`claude\` 或 \`codex\`（依你選的路線），或開對應桌面 App。
-- 想把 AI 練成自己的分身： [超級 AI 個體體驗課](https://shifu.tw/course/trial/ai-agent-bootcamp)
+- 依你勾選的工具，終端機打 \`claude\` 或 \`codex\`，或開對應桌面 App 登入。
+- 想把 AI 練成自己的分身：[超級 AI 個體體驗課](https://shifu.tw/course/trial/ai-agent-bootcamp)
 - 觀念還沒搞懂？先看同一頁第一則免費導讀：〈AI Agent 是什麼？〉
 `
 };
