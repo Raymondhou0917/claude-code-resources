@@ -1,33 +1,37 @@
 #!/usr/bin/env bash
 # ════════════════════════════════════════════════════
-#  超級 AI 個體 · AI 環境安裝（Mac）── 開源版
+#  雷蒙的 AI 基礎環境安裝包(MAC) ── 開源版
 #  給所有想讓 AI 上工的人：雙擊一次，環境全部就位。
 #
 #  必裝：git → Homebrew → GitHub CLI → GitHub 登入
-#  路線：Claude／ChatGPT·Codex／兩套都裝／只裝基礎
+#  選裝路線（開場自己選，不預設）：
+#    Claude 路線 / ChatGPT・Codex 路線 / 兩套都裝 / 只裝基礎環境
 #  可重跑，已裝好的會自動 skip。
 # ════════════════════════════════════════════════════
 #  用法：
-#    ./install-mac.sh                 # 互動安裝（開場選路線）
+#    ./install-mac.sh                 # 互動安裝（開場會請你選路線）
 #    ./install-mac.sh --skip-auth     # 不登入 GitHub
-#  非互動執行（例如交給 AI Agent 跑）時，預設只裝基礎環境。
+#    ./install-mac.sh --tools=claude|codex|both|base
+#                                     # 直接指定路線，不進選單
+#  非互動執行（例如交給 AI Agent 跑）且沒給 --tools 時，
+#  只裝基礎環境，不替使用者決定要用哪家的 AI。
 #
 #  相容性分流：
 #    macOS 14+        → 完整路線（Homebrew）
 #    macOS 13         → 備用路線（官方安裝器，不走 Homebrew）
 #    macOS 12 以下    → 停止，導向 Claude 桌面版（macOS 11+ 可用）
-#
-#  開源正本：https://github.com/Raymondhou0917/claude-code-resources
 set -euo pipefail
 
-AD_URL="https://shifu.tw/course/trial/aibootcamp"
+AD_URL="https://shifu.tw/course/trial/ai-agent-bootcamp"
 
 WITH_AUTH=1
+TOOLS=""          # claude / codex / both / base，空＝進選單問
 for arg in "$@"; do
   case "$arg" in
     --skip-auth) WITH_AUTH=0 ;;
+    --tools=claude|--tools=codex|--tools=both|--tools=base) TOOLS="${arg#--tools=}" ;;
     -h|--help)
-      echo "用法: ./install-mac.sh [--skip-auth]"
+      echo "用法: ./install-mac.sh [--skip-auth] [--tools=claude|codex|both|base]"
       exit 0
       ;;
     *) echo "未知參數: $arg" >&2; exit 2 ;;
@@ -51,30 +55,15 @@ STEP_NO=0
 STEP_TOTAL=4
 step()      { STEP_NO=$((STEP_NO+1)); printf '\n%s━━━ 第 %s 站 / %s · %s ━━━━━━━━━━━━━%s\n' "$B" "$STEP_NO" "$STEP_TOTAL" "$1" "$N"; }
 
-# 實際結果（完成畫面只依此顯示，不依「有沒有勾選」虛報）
-STATUS_GIT="skip"
-STATUS_BREW="skip"
-STATUS_GH="skip"
-STATUS_GH_AUTH="skip"
-STATUS_CLAUDE="skip"
-STATUS_CLAUDE_APP="skip"
-STATUS_CODEX="skip"
-STATUS_CHATGPT_APP="skip"
-
-mark() {
-  # mark VAR ok|fail|skip|partial
-  local var="$1" val="$2"
-  printf -v "$var" '%s' "$val"
-}
-
-status_line() {
-  local label="$1" st="$2"
-  case "$st" in
-    ok)      printf '    %s✓%s %s\n' "$G" "$N" "$label" ;;
-    partial) printf '    %s!%s %s（已安裝，登入／指令稍後補）\n' "$Y" "$N" "$label" ;;
-    fail)    printf '    %s✗%s %s（這次沒完成，之後再跑一次可補）\n' "$R" "$N" "$label" ;;
-    skip)    ;;
-    *)       printf '    %s·%s %s\n' "$D" "$N" "$label" ;;
+# ── 安裝結果紀錄（完成畫面只報實際發生的事）─────────
+# 值：ok / fail / skip；空字串＝這趟沒碰到，完成畫面不列
+ST_GIT=""; ST_BREW=""; ST_GH=""; ST_AUTH=""
+ST_CLAUDE=""; ST_CLAUDE_APP=""; ST_CODEX=""; ST_CHATGPT_APP=""
+result_line() {  # $1=狀態 $2=項目名 $3=備註（fail/skip 才顯示）
+  case "$1" in
+    ok)   printf '    %s✓%s %s\n' "$G" "$N" "$2" ;;
+    skip) printf '    %s–%s %s%s（%s）%s\n' "$Y" "$N" "$2" "$D" "$3" "$N" ;;
+    fail) printf '    %s✗%s %s%s（%s）%s\n' "$R" "$N" "$2" "$D" "$3" "$N" ;;
   esac
 }
 
@@ -134,6 +123,9 @@ ${B}═════════════════════════�
         → 到 claude.com/download 下載，一樣能開始用 AI
     ${B}B${N} · 把 macOS 升級到 14 以上，再回來雙擊我一次
 
+  🎓 想學怎麼把 AI 練成你的分身？
+     完整課程「超級 AI 個體」→ ${AD_URL}
+
 ${B}════════════════════════════════════════════════════${N}
 OLD
   farewell_close
@@ -144,7 +136,7 @@ fi
 clear 2>/dev/null || true
 cat <<BANNER
 ${B}════════════════════════════════════════════════════
-   🦾  超級 AI 個體 · AI 環境安裝
+   🦾  雷蒙的 AI 基礎環境安裝包(MAC)
 ════════════════════════════════════════════════════${N}
 
   嗨！我是你的環境安裝小幫手 🤖
@@ -159,8 +151,6 @@ ${B}═════════════════════════�
 
   全程不用寫程式。中途可能請你「輸入 Mac 密碼」
   或「開瀏覽器登入」—— 都是正常關卡，不是出事 🙂
-
-  ${D}本安裝包由「超級 AI 個體」課程開源出品${N}
 BANNER
 
 if [[ "$MODE" == "legacy" ]]; then
@@ -171,106 +161,94 @@ if [[ "$MODE" == "legacy" ]]; then
   sub "桌面版 App 這條路線不代裝，結尾會給你官方下載連結"
 fi
 
-# ── 選路線（對齊課程 1-2：不要預設所有人都裝 Claude）──
+# ── 選裝：挑你的路線 ─────────────────────────────────
+# 不預設任何一家：互動時一定要自己選，非互動又沒給 --tools 就只裝基礎環境
 SEL_CLAUDE=0; SEL_CLAUDE_APP=0; SEL_CODEX=0; SEL_CHATGPT_APP=0
-ROUTE="base"
 
-pick_route() {
-  local choice="$1"
-  case "$choice" in
-    1)
-      ROUTE="claude"
-      SEL_CLAUDE=1; SEL_CLAUDE_APP=1
-      SEL_CODEX=0; SEL_CHATGPT_APP=0
-      ;;
-    2)
-      ROUTE="codex"
-      SEL_CLAUDE=0; SEL_CLAUDE_APP=0
-      SEL_CODEX=1; SEL_CHATGPT_APP=1
-      ;;
-    3)
-      ROUTE="both"
-      SEL_CLAUDE=1; SEL_CLAUDE_APP=1
-      SEL_CODEX=1; SEL_CHATGPT_APP=1
-      ;;
-    4|"")
-      ROUTE="base"
-      SEL_CLAUDE=0; SEL_CLAUDE_APP=0
-      SEL_CODEX=0; SEL_CHATGPT_APP=0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-  return 0
-}
-
-if [[ "$MODE" == "legacy" ]]; then
-  # 備用路線：桌面版不代裝；互動時仍可選終端機路線
+if [[ -z "$TOOLS" ]]; then
   if [[ -t 0 ]]; then
-    cat <<MENU
+    # 互動多選：↑↓ 移動、空白鍵勾選（可複選）、Enter 確認（bash 3.2 相容）
+    m_label=("Claude 桌面版" "Claude 終端機版" "ChatGPT 桌面版" "Codex 終端機版")
+    m_chk=(0 0 0 0); m_cur=0; m_first=1
 
-${B}━━━ 選你的安裝路線 🎒 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}
+    printf '\n'
+    printf '%s━━━ 挑你要裝的 AI 工具 🎒 ━━━━━━━━━━━━━━━━━━━━━━━━━━%s\n' "$B" "$N"
+    printf '\n  基礎環境（git、Homebrew、GitHub）一定會裝。\n'
+    printf '  下面用 %s↑↓%s 移動、%s空白鍵%s 勾選（可複選）、%sEnter%s 確認：\n' "$B" "$N" "$B" "$N" "$B" "$N"
 
-  （macOS 13 備用路線：桌面版 App 請之後自行下載）
+    tput civis 2>/dev/null || true
+    _mrestore() { tput cnorm 2>/dev/null || true; }
+    trap '_mrestore' EXIT INT TERM
+    while :; do
+      [[ $m_first -eq 0 ]] && printf '\033[7A'
+      m_first=0
+      printf '\r\033[K\n'
+      i=0
+      while [[ $i -lt 4 ]]; do
+        if [[ ${m_chk[$i]} -eq 1 ]]; then box="[${G}✓${N}]"; else box="[ ]"; fi
+        if [[ $m_cur -eq $i ]]; then
+          printf '\r\033[K  %s▸%s %s %s%s%s\n' "$B" "$N" "$box" "$B" "${m_label[$i]}" "$N"
+        else
+          printf '\r\033[K    %s %s\n' "$box" "${m_label[$i]}"
+        fi
+        i=$((i+1))
+      done
+      printf '\r\033[K\n'
+      printf '\r\033[K  %s都不勾＝只裝基礎環境，AI 工具之後想要，再雙擊我一次就好%s\n' "$D" "$N"
 
-    ${B}[1]${N} Claude 路線     ${D}→ 只裝 Claude Code 終端機版${N}
-    ${B}[2]${N} ChatGPT／Codex  ${D}→ 只裝 Codex CLI${N}
-    ${B}[3]${N} 兩套都裝         ${D}→ Claude Code ＋ Codex CLI${N}
-    ${B}[4]${N} 只裝基礎環境     ${D}→ git／gh／GitHub 登入${N}
-
-  輸入 ${B}1${N}／${B}2${N}／${B}3${N}／${B}4${N} 後按 Enter（直接 Enter＝只裝基礎）
-MENU
-    printf '\n  你的選擇：'
-    read -r PICK || PICK=""
-    PICK="${PICK// /}"
-    if ! pick_route "$PICK"; then
-      warn "看不懂「${PICK}」，這趟先只裝基礎環境。"
-      pick_route 4
-    fi
-    # legacy：關掉桌面版代裝
-    SEL_CLAUDE_APP=0
-    SEL_CHATGPT_APP=0
+      IFS= read -rsn1 k || k=""
+      if [[ $k == $'\033' ]]; then IFS= read -rsn2 -t 1 k2 || k2=""; k="$k$k2"; fi
+      case "$k" in
+        $'\033[A'|$'\033OA'|k) m_cur=$(( (m_cur+3)%4 )) ;;
+        $'\033[B'|$'\033OB'|j) m_cur=$(( (m_cur+1)%4 )) ;;
+        ' ') m_chk[$m_cur]=$(( 1 - ${m_chk[$m_cur]} )) ;;
+        1) m_chk[0]=$(( 1 - ${m_chk[0]} )) ;;
+        2) m_chk[1]=$(( 1 - ${m_chk[1]} )) ;;
+        3) m_chk[2]=$(( 1 - ${m_chk[2]} )) ;;
+        4) m_chk[3]=$(( 1 - ${m_chk[3]} )) ;;
+        '') break ;;
+      esac
+    done
+    _mrestore; trap - EXIT INT TERM
+    printf '\n'
+    SEL_CLAUDE_APP=${m_chk[0]}
+    SEL_CLAUDE=${m_chk[1]}
+    SEL_CHATGPT_APP=${m_chk[2]}
+    SEL_CODEX=${m_chk[3]}
   else
-    pick_route 4
+    TOOLS="base"
   fi
-elif [[ -t 0 ]]; then
-  cat <<MENU
-
-${B}━━━ 選你的安裝路線 🎒 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}
-
-  請選一條（對齊課程 1-2 教學路線，沒有預設「大家都裝 Claude」）：
-
-    ${B}[1]${N} Claude 路線
-        ${D}Claude Code 終端機版 ＋ Claude 桌面版 App${N}
-    ${B}[2]${N} ChatGPT／Codex 路線
-        ${D}Codex CLI ＋ ChatGPT 桌面版 App${N}
-    ${B}[3]${N} 兩套都裝
-        ${D}上面兩條一次到位（雙棲）${N}
-    ${B}[4]${N} 只裝基礎環境
-        ${D}git／Homebrew／GitHub CLI／登入；Agent 之後再補${N}
-
-  輸入 ${B}1${N}／${B}2${N}／${B}3${N}／${B}4${N} 後按 Enter（直接 Enter＝只裝基礎）
-MENU
-  printf '\n  你的選擇：'
-  read -r PICK || PICK=""
-  PICK="${PICK// /}"
-  if ! pick_route "$PICK"; then
-    warn "看不懂「${PICK}」，這趟先只裝基礎環境。"
-    pick_route 4
-  fi
-else
-  # 非互動：不預設幫人裝 Claude／Codex
-  pick_route 4
 fi
 
-case "$ROUTE" in
-  claude) ok "收到！這趟：必裝地基 ＋ Claude 路線" ;;
-  codex)  ok "收到！這趟：必裝地基 ＋ ChatGPT／Codex 路線" ;;
-  both)   ok "收到！這趟：必裝地基 ＋ Claude 與 Codex 兩套都裝" ;;
-  *)      ok "收到！這趟只裝必裝地基（之後想補路線，再雙擊一次就好）" ;;
+case "$TOOLS" in
+  claude) SEL_CLAUDE=1; SEL_CLAUDE_APP=1 ;;
+  codex)  SEL_CODEX=1;  SEL_CHATGPT_APP=1 ;;
+  both)   SEL_CLAUDE=1; SEL_CLAUDE_APP=1; SEL_CODEX=1; SEL_CHATGPT_APP=1 ;;
+  base)   ;;
 esac
 
+# 備用路線（macOS 13）：桌面版 App 與 Codex CLI 都靠 Homebrew，這裡不代裝，
+# 改成結尾給官方下載連結。Claude Code 有官方安裝器，仍然可以裝。
+RS_CODEX="之後可再雙擊我一次重試"
+if [[ "$MODE" == "legacy" ]]; then
+  if [[ "$SEL_CLAUDE_APP" -eq 1 ]]; then SEL_CLAUDE_APP=0; ST_CLAUDE_APP="skip"; fi
+  if [[ "$SEL_CHATGPT_APP" -eq 1 ]]; then SEL_CHATGPT_APP=0; ST_CHATGPT_APP="skip"; fi
+  if [[ "$SEL_CODEX" -eq 1 ]]; then
+    SEL_CODEX=0; ST_CODEX="skip"; RS_CODEX="macOS ${OS_VER} 不支援，結尾有替代做法"
+    warn "備用路線裝不了 Codex CLI（它靠 Homebrew）——桌面版 App 也改成結尾給你官方連結。"
+  fi
+fi
+
+LOADOUT=""
+[[ "$SEL_CLAUDE" -eq 1 ]]      && LOADOUT="${LOADOUT}Claude Code、"
+[[ "$SEL_CLAUDE_APP" -eq 1 ]]  && LOADOUT="${LOADOUT}Claude 桌面版、"
+[[ "$SEL_CODEX" -eq 1 ]]       && LOADOUT="${LOADOUT}Codex CLI、"
+[[ "$SEL_CHATGPT_APP" -eq 1 ]] && LOADOUT="${LOADOUT}ChatGPT 桌面版、"
+if [[ -n "$LOADOUT" ]]; then
+  ok "收到！這趟會裝：基礎環境 ＋ ${LOADOUT%、}"
+else
+  ok "收到！這趟只裝基礎環境（AI 工具之後想要，再雙擊我一次就好）"
+fi
 STEP_TOTAL=$((4 + SEL_CLAUDE + SEL_CLAUDE_APP + SEL_CODEX + SEL_CHATGPT_APP))
 
 if [[ -t 0 ]]; then
@@ -279,10 +257,10 @@ if [[ -t 0 ]]; then
 fi
 
 # ── 第 1 站：git ─────────────────────────────────────
-step "git ── AI 的時光機"
+step "git"
+ST_GIT="ok"
 if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
   ok "早就裝好了：$(git --version)（這站直接通過 ✨）"
-  mark STATUS_GIT ok
 else
   say "git 還沒裝，正在呼叫系統的「命令列工具」…"
   wait_hint "會跳出一個系統安裝視窗，請按「安裝」，可能要幾分鐘。"
@@ -290,95 +268,77 @@ else
   xcode-select --install 2>/dev/null || true
   if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
     ok "$(git --version)"
-    mark STATUS_GIT ok
   else
-    mark STATUS_GIT fail
     die "git 還沒就緒。裝完「命令列工具」後，再打開一次這個 App 就會接續。"
   fi
 fi
 
 # ── 第 2 站：Homebrew ────────────────────────────────
-step "Homebrew ── 請軟體管家上工"
+step "Homebrew"
+ST_BREW="ok"
 if [[ "$MODE" == "legacy" ]]; then
   if ensure_brew; then
     ok "你本來就有 Homebrew：$(brew --version | head -1)，太好了，直接請它上工"
     MODE="full"
-    mark STATUS_BREW ok
   else
+    ST_BREW="skip"
     warn "macOS ${OS_VER} 跳過 Homebrew（備用路線），下一站直接裝 GitHub CLI。"
-    mark STATUS_BREW skip
   fi
 elif ensure_brew; then
   ok "早就裝好了：$(brew --version | head -1)（這站直接通過 ✨）"
-  mark STATUS_BREW ok
 else
   say "正在安裝 Homebrew（Mac 的軟體管家，之後裝東西都靠它）…"
   wait_hint "全程最花時間的一站，大概 3～5 分鐘。去倒杯水，回來剛剛好 ☕"
   sub "畫面卡著不動 = 正在下載，不是當機"
   sub "若要你輸入 Mac 密碼：打字時看不到字是正常的，打完按 Enter"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  if ensure_brew; then
-    # Apple Silicon：把 brew 寫進 PATH（沒寫過才加）
-    if [[ "$(uname -m)" == "arm64" && -x /opt/homebrew/bin/brew ]]; then
-      if ! grep -q 'brew shellenv' "${HOME}/.zprofile" 2>/dev/null; then
-        {
-          echo ''
-          echo '# Homebrew (超級 AI 個體 install-mac.sh)'
-          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-        } >> "${HOME}/.zprofile"
-      fi
-      eval "$(/opt/homebrew/bin/brew shellenv)"
+  ensure_brew || die "Homebrew 裝好了但找不到 brew，請依畫面把 PATH 加好後再跑一次。"
+  # Apple Silicon：把 brew 寫進 PATH（沒寫過才加）
+  if [[ "$(uname -m)" == "arm64" && -x /opt/homebrew/bin/brew ]]; then
+    if ! grep -q 'brew shellenv' "${HOME}/.zprofile" 2>/dev/null; then
+      {
+        echo ''
+        echo '# Homebrew (雷蒙的 AI 基礎環境安裝包 install-mac.sh)'
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+      } >> "${HOME}/.zprofile"
     fi
-    ok "$(brew --version | head -1)"
-    mark STATUS_BREW ok
-  else
-    mark STATUS_BREW fail
-    die "Homebrew 裝好了但找不到 brew，請依畫面把 PATH 加好後再跑一次。"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
+  ok "$(brew --version | head -1)"
 fi
 
 # ── 第 3 站：GitHub CLI ──────────────────────────────
-step "GitHub CLI ── 跟 GitHub 搭上線"
+step "GitHub CLI"
+ST_GH="ok"
 if command -v gh >/dev/null 2>&1; then
   ok "早就裝好了：$(gh --version | head -1)（這站直接通過 ✨）"
-  mark STATUS_GH ok
 elif [[ "$MODE" == "full" ]]; then
   say "請管家順手裝一下 gh…"
   wait_hint "大概 1～2 分鐘。"
   brew install gh
-  if command -v gh >/dev/null 2>&1; then
-    ok "$(gh --version | head -1)"
-    mark STATUS_GH ok
-  else
-    mark STATUS_GH fail
-    die "gh 安裝失敗，請再跑一次本程式。"
-  fi
+  command -v gh >/dev/null 2>&1 || die "gh 安裝失敗，請再跑一次本程式。"
+  ok "$(gh --version | head -1)"
 else
   say "正在下載 GitHub 官方安裝包（備用路線）…"
   wait_hint "大概 1～2 分鐘。裝的時候會請你輸入 Mac 密碼。"
   GH_PKG_URL="$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest \
     | grep -o 'https://[^"]*macOS_universal\.pkg' | head -1)"
-  [[ -n "$GH_PKG_URL" ]] || { mark STATUS_GH fail; die "抓不到 gh 安裝包網址，請檢查網路後再跑一次。"; }
+  [[ -n "$GH_PKG_URL" ]] || die "抓不到 gh 安裝包網址，請檢查網路後再跑一次。"
   GH_PKG="$(mktemp -d)/gh.pkg"
   curl -fsSL -o "$GH_PKG" "$GH_PKG_URL"
   sudo installer -pkg "$GH_PKG" -target /
-  if command -v gh >/dev/null 2>&1; then
-    ok "$(gh --version | head -1)"
-    mark STATUS_GH ok
-  else
-    mark STATUS_GH fail
-    die "gh 安裝失敗，請再跑一次本程式。"
-  fi
+  command -v gh >/dev/null 2>&1 || die "gh 安裝失敗，請再跑一次本程式。"
+  ok "$(gh --version | head -1)"
 fi
 
 # ── 第 4 站：GitHub 登入 ─────────────────────────────
-step "GitHub 登入 ── 拿到你的鑰匙"
+step "GitHub 登入"
 if [[ "$WITH_AUTH" -eq 0 ]]; then
+  ST_AUTH="skip"
   warn "你選了不登入（--skip-auth），這站跳過。"
-  mark STATUS_GH_AUTH skip
 elif gh auth status >/dev/null 2>&1; then
+  ST_AUTH="ok"
   ok "已經登入 GitHub 了（這站直接通過 ✨）"
-  mark STATUS_GH_AUTH ok
 else
   say "來連結你的 GitHub 帳號 —— 讓 AI 之後能幫你備份、管理做出來的專案 🔑"
   sub "還沒有 GitHub 帳號？可以先按 Ctrl+C 離開，辦好帳號再跑一次"
@@ -387,86 +347,81 @@ else
   sub "再把終端機顯示的 one-time code 貼進瀏覽器"
   gh auth login || true
   if gh auth status >/dev/null 2>&1; then
+    ST_AUTH="ok"
     ok "GitHub 登入成功，鑰匙到手 🔑"
-    mark STATUS_GH_AUTH ok
   else
+    ST_AUTH="fail"
     warn "還沒完成登入 —— 沒關係，之後再打開這個 App 一次就能補登。"
-    mark STATUS_GH_AUTH fail
   fi
 fi
 
 # ── 選裝站：Claude Code ──────────────────────────────
 if [[ "$SEL_CLAUDE" -eq 1 ]]; then
-  step "Claude Code ── 主角進場"
+  step "Claude Code"
   ensure_local_bin
   if command -v claude >/dev/null 2>&1; then
+    ST_CLAUDE="ok"
     ok "早就裝好了：$(claude --version 2>/dev/null || echo 'Claude Code')（這站直接通過 ✨）"
-    mark STATUS_CLAUDE ok
-  elif [[ "$MODE" == "full" ]]; then
-    say "來裝你的 AI Agent 本體…"
-    wait_hint "大概 1～3 分鐘，裝好就能在終端機打 claude 跟它對話。"
-    brew install --cask claude-code
-    hash -r 2>/dev/null || true
-    if command -v claude >/dev/null 2>&1; then
-      ok "Claude Code 就位：$(claude --version 2>/dev/null || echo '已安裝')"
-      mark STATUS_CLAUDE ok
-    else
-      warn "Claude Code 可能已安裝，但這個視窗還找不到指令 —— 重開終端機後打 claude 即可。"
-      mark STATUS_CLAUDE partial
-    fi
   else
-    say "用 Anthropic 官方安裝器裝 Claude Code（備用路線）…"
-    wait_hint "大概 1～3 分鐘。"
-    curl -fsSL https://claude.ai/install.sh | bash
+    if [[ "$MODE" == "full" ]]; then
+      say "來裝你的 AI Agent 本體…"
+      wait_hint "大概 1～3 分鐘，裝好就能在終端機打 claude 跟它對話。"
+      brew install --cask claude-code || true
+    else
+      say "用 Anthropic 官方安裝器裝 Claude Code（備用路線）…"
+      wait_hint "大概 1～3 分鐘。"
+      curl -fsSL https://claude.ai/install.sh | bash || true
+    fi
     ensure_local_bin
     hash -r 2>/dev/null || true
     if command -v claude >/dev/null 2>&1; then
+      ST_CLAUDE="ok"
       ok "Claude Code 就位：$(claude --version 2>/dev/null || echo '已安裝')"
-      mark STATUS_CLAUDE ok
     else
-      warn "Claude Code 可能已安裝，但這個視窗還找不到指令 —— 重開終端機後打 claude 即可。"
-      mark STATUS_CLAUDE partial
+      ST_CLAUDE="fail"
+      warn "這個視窗還找不到 claude 指令 —— 先重開終端機打 claude 試試；"
+      sub "還是沒有的話，就是這次沒裝成功，再雙擊我一次會重試"
     fi
   fi
 fi
 
 # ── 選裝站：Claude 桌面版 ────────────────────────────
 if [[ "$SEL_CLAUDE_APP" -eq 1 ]]; then
-  step "Claude 桌面版 ── 給 AI 一張臉"
+  step "Claude 桌面版"
   if [[ -d "/Applications/Claude.app" ]]; then
+    ST_CLAUDE_APP="ok"
     ok "應用程式裡已經有 Claude 了（這站直接通過 ✨）"
-    mark STATUS_CLAUDE_APP ok
   else
     say "下載 Claude 桌面版 App（圖形介面，拖檔案就能用）…"
     wait_hint "大概 1～3 分鐘。"
-    brew install --cask claude
+    brew install --cask claude || true
     if [[ -d "/Applications/Claude.app" ]]; then
+      ST_CLAUDE_APP="ok"
       ok "Claude 桌面版就位，第一次打開時用你的 Claude 帳號登入即可"
-      mark STATUS_CLAUDE_APP ok
     else
+      ST_CLAUDE_APP="fail"
       warn "沒抓到安裝結果 —— 可以之後手動到 claude.com/download 下載，不影響其他步驟。"
-      mark STATUS_CLAUDE_APP fail
     fi
   fi
 fi
 
 # ── 選裝站：Codex CLI ────────────────────────────────
 if [[ "$SEL_CODEX" -eq 1 ]]; then
-  step "Codex CLI ── 第二位隊友報到"
+  step "Codex CLI"
   if command -v codex >/dev/null 2>&1; then
+    ST_CODEX="ok"
     ok "早就裝好了：$(codex --version 2>/dev/null || echo 'Codex CLI')（這站直接通過 ✨）"
-    mark STATUS_CODEX ok
   else
     say "來裝 Codex CLI（用 ChatGPT 帳號跑的 AI Agent）…"
     wait_hint "大概 1～2 分鐘。"
-    brew install codex
+    brew install codex || true
     hash -r 2>/dev/null || true
     if command -v codex >/dev/null 2>&1; then
+      ST_CODEX="ok"
       ok "Codex CLI 就位，第一次在終端機打 codex 時會請你登入 ChatGPT 帳號"
-      mark STATUS_CODEX ok
     else
+      ST_CODEX="fail"
       warn "Codex CLI 沒裝成功 —— 不影響其他步驟，之後可再跑一次或手動 brew install codex。"
-      mark STATUS_CODEX fail
     fi
   fi
 fi
@@ -475,74 +430,79 @@ fi
 if [[ "$SEL_CHATGPT_APP" -eq 1 ]]; then
   step "ChatGPT 桌面版"
   if [[ -d "/Applications/ChatGPT.app" ]]; then
+    ST_CHATGPT_APP="ok"
     ok "應用程式裡已經有 ChatGPT 了（這站直接通過 ✨）"
-    mark STATUS_CHATGPT_APP ok
   else
     say "下載 ChatGPT 桌面版 App（在裡面就能開 Codex）…"
     wait_hint "大概 1～3 分鐘。"
-    brew install --cask chatgpt
+    brew install --cask chatgpt || true
     if [[ -d "/Applications/ChatGPT.app" ]]; then
+      ST_CHATGPT_APP="ok"
       ok "ChatGPT 桌面版就位，第一次打開時登入你的 ChatGPT 帳號即可"
-      mark STATUS_CHATGPT_APP ok
     else
+      ST_CHATGPT_APP="fail"
       warn "沒抓到安裝結果 —— 可以之後手動到 chatgpt.com/download 下載，不影響其他步驟。"
-      mark STATUS_CHATGPT_APP fail
     fi
   fi
 fi
 
-# ── 完成畫面（依實際結果）─────────────────────────────
-NEXT_HINT="在終端機打指令開始跟 AI 對話（見下方建議）。"
-if [[ "$STATUS_CLAUDE" == "ok" || "$STATUS_CLAUDE" == "partial" ]]; then
-  NEXT_HINT="在終端機打  ${B}claude${N}  就能開始跟你的 AI 對話。"
-elif [[ "$STATUS_CODEX" == "ok" ]]; then
-  NEXT_HINT="在終端機打  ${B}codex${N}  就能開始跟你的 AI 對話。"
-elif [[ "$STATUS_CLAUDE_APP" == "ok" ]]; then
-  NEXT_HINT="打開「Claude」App，用你的 Claude 帳號登入後開始用。"
-elif [[ "$STATUS_CHATGPT_APP" == "ok" ]]; then
-  NEXT_HINT="打開「ChatGPT」App，登入後切到 Codex 或 Work 模式。"
-elif [[ "$ROUTE" == "base" ]]; then
-  NEXT_HINT="基礎環境好了。想裝 Claude 或 Codex，再雙擊一次安裝包、選路線 1／2／3。"
+# ── 完成畫面（只報這趟實際發生的結果）───────────────
+HAS_FAIL=0
+for s in "$ST_GIT" "$ST_BREW" "$ST_GH" "$ST_AUTH" \
+         "$ST_CLAUDE" "$ST_CLAUDE_APP" "$ST_CODEX" "$ST_CHATGPT_APP"; do
+  [[ "$s" == "fail" ]] && HAS_FAIL=1
+done
+
+if [[ "$HAS_FAIL" -eq 1 ]]; then
+  TITLE="🧩  差不多好了 —— 有幾項這次沒成功"
+else
+  TITLE="🎉  完工！這台 Mac 正式成為「AI 友善基地」"
 fi
+
+# 驗貨指令：只列真的裝起來的
+VERIFY="git --version && gh --version"
+[[ "$ST_CLAUDE" == "ok" ]] && VERIFY="${VERIFY} && claude --version"
+[[ "$ST_CODEX"  == "ok" ]] && VERIFY="${VERIFY} && codex --version"
+
+printf '\n%s════════════════════════════════════════════════════\n' "$B"
+printf '   %s\n' "$TITLE"
+printf '════════════════════════════════════════════════════%s\n\n' "$N"
+printf '  這趟的實際結果：\n'
+result_line "$ST_GIT"          "git"
+result_line "$ST_BREW"         "Homebrew"        "備用路線不裝，不影響使用"
+result_line "$ST_GH"           "GitHub CLI"
+result_line "$ST_AUTH"         "GitHub 登入"     "之後再雙擊我一次就能補登"
+result_line "$ST_CLAUDE"       "Claude Code"     "再雙擊我一次會重試"
+result_line "$ST_CLAUDE_APP"   "Claude 桌面版"   "或手動到 claude.com/download 下載"
+result_line "$ST_CODEX"        "Codex CLI"       "$RS_CODEX"
+result_line "$ST_CHATGPT_APP"  "ChatGPT 桌面版"  "或手動到 chatgpt.com/download 下載"
 
 cat <<DONE
 
-${B}════════════════════════════════════════════════════
-   🎉  這趟安裝跑完了
-════════════════════════════════════════════════════${N}
-
-  實際結果（只顯示這次有處理到的項目）：
+  想自己驗貨的話（可選），複製這行貼上按 Enter：
+    ${D}${VERIFY}${N}
 DONE
 
-status_line "git" "$STATUS_GIT"
-status_line "Homebrew" "$STATUS_BREW"
-status_line "GitHub CLI" "$STATUS_GH"
-status_line "GitHub 登入" "$STATUS_GH_AUTH"
-status_line "Claude Code" "$STATUS_CLAUDE"
-status_line "Claude 桌面版" "$STATUS_CLAUDE_APP"
-status_line "Codex CLI" "$STATUS_CODEX"
-status_line "ChatGPT 桌面版" "$STATUS_CHATGPT_APP"
+[[ "$ST_AUTH" == "fail" ]] && printf '\n    GitHub 還沒登完 —— 終端機打 %sgh auth login%s 也可以補。\n' "$B" "$N"
 
-cat <<DONE2
-
-  下一步 ▸
-    ${NEXT_HINT}
+cat <<DONE
 
 ${B}  ─────────────────────────────────────────────${N}
-  🎓 環境好了，然後呢？
+  🎓 現在你的 Mac 已經完成基本的 AI 環境安裝！
 
-  這個安裝包是${B}「超級 AI 個體」${N}課程的第 0 步。
-  完整課程教你把 AI 練成你的分身 ——
-  用中文指揮它處理工作、實現想法，不用會寫程式。
+  想知道怎樣養出自己的 AI Agent，把 AI 從工具變成員工！
+  馬上報名「超級 AI 個體」線上體驗課 👇
 
   ${B}→ ${AD_URL}${N}
 ${B}════════════════════════════════════════════════════${N}
-DONE2
+DONE
 
 if [[ "$MODE" == "legacy" ]]; then
-  say "桌面版 App 想要的話，自己點這兩個官方連結下載："
-  sub "Claude 桌面版：claude.com/download"
-  sub "ChatGPT 桌面版：chatgpt.com/download"
+  printf '\n'
+  say "備用路線不代裝 App，這幾個自己點官方連結下載就好："
+  [[ "$ST_CLAUDE_APP" == "skip" ]]  && sub "Claude 桌面版：claude.com/download"
+  [[ "$ST_CHATGPT_APP" == "skip" ]] && sub "ChatGPT 桌面版：chatgpt.com/download"
+  [[ "$ST_CODEX" == "skip" ]]       && sub "Codex：先裝 ChatGPT 桌面版，裡面就能開 Codex"
 fi
 
 farewell_close
