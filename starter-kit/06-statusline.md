@@ -33,7 +33,9 @@
 - Git 分支 + 髒標記（`*` = 有未 commit 的改動）
 - 本次改動的 `+N/-N` 行數
 - 當前專案名稱
+- **目前時間**（純時鐘 `HH:MM`，可固定時區，例如永遠顯示台北時間）
 - **最後一則訊息的時間**（不是現在時間！是「上次你跟這個 session 對話」的時間戳。隔天回到舊的 tmux session，一眼就知道「喔這個對話是昨天 15:30 停下來的」，不用往上滑找）
+- **Session ID 短碼**（`🆔` 前 8 碼，同時開多個 Claude Code 實例時用來分辨誰是誰）
 
 所有元素都可以**自由開關**。你可以抄雷蒙完整版、選「精簡版」只保留核心三樣，或是接下來一個一個挑。
 
@@ -113,7 +115,7 @@ test -f ~/.claude/statusline-command.sh && \
 
 | label | description |
 |:--|:--|
-| `雷蒙完整版（推薦）` | `兩行顯示：模型 + Context 進度條 + 5h/7d 額度 + Git 分支 + 增刪行數 + 專案名 + 最後訊息時間。最豐富，適合每天重度使用 Claude Code 的人。（會附帶裝一個小 hook 來記錄時間戳，我會幫你）` |
+| `雷蒙完整版（推薦）` | `兩行顯示：模型 + Context 進度條 + 5h/7d 額度 + Git 分支 + 增刪行數 + 專案名 + 目前時間 + 最後訊息時間 + Session ID。最豐富，跟雷蒙直播畫面一致，適合每天重度使用 Claude Code 的人。（會附帶裝一個小 hook 來記錄時間戳，我會幫你。Fable 5 專屬額度欄位是另外的選配，見 Section F2）` |
 | `精簡專注版` | `一行顯示：模型 + Context 進度條 + Git 分支。最乾淨，適合剛開始用、只想看核心資訊的人。` |
 | `我要自己挑` | `接下來我會一個一個問你要顯示什麼。適合已經知道自己需要什麼的人。` |
 
@@ -141,12 +143,15 @@ test -f ~/.claude/statusline-command.sh && \
 | `Git 分支` | `目前在哪個 branch，有未 commit 的改動會加 * 號。` |
 | `Git 增刪行數` | `顯示 +N/-N 這次改了多少行，提醒自己該 commit 了。` |
 | `專案名稱` | `目前在哪個 Git repo 根目錄。切多個專案時很實用。` |
+| `目前時間` | `純時鐘 HH:MM。可固定時區（例如人在國外也永遠顯示台北時間）。這是「現在幾點」，跟下面的「最後訊息時間」不一樣。` |
 | `最後訊息時間（推薦）` | `顯示「上次你跟這個 session 對話的時間」，不是現在時間。隔天回到舊 session 一眼就知道上次聊到哪。這個選項需要額外裝一個 hook，我會幫你裝。` |
+| `Session ID 短碼` | `顯示 🆔 + session id 前 8 碼。同時開多個 Claude Code 實例時，用來分辨終端機視窗是哪個 session。` |
 
 把用戶勾選結果對應到下面這幾個 flag（未勾選的設 `false`）：
 ```
 SHOW_MODEL / SHOW_CONTEXT_BAR / SHOW_RATE_5H / SHOW_RATE_7D
-SHOW_GIT_BRANCH / SHOW_GIT_DIFF / SHOW_PROJECT / SHOW_LAST_MSG
+SHOW_GIT_BRANCH / SHOW_GIT_DIFF / SHOW_PROJECT
+SHOW_CLOCK / SHOW_LAST_MSG / SHOW_SESSION_ID
 ```
 
 > **重要**：若用戶勾了「最後訊息時間」（或選了雷蒙完整版），**Section E 的 hook 必須一起裝**，否則 Status Line 只會顯示一個空白檔案。詳見 Section E。
@@ -207,7 +212,10 @@ SHOW_RATE_7D=__SHOW_RATE_7D__
 SHOW_GIT_BRANCH=__SHOW_GIT_BRANCH__
 SHOW_GIT_DIFF=__SHOW_GIT_DIFF__
 SHOW_PROJECT=__SHOW_PROJECT__
+SHOW_CLOCK=__SHOW_CLOCK__          # 顯示「目前時間」純時鐘 HH:MM
+CLOCK_TZ=""                        # 空=跟隨系統時區；要永遠顯示台北就填 "Asia/Taipei"
 SHOW_LAST_MSG=__SHOW_LAST_MSG__   # 顯示「最後一則訊息的時間」（需要 Section E 的 hook 支援）
+SHOW_SESSION_ID=__SHOW_SESSION_ID__   # 顯示 🆔 session id 前 8 碼
 LAST_MSG_FILE="$HOME/.claude/last-session-msg"
 
 # ── 顏色定義（依 Claude Code 主題自動切換，淺色主題用較深的字色避免對比度不足） ──
@@ -243,6 +251,7 @@ rl_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 rl_5h_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 rl_7d=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 rl_7d_reset=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+sid=$(echo "$input" | jq -r '.session_id // empty')
 
 # ══════ LINE 1 ══════
 L1=""
@@ -350,6 +359,14 @@ if git_top=$(git rev-parse --show-toplevel 2>/dev/null); then
     fi
 fi
 
+# 目前時間（純時鐘，不是最後訊息時間）— CLOCK_TZ 空=系統時區
+if $SHOW_CLOCK; then
+    if [ -n "$CLOCK_TZ" ]; then clock=$(TZ="$CLOCK_TZ" date +%H:%M); else clock=$(date +%H:%M); fi
+    if [ -n "$clock" ]; then
+        [ -n "$L2" ] && L2="${L2}${SEP}${DM}${clock}${RS}" || L2="${DM}${clock}${RS}"
+    fi
+fi
+
 # 最後訊息時間（從 UserPromptSubmit hook 寫入的檔案讀取）
 # 這不是「現在時間」，而是「上次你跟這個 session 對話的時間戳」
 # 舊的 tmux session 撿回來時，能一眼看到上次聊到哪
@@ -358,6 +375,11 @@ if $SHOW_LAST_MSG && [ -f "$LAST_MSG_FILE" ]; then
     if [ -n "$last_msg" ]; then
         [ -n "$L2" ] && L2="${L2}${SEP}${DM}📝 ${last_msg}${RS}" || L2="${DM}📝 ${last_msg}${RS}"
     fi
+fi
+
+# Session ID 短碼（前 8 碼；多開 session 時分辨用。要全碼把 ${sid:0:8} 改成 ${sid}）
+if $SHOW_SESSION_ID && [ -n "$sid" ]; then
+    [ -n "$L2" ] && L2="${L2}${SEP}${DM}🆔 ${sid:0:8}${RS}" || L2="${DM}🆔 ${sid:0:8}${RS}"
 fi
 
 # ══════ 輸出 ══════
@@ -380,11 +402,13 @@ sed -i.bak \
   -e "s|__SHOW_GIT_BRANCH__|${SHOW_GIT_BRANCH}|" \
   -e "s|__SHOW_GIT_DIFF__|${SHOW_GIT_DIFF}|" \
   -e "s|__SHOW_PROJECT__|${SHOW_PROJECT}|" \
+  -e "s|__SHOW_CLOCK__|${SHOW_CLOCK}|" \
   -e "s|__SHOW_LAST_MSG__|${SHOW_LAST_MSG}|" \
+  -e "s|__SHOW_SESSION_ID__|${SHOW_SESSION_ID}|" \
   ~/.claude/statusline-command.sh && rm ~/.claude/statusline-command.sh.bak
 ```
 
-（以上變數請你在 bash 裡先 export，例如：`SHOW_MODEL=true`、`EMOJI_STR="🧋🍫"`。）
+（以上變數請你在 bash 裡先 export，例如：`SHOW_MODEL=true`、`SHOW_CLOCK=true`、`SHOW_SESSION_ID=true`、`EMOJI_STR="🧋🍫"`。**雷蒙完整版就是把上面 `SHOW_*` 全部設 `true`**；精簡版只開 `SHOW_MODEL`、`SHOW_CONTEXT_BAR`、`SHOW_GIT_BRANCH`，其餘 `false`。）
 
 ### D-2. 加上執行權限
 
@@ -846,7 +870,13 @@ jq '.fable.percent' ~/.claude/fable-usage-cache.json
 機制很單純：一個 `UserPromptSubmit` hook（`~/.claude/hooks/session-time.sh`）在你送出每則訊息時被觸發，跑一行 `date > ~/.claude/last-session-msg` 把當前時間寫進檔案。整個動作 < 10ms，完全感覺不到。Status Line 每次重繪（新訊息、Claude 回應完、Escape 鍵）就去讀這個檔案。**注意**：這個檔案是**全域共用**的，多個 Claude Code session 會共用同一個時間戳——也就是說你如果同時開兩個 session，最後寫入的那個會蓋掉另一個。對 95% 的使用情境沒差，但如果你想要「每個 session 各自的時間戳」，要改用 `$CLAUDE_PROJECT_DIR` 或 session ID 當檔名 suffix，可以請 Claude Code 幫你擴充。
 
 **Q：我想要現在時間不要最後訊息時間？**
-就不要勾「最後訊息時間」，然後手動在腳本的 Line 2 加一行 `L2="${L2}${SEP}${DM}$(date +%H:%M)${RS}"` 就好。或直接請 Claude Code：「幫我把最後訊息時間換成當前 HH:MM」。
+打開 `~/.claude/statusline-command.sh`，把 `SHOW_CLOCK=true`（顯示目前時間 HH:MM）、`SHOW_LAST_MSG=false`（關掉最後訊息時間）就好。這是兩個獨立欄位，可各自開關。想讓時鐘固定時區（例如人在國外還是看台北時間），把 `CLOCK_TZ=""` 改成 `CLOCK_TZ="Asia/Taipei"`。
+
+**Q：目前時間（時鐘）和最後訊息時間差在哪？**
+「目前時間」＝現在幾點（每次狀態列重繪都是當下時間，等於看手機）。「最後訊息時間」＝你**上一則訊息送出的時間戳**，會停在那個時間點不動——這才是隔天撿回舊 session 時真正有用的資訊。兩個可以同時開，雷蒙完整版就是兩個都開（時鐘看現在、📝 看上次聊到哪）。
+
+**Q：Session ID 顯示了半天，有什麼用？**
+同時開 3、4 個 Claude Code 終端機視窗時，每個 session 的 `🆔` 前 8 碼不一樣，用來快速分辨「這個視窗是哪個對話」。只開一個 session 的話用處不大，可以在腳本裡把 `SHOW_SESSION_ID=false` 關掉。
 
 **Q：Claude Code 傳給腳本的 JSON 長什麼樣？**
 裡面有 `model.display_name`、`context_window.remaining_percentage`、`rate_limits.*`、`workspace.*` 等欄位。想看完整結構在腳本最前面加 `cat > /tmp/statusline-input.json` 就能 dump 出來看。官方文件：https://docs.claude.com/en/docs/claude-code/statusline
