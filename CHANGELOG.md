@@ -5,18 +5,26 @@
 
 ---
 
-## [v1.2] — 2026-07-22
+## [v1.3] — 2026-07-22
 
-距離 v1.1 以來 14 個 commit。主軸是開源 **Mac 一鍵環境安裝包（步驟 0）**：雙擊就能把電腦調成 AI 友善基地，站上也有圖解免費導讀可直接分享。
+主軸是開源 **Mac 一鍵 AI 環境安裝包（步驟 0）**：雙擊就能把電腦調成 AI 友善基地，站上也有圖解免費導讀可直接分享。
 
-### 🧰 Mac 一鍵環境安裝包（開源・步驟 0）
+### 🧰 Mac 一鍵 AI 環境安裝包（開源・步驟 0）
 - 新增 [`env-installer/`](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)：自動裝好 git、Homebrew、GitHub CLI，並引導登入 GitHub
-- 開場改 **四個獨立 checkbox**（Claude 桌面版／Claude 終端機版／ChatGPT 桌面版／Codex 終端機版），可複選；都不勾＝只裝基礎環境。已裝好的項目會自動跳過，可安心重跑
+- 開場用 **四個獨立 checkbox**（Claude 桌面版／Claude 終端機版／ChatGPT 桌面版／Codex 終端機版），可複選；都不勾＝只裝基礎環境。已裝好的項目會自動跳過，可安心重跑
 - 附 **Developer ID 簽名＋Apple 公證** 的 App ZIP（本 Release 可下載），新電腦雙擊即裝
 - 補 **16 張安裝截圖**與圖解 [`操作.md`](https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/操作.md)
 - 熟手可用腳本：`./install-mac.sh`，支援 `--skip-auth`、`--tools=claude|codex|both|base`
 - 站上免費導讀對齊圖解全文，深層連結一開即讀：  
   **[cc.lifehacker.tw/#lesson-2](https://cc.lifehacker.tw/#lesson-2)**
+
+**完整 commit**：[v1.2...v1.3](https://github.com/Raymondhou0917/claude-code-resources/compare/v1.2...v1.3)
+
+---
+
+## [v1.2] — 2026-07-22
+
+主軸是 **Starter Kit #06 狀態列大升級**：新增 Fable 5 專屬額度欄位，並把雷蒙個人版的全部欄位補進公開模板。
 
 ### 🛠 Starter Kit #06 狀態列大升級
 - **新增 Fable 5 專屬額度欄位（選配 Section F2）**：背景腳本讀官方 `/api/oauth/usage`（與 `/usage` 同源、唯讀、不消耗額度）；Pro／沒用 Fable 會自動隱藏
@@ -24,9 +32,9 @@
 - 示意圖、FAQ、踩坑紀錄同步更新（含 Keychain 殭屍憑證／WAF 假限流等雷區）
 
 ### 🛠 Starter Kit 其他更新
-- **03 安全三件套 / 04 MCP**：內容支援 Claude Code 與 Codex 雙棲；03 刪檔話術降溫
-- **01 終端機**：補 `jq` 防護；01／02 加上「桌面版可跳過」提示；README 依桌面版／終端機分流
-- **Claude Code / Codex 比較表**更新：模型改標上下文窗口、特色功能改 Artifacts
+- **03／04**：支援 Claude Code 與 Codex 雙棲；03 刪檔話術降溫
+- **01／02**：補 `jq` 防護、「桌面版可跳過」提示；README 依桌面／終端機分流
+- Claude Code／Codex 比較表更新（上下文窗口、Artifacts）
 
 **完整 commit**：[v1.1...v1.2](https://github.com/Raymondhou0917/claude-code-resources/compare/v1.1...v1.2)
 
