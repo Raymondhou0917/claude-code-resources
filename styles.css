@@ -1521,7 +1521,8 @@ a.path-item .path-num {
   .res-feature-title { font-size: 0.98rem; }
 }
 
-.res-bookmarks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0 0 1.5rem; }
+.res-bookmarks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 0 0 1.5rem; }
+@media (max-width: 1100px) { .res-bookmarks { grid-template-columns: repeat(2, 1fr); } }
 .res-bookmark {
   position: relative;
   display: flex; flex-direction: column; border: 1px solid rgba(61,46,31,0.12); border-radius: var(--radius-lg);
