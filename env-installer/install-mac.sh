@@ -22,6 +22,9 @@
 #    macOS 12 以下    → 停止，導向 Claude 桌面版（macOS 11+ 可用）
 set -euo pipefail
 
+# 版本號：打包成 .app 時會讀這行塞進 Info.plist
+VERSION="1.1.0"
+
 AD_URL="https://shifu.tw/course/trial/ai-agent-bootcamp"
 
 WITH_AUTH=1
