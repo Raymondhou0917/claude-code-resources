@@ -302,13 +302,28 @@ if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
   ok "早就裝好了：$(git --version)（這站直接通過 ✨）"
 else
   say "git 還沒裝，正在呼叫系統的「命令列工具」…"
-  wait_hint "會跳出一個系統安裝視窗，請按「安裝」，可能要幾分鐘。"
-  sub "裝好後，請「再打開一次這個 App」，我會從這站接續"
+  wait_hint "等下會跳出一個系統視窗，請按「安裝」—— 不要按「取得 Xcode」，那是給工程師的大全套，用不到 🙅"
+  sub "下載大概 5～10 分鐘（看網速）。裝好我會自動接續，這個視窗開著就好"
   xcode-select --install 2>/dev/null || true
+  # 輪詢等 CLT 就緒，裝好自動接續，不用重開 App。
+  # 用 xcode-select -p 當條件：它只查註冊狀態，不會像 git --version 那樣再觸發彈窗。
+  waited=0
+  until xcode-select -p >/dev/null 2>&1; do
+    sleep 5
+    waited=$((waited+5))
+    if (( waited % 60 == 0 )); then
+      say "還在等系統把「命令列工具」裝完…（已等 $((waited/60)) 分鐘，裝好會自動接續）"
+      sub "按到「取消」或視窗不見了？重新雙擊我一次，安裝視窗就會再跳出來"
+    fi
+    if (( waited >= 1800 )); then
+      die "等了 30 分鐘還沒完成。請確認網路正常，再雙擊我一次重試。"
+    fi
+  done
+  hash -r 2>/dev/null || true
   if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
     ok "$(git --version)"
   else
-    die "git 還沒就緒。裝完「命令列工具」後，再打開一次這個 App 就會接續。"
+    die "「命令列工具」裝好了但 git 還是不能用，請再雙擊我一次重試。"
   fi
 fi
 
