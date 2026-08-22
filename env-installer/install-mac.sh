@@ -22,6 +22,9 @@
 #    macOS 12 以下    → 停止，導向 Claude 桌面版（macOS 11+ 可用）
 set -euo pipefail
 
+# 版本號：打包成 .app 時會讀這行塞進 Info.plist
+VERSION="1.1.0"
+
 AD_URL="https://shifu.tw/course/trial/ai-agent-bootcamp"
 
 WITH_AUTH=1
@@ -98,6 +101,45 @@ ensure_local_bin() {
       *":${HOME}/.local/bin:"*) ;;
       *) PATH="${HOME}/.local/bin:$PATH" ;;
     esac
+  fi
+}
+
+# 把工具路徑寫進殼層設定 —— 不論這趟有沒有裝東西都要跑：
+# 本來就有 Homebrew 的人，原本整段會跳過、一行都不寫（學員回報
+# 「AI 說找不到 gh」的根因之一）。
+# .zprofile 給 login shell（使用者自己開的終端機）；.zshenv 給非
+# login 殼層 —— AI 工具跑指令用 `zsh -c`，只讀 .zshenv，少了它
+# AI 看不到 /opt/homebrew/bin 或 ~/.local/bin，會誤判「沒安裝」。
+# .zshenv 這段刻意不用 `brew shellenv`：新版 brew 改走 path_helper，
+# 而 .zshenv 執行時 PATH 可能還沒初始化，eval 下去 PATH 會只剩
+# /opt/homebrew/*，反而弄丟 /usr/bin 的系統工具。純 prepend 最穩，
+# 而且靠 [ -d ] 執行期判斷，Intel／備用路線／晚點才裝 claude 都適用。
+persist_ai_path() {
+  if [[ -x /opt/homebrew/bin/brew ]] && ! grep -q 'brew shellenv' "${HOME}/.zprofile" 2>/dev/null; then
+    {
+      echo ''
+      echo '# Homebrew (雷蒙的 AI 基礎環境安裝包 install-mac.sh)'
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+    } >> "${HOME}/.zprofile"
+  fi
+  if ! grep -q 'AI 基礎環境安裝包' "${HOME}/.zshenv" 2>/dev/null; then
+    cat >> "${HOME}/.zshenv" <<'ZSHENV'
+
+# 讓非 login 殼層（AI 工具）也找得到工具 (雷蒙的 AI 基礎環境安裝包 install-mac.sh)
+# 三段依序補：Apple Silicon brew／Intel brew 與 pkg 安裝（/usr/local）／官方安裝器（~/.local/bin）
+case ":${PATH:-}:" in
+  *":/opt/homebrew/bin:"*) ;;
+  *) [ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}" ;;
+esac
+case ":${PATH:-}:" in
+  *":/usr/local/bin:"*) ;;
+  *) export PATH="/usr/local/bin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}" ;;
+esac
+case ":${PATH:-}:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}" ;;
+esac
+ZSHENV
   fi
 }
 
@@ -263,13 +305,28 @@ if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
   ok "早就裝好了：$(git --version)（這站直接通過 ✨）"
 else
   say "git 還沒裝，正在呼叫系統的「命令列工具」…"
-  wait_hint "會跳出一個系統安裝視窗，請按「安裝」，可能要幾分鐘。"
-  sub "裝好後，請「再打開一次這個 App」，我會從這站接續"
+  wait_hint "等下會跳出一個系統視窗，請按「安裝」—— 不要按「取得 Xcode」，那是給工程師的大全套，用不到 🙅"
+  sub "下載大概 5～10 分鐘（看網速）。裝好我會自動接續，這個視窗開著就好"
   xcode-select --install 2>/dev/null || true
+  # 輪詢等 CLT 就緒，裝好自動接續，不用重開 App。
+  # 用 xcode-select -p 當條件：它只查註冊狀態，不會像 git --version 那樣再觸發彈窗。
+  waited=0
+  until xcode-select -p >/dev/null 2>&1; do
+    sleep 5
+    waited=$((waited+5))
+    if (( waited % 60 == 0 )); then
+      say "還在等系統把「命令列工具」裝完…（已等 $((waited/60)) 分鐘，裝好會自動接續）"
+      sub "按到「取消」或視窗不見了？重新雙擊我一次，安裝視窗就會再跳出來"
+    fi
+    if (( waited >= 1800 )); then
+      die "等了 30 分鐘還沒完成。請確認網路正常，再雙擊我一次重試。"
+    fi
+  done
+  hash -r 2>/dev/null || true
   if command -v git >/dev/null 2>&1 && git --version >/dev/null 2>&1; then
     ok "$(git --version)"
   else
-    die "git 還沒就緒。裝完「命令列工具」後，再打開一次這個 App 就會接續。"
+    die "「命令列工具」裝好了但 git 還是不能用，請再雙擊我一次重試。"
   fi
 fi
 
@@ -293,19 +350,9 @@ else
   sub "若要你輸入 Mac 密碼：打字時看不到字是正常的，打完按 Enter"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ensure_brew || die "Homebrew 裝好了但找不到 brew，請依畫面把 PATH 加好後再跑一次。"
-  # Apple Silicon：把 brew 寫進 PATH（沒寫過才加）
-  if [[ "$(uname -m)" == "arm64" && -x /opt/homebrew/bin/brew ]]; then
-    if ! grep -q 'brew shellenv' "${HOME}/.zprofile" 2>/dev/null; then
-      {
-        echo ''
-        echo '# Homebrew (雷蒙的 AI 基礎環境安裝包 install-mac.sh)'
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-      } >> "${HOME}/.zprofile"
-    fi
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  fi
   ok "$(brew --version | head -1)"
 fi
+persist_ai_path
 
 # ── 第 3 站：GitHub CLI ──────────────────────────────
 step "GitHub CLI"
@@ -446,6 +493,20 @@ if [[ "$SEL_CHATGPT_APP" -eq 1 ]]; then
   fi
 fi
 
+# ── AI 殼層驗證（模擬 AI 工具跑指令的環境）───────────
+# AI 工具執行指令用的是非 login 殼層（zsh -c），只讀 ~/.zshenv、
+# 不讀 ~/.zprofile。這裡用乾淨環境實測 AI 到底找不找得到工具，
+# 免得工具都裝好了，AI 卻跟學員說「找不到 gh」害人以為裝錯要重做。
+AI_TOOLS="git gh"
+[[ "$ST_BREW"   == "ok" ]] && AI_TOOLS="$AI_TOOLS brew"
+[[ "$ST_CLAUDE" == "ok" ]] && AI_TOOLS="$AI_TOOLS claude"
+[[ "$ST_CODEX"  == "ok" ]] && AI_TOOLS="$AI_TOOLS codex"
+AI_MISSING="$(env -i HOME="$HOME" zsh -c '
+  for t in '"$AI_TOOLS"'; do
+    command -v "$t" >/dev/null 2>&1 || printf "%s " "$t"
+  done
+' 2>/dev/null || true)"
+
 # ── 完成畫面（只報這趟實際發生的結果）───────────────
 HAS_FAIL=0
 for s in "$ST_GIT" "$ST_BREW" "$ST_GH" "$ST_AUTH" \
@@ -476,6 +537,13 @@ result_line "$ST_CLAUDE"       "Claude Code"     "再雙擊我一次會重試"
 result_line "$ST_CLAUDE_APP"   "Claude 桌面版"   "或手動到 claude.com/download 下載"
 result_line "$ST_CODEX"        "Codex CLI"       "$RS_CODEX"
 result_line "$ST_CHATGPT_APP"  "ChatGPT 桌面版"  "或手動到 chatgpt.com/download 下載"
+if [[ -z "$AI_MISSING" ]]; then
+  printf '    %s✓%s AI 殼層驗證（AI 執行指令時，上面的工具它都找得到）\n' "$G" "$N"
+else
+  printf '    %s!%s AI 殼層驗證%s（AI 可能看不到：%s—— 是 PATH 問題，不是沒裝）%s\n' "$Y" "$N" "$D" "${AI_MISSING}" "$N"
+  printf '       %s‧ 打開 AI 工具後，把這句貼給它：%s\n' "$D" "$N"
+  printf '       %s‧ 「請檢查 ~/.zshenv 有沒有把 /opt/homebrew/bin 加進 PATH，我的工具裝在那裡」%s\n' "$D" "$N"
+fi
 
 cat <<DONE
 
