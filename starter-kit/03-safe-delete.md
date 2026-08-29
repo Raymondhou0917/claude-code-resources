@@ -1,6 +1,6 @@
 # AI 誤刪怎麼辦？跨 Agent 安全三件套：垃圾桶＋危險指令黑名單＋權限護欄
 
-> ⭐ 初學者友善｜約 5～10 分鐘｜Claude Code／Codex 終端機／Codex 桌面版｜macOS（Windows 見底部說明）
+> ⭐ 初學者友善｜約 5～10 分鐘｜Claude Code／Codex 終端機／Codex 桌面版｜macOS／Linux／Windows（原生 PowerShell & WSL）
 
 ## 先講結論
 
@@ -14,19 +14,19 @@
 
 ## 你會得到什麼
 
-- **共同層：垃圾桶保護**。AI 刪除檔案時優先使用 `trash`，保留反悔空間。
+- **共同層：垃圾桶保護**。AI 刪除檔案時優先使用垃圾桶（macOS/Linux: `trash`，Windows: 資源回收桶 API），保留反悔空間。
 - **Claude Code：Deny 黑名單**。命中危險寫法時直接拒絕。
 - **Codex：`forbidden` 規則**。效果同樣是直接擋下，不跳過護欄。
 - **各自的權限保護**。Claude Code 用權限模式；Codex 用沙盒與執行前確認。
 
 > [!IMPORTANT]
-> 安裝 `trash` 不會讓所有刪除自動變安全。AI 仍可能選到別的刪除方式，所以第二層黑名單和「刪除時優先用 `trash`」的指示不能省。
+> 安裝垃圾桶保護不會讓所有刪除自動變安全。AI 仍可能選到別的刪除方式，所以第二層黑名單和「刪除時優先移到垃圾桶」的指示不能省。
 
 ## 怎麼裝？
 
 把這份文件的網址丟給你目前使用的 AI Agent，跟它說：
 
-> 請先判斷我現在用的是 Claude Code、Codex CLI，還是 Codex 桌面版。只設定我正在用的這一套，照文件幫我裝安全三件套；每次改設定前先備份，完成後實際驗證。
+> 請先判斷我現在用的是 Claude Code、Codex CLI，還是 Codex 桌面版，以及我的作業系統（macOS／Linux／Windows）。只設定我正在用的這一套，照文件幫我裝安全三件套；每次改設定前先備份，完成後實際驗證。
 
 ---
 
@@ -36,11 +36,12 @@
 
 ### 第 0 步：只選一條路
 
-先辨識目前入口：
+先辨識目前入口與作業系統：
 
 - 終端機可用 `command -v claude` 與 `command -v codex` 輔助判斷。
 - 如果正在 ChatGPT 桌面版的 Codex 模式，視為「Codex 桌面版」。
 - 如果兩個指令都有，依照目前對話所在的產品選一個；不確定才問用戶一次。
+- 確認作業系統為 macOS、Linux、WSL 還是 Windows 原生（PowerShell / Git Bash）。
 
 **只修改所選產品的設定。** 除非用戶明確說兩套都要，否則不要同時寫 `~/.claude/` 和 `~/.codex/`。
 
@@ -48,20 +49,52 @@
 
 ## Section A：共同層，讓刪除可以反悔
 
-### A-1. 安裝並測試 `trash`
+### A-1. 依系統安裝並測試垃圾桶保護
+
+#### 分支 1：macOS / Linux / WSL
 
 ```bash
-command -v trash || brew install trash
+command -v trash >/dev/null 2>&1 || brew install trash
 touch /tmp/test-safe-delete.txt
 trash /tmp/test-safe-delete.txt
 test ! -e /tmp/test-safe-delete.txt
 ```
 
-如果沒有 Homebrew，先說明用途並取得同意，再引導安裝。不要為了省一步就改用永久刪除。
+如果 Linux / WSL 沒有 Homebrew，可使用 `trash-cli`（`sudo apt install trash-cli`，指令為 `trash-put`）。
+
+#### 分支 2：Windows 原生 PowerShell（5.1 與 PowerShell 7）
+
+PowerShell 原生 `Remove-Item` 是直接永久刪除。為提供資源回收桶保護：
+
+1. **檢查執行原則**：先檢查 `Get-ExecutionPolicy -Scope CurrentUser`。若為 `Restricted` 或 `Undefined`，請**引導使用者在 PowerShell 視窗自行執行**（不需要管理員權限）：
+   ```powershell
+   Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+   ```
+2. **在 Profile 注入資源回收桶函式**：
+   解析目前使用者的 `$PROFILE` 路徑（自動相容 OneDrive 中文路徑，若目錄不存在則先建立），以純 ASCII 寫入（避免 PS 5.1 ANSI 編碼錯誤）：
+   ```powershell
+   $profileDir = Split-Path -Parent $PROFILE
+   if (-not (Test-Path $profileDir)) { New-Item -ItemType Directory -Path $profileDir -Force }
+   
+   # 寫入或合併進 $PROFILE（若同時有 PS 5.1 與 PS 7 建議兩邊皆寫入）
+   # 函式核心使用 .NET Microsoft.VisualBasic 送入資源回收桶：
+   Add-Type -AssemblyName Microsoft.VisualBasic
+   # [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($path, 'OnlyErrorDialogs', 'SendToRecycleBin')
+   # [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory($path, 'OnlyErrorDialogs', 'SendToRecycleBin')
+   ```
+   > 逃生門：保留 `-Permanent` 參數（例如 `rm -Permanent target.txt`），需要永久刪除時可直接調用底層原生 `Remove-Item`。
+
+3. **若是 Claude Code（Git Bash 環境）**：
+   在 `~/bin/rm` 建立轉接腳本（利用 Git Bash 預設 PATH 優先順序），將刪除目標轉為 Windows 路徑後呼叫 PowerShell 資源回收桶邏輯；提供 `--permanent` 參數作為永久刪除逃生門。
+
+4. **驗證**：
+   建立測試檔並刪除，確認原路徑消失且檔案出現在 Windows 資源回收桶中。
+
+---
 
 完成後告訴用戶：
 
-> 第一層好了。之後我需要刪檔時會先用 `trash` 移到垃圾桶；真的需要永久刪除時，會先列出目標並請你確認。
+> 第一層好了。之後我需要刪檔時會先移到垃圾桶（資源回收桶）；真的需要永久刪除時，會先列出目標並請你確認。
 
 這一層不代表 AI 永遠不能刪錯，後面還要安裝產品自己的黑名單。
 
@@ -220,7 +253,9 @@ codex execpolicy check --pretty \
 
 ### Windows 怎麼辦？
 
-建議在 WSL（Windows Subsystem for Linux）裡使用終端機 Agent，再安裝 Linux 的垃圾桶工具與對應設定。原生 PowerShell 的刪除方式不同，不要直接照抄 macOS 指令。
+本設定支援兩種途徑：
+1. **原生 PowerShell（5.1 與 PowerShell 7）**：透過在 `$PROFILE` 覆寫 `Remove-Item`（調用 .NET 資源回收桶 API）並在 Git Bash 提供 `~/bin/rm` 橋接，刪除時均會移至資源回收桶；需要永久刪除時可加上 `-Permanent` 或 `--permanent` 逃生門。
+2. **WSL（Windows Subsystem for Linux）**：若習慣 Linux 環境，亦可在 WSL 內使用 `trash-cli`（`trash-put`）並套用 Linux 版安全設定。
 
 ## 官方參考
 
