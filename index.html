@@ -61,47 +61,103 @@
   <!-- End Meta Pixel Code -->
   <!-- Structured Data -->
   <script type="application/ld+json">
-  {
+{
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AI Agent 學習資源",
-    "alternateName": ["Claude Code 中文教學", "Codex 中文教學"],
-    "url": "https://cc.lifehacker.tw/",
-    "description": "精選 Claude Code、OpenAI Codex 繁體中文學習資源與設定包，非工程師也能上手。免費教學 + Starter Kit（AGENTS.md / CLAUDE.md 通用），由雷蒙三十整理。",
-    "inLanguage": "zh-TW",
-    "publisher": {
-      "@type": "Organization",
-      "name": "雷蒙三十",
-      "url": "https://raymondhouch.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://raymondhouch.com/wp-content/uploads/2020/03/彩色-純-Logo-400.png"
-      }
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://cc.lifehacker.tw/#{search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": "Claude Code 迷你課",
-    "description": "從零開始學 Claude Code：終端機設定、MCP 串接、CLAUDE.md 規則、AI 個人助理打造。適合非工程師的繁體中文教學。",
-    "provider": {
-      "@type": "Organization",
-      "name": "雷蒙三十",
-      "url": "https://raymondhouch.com"
-    },
-    "inLanguage": "zh-TW",
-    "isAccessibleForFree": true,
-    "educationalLevel": "Beginner",
-    "teaches": ["Claude Code", "AI Agent", "Terminal Setup", "MCP Integration", "CLAUDE.md"]
-  }
-  </script>
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": "https://lifehacker.tw/#organization",
+            "name": "雷蒙三十",
+            "alternateName": [
+                "Lifehacker",
+                "雷蒙三十 Lifehacker"
+            ],
+            "url": "https://lifehacker.tw/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://image.lifehacker.tw/lifehacker-pic/logo-raymond-30.png"
+            },
+            "founder": {
+                "@id": "https://raymondhouch.com/#person"
+            },
+            "sameAs": [
+                "https://www.youtube.com/c/yuiraymond",
+                "https://www.facebook.com/raymondhou0917/",
+                "https://www.instagram.com/yuiraymond/",
+                "https://www.threads.net/@raymond0917",
+                "https://x.com/Raymond_Hou_"
+            ]
+        },
+        {
+            "@type": "Person",
+            "@id": "https://raymondhouch.com/#person",
+            "name": "侯智薰",
+            "alternateName": [
+                "雷蒙",
+                "Raymond Hou"
+            ],
+            "url": "https://raymondhouch.com/",
+            "jobTitle": "創辦人／數位工作顧問",
+            "worksFor": {
+                "@id": "https://lifehacker.tw/#organization"
+            },
+            "sameAs": [
+                "https://raymondhouch.com/",
+                "https://wiki.lifehacker.tw/",
+                "https://www.youtube.com/c/yuiraymond",
+                "https://www.facebook.com/raymondhou0917/",
+                "https://www.instagram.com/yuiraymond/",
+                "https://www.threads.net/@raymond0917",
+                "https://x.com/Raymond_Hou_"
+            ]
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://cc.lifehacker.tw/#website",
+            "url": "https://cc.lifehacker.tw/",
+            "name": "AI Agent 學習資源",
+            "inLanguage": "zh-Hant-TW",
+            "publisher": {
+                "@id": "https://lifehacker.tw/#organization"
+            },
+            "description": "精選 Claude Code、OpenAI Codex 繁體中文學習資源與設定包，非工程師也能上手。",
+            "alternateName": [
+                "Claude Code 中文教學",
+                "Codex 中文教學"
+            ],
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://cc.lifehacker.tw/#{search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Claude Code 迷你課",
+            "description": "從零開始學 Claude Code：終端機設定、MCP 串接、CLAUDE.md 規則、AI 個人助理打造。適合非工程師的繁體中文教學。",
+            "provider": {
+                "@id": "https://lifehacker.tw/#organization"
+            },
+            "inLanguage": "zh-TW",
+            "isAccessibleForFree": true,
+            "educationalLevel": "Beginner",
+            "teaches": [
+                "Claude Code",
+                "AI Agent",
+                "Terminal Setup",
+                "MCP Integration",
+                "CLAUDE.md"
+            ],
+            "@id": "https://cc.lifehacker.tw/#course",
+            "isPartOf": {
+                "@id": "https://cc.lifehacker.tw/#website"
+            }
+        }
+    ]
+}
+    </script>
+  
 </head>
 
 <body>
