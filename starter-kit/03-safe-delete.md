@@ -62,33 +62,14 @@ test ! -e /tmp/test-safe-delete.txt
 
 如果 Linux / WSL 沒有 Homebrew，可使用 `trash-cli`（`sudo apt install trash-cli`，指令為 `trash-put`）。
 
-#### 分支 2：Windows 原生 PowerShell（5.1 與 PowerShell 7）
+#### 分支 2：Windows 原生環境（免裝命令列轉接工具）
 
-PowerShell 原生 `Remove-Item` 是直接永久刪除。為提供資源回收桶保護：
+在 Windows 上，命令列原生指令（PowerShell 的 `Remove-Item`、CMD 的 `del` / `rd`）預設都是永久刪除且無法反悔。過去曾有人嘗試修改 `$PROFILE` 攔截 `Remove-Item`，但這容易造成權限執行原則衝突、跨 shell 失效與 sandbox 誤報。
 
-1. **檢查執行原則**：先檢查 `Get-ExecutionPolicy -Scope CurrentUser`。若為 `Restricted` 或 `Undefined`，請**引導使用者在 PowerShell 視窗自行執行**（不需要管理員權限）：
-   ```powershell
-   Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-   ```
-2. **在 Profile 注入資源回收桶函式**：
-   解析目前使用者的 `$PROFILE` 路徑（自動相容 OneDrive 中文路徑，若目錄不存在則先建立），以純 ASCII 寫入（避免 PS 5.1 ANSI 編碼錯誤）：
-   ```powershell
-   $profileDir = Split-Path -Parent $PROFILE
-   if (-not (Test-Path $profileDir)) { New-Item -ItemType Directory -Path $profileDir -Force }
-   
-   # 寫入或合併進 $PROFILE（若同時有 PS 5.1 與 PS 7 建議兩邊皆寫入）
-   # 函式核心使用 .NET Microsoft.VisualBasic 送入資源回收桶：
-   Add-Type -AssemblyName Microsoft.VisualBasic
-   # [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($path, 'OnlyErrorDialogs', 'SendToRecycleBin')
-   # [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory($path, 'OnlyErrorDialogs', 'SendToRecycleBin')
-   ```
-   > 逃生門：保留 `-Permanent` 參數（例如 `rm -Permanent target.txt`），需要永久刪除時可直接調用底層原生 `Remove-Item`。
-
-3. **若是 Claude Code（Git Bash 環境）**：
-   在 `~/bin/rm` 建立轉接腳本（利用 Git Bash 預設 PATH 優先順序），將刪除目標轉為 Windows 路徑後呼叫 PowerShell 資源回收桶邏輯；提供 `--permanent` 參數作為永久刪除逃生門。
-
-4. **驗證**：
-   建立測試檔並刪除，確認原路徑消失且檔案出現在 Windows 資源回收桶中。
+最穩健、最安全的做法是**人機分工**：
+1. **使用者手動刪除**：一律在 Windows 檔案總管選取檔案按 `Delete`（或右鍵刪除），檔案會直接進入「資源回收桶」，隨時可以一鍵還原。
+2. **AI Agent 刪除**：在 Section B 與 Section C 透過規則全面禁止 AI 執行命令列永久刪除（`rm`、`del`、`Remove-Item`、`rd`、`rmdir` 等）。當 AI 評估需要刪除檔案時，必須**列出目標檔案的完整路徑**，交由你在檔案總管確認並刪除。
+3. **因此**：Windows 環境直接跳過命令列 trash 安裝，進入 Section B 安裝危險指令黑名單！
 
 ---
 
@@ -115,11 +96,34 @@ command -v jq >/dev/null || brew install jq
 jq '
   .permissions = (.permissions // {}) |
   .permissions.deny = (((.permissions.deny // []) + [
+    "Bash(rm)",
+    "Bash(rm *)",
+    "Bash(rmdir *)",
+    "Bash(del *)",
+    "Bash(erase *)",
+    "Bash(rd *)",
+    "Bash(Remove-Item *)",
+    "PowerShell(Remove-Item *)",
     "Bash(rm -rf *)",
     "Bash(rm -fr *)",
     "Bash(rm -r *)",
     "Bash(rm -R *)",
     "Bash(rm -f *)",
+    "PowerShell(Remove-Item -Recurse *)",
+    "PowerShell(Remove-Item *-Recurse*)",
+    "PowerShell(Remove-Item -Force *)",
+    "PowerShell(Remove-Item *-Force*)",
+    "PowerShell(rm -Recurse *)",
+    "PowerShell(rm *-Recurse*)",
+    "PowerShell(Format-Volume *)",
+    "PowerShell(Clear-Disk *)",
+    "PowerShell(Remove-Partition *)",
+    "PowerShell(Stop-Computer *)",
+    "PowerShell(Restart-Computer *)",
+    "PowerShell(diskpart *)",
+    "PowerShell(format *)",
+    "PowerShell(cmd /c rd *)",
+    "PowerShell(cmd /c del *)",
     "Bash(sudo *)",
     "Bash(dd *)",
     "Bash(mkfs*)",
@@ -146,12 +150,13 @@ mv /tmp/claude-settings.new.json ~/.claude/settings.json
 
 | 模式 | 白話說明 |
 |:--|:--|
-| `Accept Edits`（建議新手） | 改檔案可以直接做；執行指令時仍會在關鍵處詢問。 |
-| `Default` | 多數動作都先問，最適合想觀察 AI 怎麼做的人。 |
+| `Auto`（推薦） | 由 Claude Code 依安全策略自動判斷，搭配工作區與黑名單護欄，兼顧流暢與安全。 |
+| `Accept Edits` | 改檔案可以直接做；執行指令時仍會在關鍵處詢問。 |
+| `Default`（人工審核） | 多數動作都先問，最適合想觀察 AI 怎麼做的新手。 |
 | `Plan` | 只規劃、不動手，適合大改造前先看全貌。 |
-| `Bypass` | 幾乎不詢問。風險最高，不能當新手預設。 |
+| `Bypass` | 幾乎不詢問。風險最高，嚴禁當成新手預設。 |
 
-依照選擇，把 `permissions.defaultMode` 合併成 `acceptEdits`、`default`、`plan` 或 `bypassPermissions`。若用戶選 Bypass，必須再確認一次，並說清楚黑名單只能擋常見寫法，不能保證攔住所有繞法。
+依照選擇，把 `permissions.defaultMode` 合併成 `auto`、`acceptEdits`、`default`、`plan` 或 `bypassPermissions`。若用戶選 Bypass，必須再確認一次，並說清楚黑名單只能擋常見寫法，不能保證攔住所有繞法。
 
 ### B-3. 驗證
 
@@ -175,11 +180,11 @@ Codex CLI、Codex 桌面版與 IDE 擴充套件共用 `~/.codex/` 設定。這�
 先備份既有規則，再把缺少的規則合併到 `~/.codex/rules/default.rules`。不要刪掉原本的 allow／prompt 規則。
 
 ```python
-# 高風險刪除
+# 高風險刪除（跨平台）
 prefix_rule(
-    pattern = ["rm", ["-rf", "-fr", "-r", "-R", "-f"]],
+    pattern = [["rm", "rm.exe", "Remove-Item", "remove-item", "del", "erase", "rd", "rmdir", "rmdir.exe"]],
     decision = "forbidden",
-    justification = "永久或遞迴刪除不可逆，請改用 trash 移到垃圾桶",
+    justification = "禁止永久刪除。Mac 請改用 trash 移到垃圾桶；Windows 請列出目標完整路徑，由使用者在檔案總管處理",
 )
 
 # 系統與磁碟
@@ -187,6 +192,11 @@ prefix_rule(pattern = ["sudo"], decision = "forbidden", justification = "請由�
 prefix_rule(pattern = ["dd"], decision = "forbidden", justification = "打錯目標可能直接覆寫磁碟")
 prefix_rule(pattern = ["mkfs"], decision = "forbidden", justification = "會格式化磁碟分區")
 prefix_rule(pattern = ["diskutil", "erase"], decision = "forbidden", justification = "會清空磁區")
+
+# Windows 磁碟與提權保護
+prefix_rule(pattern = [["Format-Volume", "diskpart", "format"]], decision = "forbidden", justification = "Windows：會格式化或重新分割磁碟")
+prefix_rule(pattern = ["Start-Process"], decision = "forbidden", justification = "Windows：不要由 AI 提權或另開程序")
+prefix_rule(pattern = [["cmd", "cmd.exe"], "/c", ["del", "erase", "rd", "rmdir"]], decision = "forbidden", justification = "Windows 禁止命令列永久刪除；請交由使用者在檔案總管處理")
 
 # Git 不可逆操作
 prefix_rule(pattern = ["git", "reset", "--hard"], decision = "forbidden", justification = "會清掉未提交的工作，請先用 git stash 或建立 commit")
@@ -209,12 +219,13 @@ prefix_rule(pattern = ["truncate"], decision = "forbidden", justification = "會
 ```toml
 sandbox_mode = "workspace-write"
 approval_policy = "on-request"
+approvals_reviewer = "auto_review"
 ```
 
 白話說明：
 
 - `workspace-write`：AI 可以處理目前工作資料夾，但不能任意寫進整台電腦。
-- `on-request`：超出安全範圍時先問，不會默默把護欄關掉。
+- `on-request` 搭配 `approvals_reviewer = "auto_review"`（代我核准）：工作區內流暢執行，需要核准的動作交由審核機制把關。若想要每一步由本人親自核准，可設 `approvals_reviewer = "user"`。
 - 不建議新手使用 `danger-full-access` 加上 `never`。那等於活動範圍不設限，也不再詢問。
 
 Codex 桌面版也可以從 Settings 檢查相關設定。檔案改完後要重新啟動 Codex，讓 `.rules` 與 `config.toml` 重新載入。
@@ -254,7 +265,7 @@ codex execpolicy check --pretty \
 ### Windows 怎麼辦？
 
 本設定支援兩種途徑：
-1. **原生 PowerShell（5.1 與 PowerShell 7）**：透過在 `$PROFILE` 覆寫 `Remove-Item`（調用 .NET 資源回收桶 API）並在 Git Bash 提供 `~/bin/rm` 橋接，刪除時均會移至資源回收桶；需要永久刪除時可加上 `-Permanent` 或 `--permanent` 逃生門。
+1. **原生 Windows 環境**：採用「人機分工」原則。使用者手動刪除請直接在檔案總管按 `Delete`（移入資源回收桶，最安全可還原）；AI 刪除由 Section B / C 的黑名單徹底禁止命令列刪除指令，AI 必須列出完整路徑交由你在檔案總管處理。
 2. **WSL（Windows Subsystem for Linux）**：若習慣 Linux 環境，亦可在 WSL 內使用 `trash-cli`（`trash-put`）並套用 Linux 版安全設定。
 
 ## 官方參考
@@ -262,6 +273,10 @@ codex execpolicy check --pretty \
 - Claude Code：[權限與設定文件](https://code.claude.com/docs/en/permissions)
 - Codex：[指令規則文件](https://learn.chatgpt.com/docs/agent-configuration/rules)
 - Codex：[設定參考](https://learn.chatgpt.com/docs/config-file/config-reference)
+
+> [!TIP]
+> **💡 想要上更完整的 AI Agent 陪跑課？**  
+> 享有更完整的聯盟工作流、AI Agent 工作與技能配置包，以及社群陪跑支持，歡迎到這個網頁了解與報名：https://ai.lifehacker.tw/
 
 ---
 
