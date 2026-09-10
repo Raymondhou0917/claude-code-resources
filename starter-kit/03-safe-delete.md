@@ -166,6 +166,8 @@ jq '.permissions | {defaultMode, deny}' ~/.claude/settings.json
 
 請用 `claude` 開新對話，再確認設定已載入。不要真的執行危險指令做測試。
 
+> **已知限制（2026-09）**：Claude 桌面版的 Code tab（`CLAUDE_CODE_ENTRYPOINT=claude-desktop`）目前對 `~/.claude/settings.json` 的 `permissions.deny` 黑名單與 hook 支援不完整，實測會被繞過，詳見 [anthropics/claude-code#87657](https://github.com/anthropics/claude-code/issues/87657)。裝完這套黑名單後，高風險操作請在**終端機的 `claude`** 裡進行，不要只依賴桌面版 Code tab。
+
 ## Section C：如果是 Codex CLI 或 Codex 桌面版
 
 不是 Codex 就跳過本節。
