@@ -1,32 +1,40 @@
 # AI 誤刪怎麼辦？跨 Agent 安全三件套：垃圾桶＋危險指令黑名單＋權限護欄
 
-> ⭐ 初學者友善｜約 5～10 分鐘｜Claude Code／Codex 終端機／Codex 桌面版｜macOS／Linux／Windows（原生 PowerShell & WSL）
+> **ver. 2.0** ｜ **Last edited: 2026-09-11**
+> ⭐ 初學者友善｜約 5 分鐘｜Claude Code／Codex 終端機／Codex 桌面版｜macOS／Windows 通用
 
 ## 先講結論
 
-這套安全觀念不分 Claude Code 或 Codex，都有三層：
+這套安全觀念不分 Claude Code 或 Codex，都有三層保險：
 
-1. 刪檔優先移到垃圾桶，誤刪還能救回來。
-2. 把最危險、通常救不回來的指令直接擋掉。
-3. 保留確認與沙盒。沙盒就是把 AI 的活動範圍關在工作資料夾裡。
+1. **第一層：刪檔先進垃圾桶** — AI 刪檔不再直接抹掉，而是移到垃圾桶（Mac 是廢紙簍，Windows 原生支援資源回收筒 API），誤刪隨時能救回來。
+2. **第二層：危險指令黑名單** — `rm -rf`、`git reset --hard`、`git push --force` 這類「一執行就回不來」的指令，直接擋下，AI 會改用安全的做法。
+3. **第三層：權限模式二選一** — **Auto**（代我核准，新手首選）或 **Bypass**（完整存取），減少大量跳窗打擾，同時把底線守死。
 
-共同觀念一樣，**設定檔不一樣**。Claude Code 要改 `~/.claude/settings.json`；Codex 要改 `~/.codex/rules/*.rules` 與 `~/.codex/config.toml`。請先確認你正在用哪一個產品，再走對應分支，不要一次把兩套設定都寫進電腦。
+共同觀念一樣，**設定檔不一樣**。Claude Code 寫入 `~/.claude/settings.json` 與前置攔截 hook；Codex 寫入 `~/.codex/rules/default.rules` 與 `~/.codex/config.toml`。AI 會自動偵測你電腦裝了哪一套，兩邊都有就兩邊都設定好。
 
-## 你會得到什麼
+| | **Auto** （不確定就選這個） | **Bypass** （全部不問） |
+| :-- | :-- | :-- |
+| AI 什麼時候問你 | 日常小事直接做；看起來有風險的，會先停下來問你 | 什麼都不問，直接做 |
+| 保護有幾層 | AI 自己先判斷一次，再加上垃圾桶和黑名單 | 只靠垃圾桶、黑名單和工作守則 |
+| 適合誰 | 大多數人，剛開始用 AI Agent 的你 | 想要最快、清楚自己在做什麼的人 |
+| 在 Codex 裡叫 | 代我核准 | 完整存取 |
 
-- **共同層：垃圾桶保護**。AI 刪除檔案時優先使用垃圾桶（macOS/Linux: `trash`，Windows: 資源回收桶 API），保留反悔空間。
-- **Claude Code：Deny 黑名單**。命中危險寫法時直接拒絕。
-- **Codex：`forbidden` 規則**。效果同樣是直接擋下，不跳過護欄。
-- **各自的權限保護**。Claude Code 用權限模式；Codex 用沙盒與執行前確認。
-
-> [!IMPORTANT]
-> 安裝垃圾桶保護不會讓所有刪除自動變安全。AI 仍可能選到別的刪除方式，所以第二層黑名單和「刪除時優先移到垃圾桶」的指示不能省。
+---
 
 ## 怎麼裝？
 
-把這份文件的網址丟給你目前使用的 AI Agent，跟它說：
+把這份文件的內容或 GitHub 網址複製給你使用的 Claude Code 或 Codex，跟它說這段啟動詞就好：
 
-> 請先判斷我現在用的是 Claude Code、Codex CLI，還是 Codex 桌面版，以及我的作業系統（macOS／Linux／Windows）。只設定我正在用的這一套，照文件幫我裝安全三件套；每次改設定前先備份，完成後實際驗證。
+```text
+我是 AI 與程式的新手。請判斷我目前使用的 AI 工具（Claude Code / Codex）與作業系統（macOS / Windows），幫我安裝這份「AI 安全三件套」：
+https://github.com/Raymondhou0917/claude-code-resources/blob/master/starter-kit/03-safe-delete.md
+
+1. 請照文件裡的「AI 執行指引」直接幫我裝好，過程用繁體中文白話跟我說就好
+2. 每次改動設定檔前請先備份，重跑時整段替換，不要重複堆疊
+```
+
+貼上之後，AI 只會問你一件事：要用 **Auto** 還是 **Bypass** 模式。選好後等它跑完（大約 5 分鐘），不用自己改設定。
 
 ---
 
@@ -34,251 +42,154 @@
 
 ## AI 執行指引
 
-### 第 0 步：只選一條路
+> **🤖 給 AI 的互動規範**
+>
+> 1. **直接安裝，不要把工作丟回給用戶**。用戶是沒有程式背景的新手。系統、裝了哪些工具、目前在哪個工具裡，你自己查，不要問。不要請用戶切換模式、開終端機、打指令、做測試，也不要給他「驗證用 prompt」。
+> 2. **修改前備份，重跑不重複**：每個設定檔先做時間戳備份。設定區塊用固定的起訖標記管理，已經存在就整段換新；其他設定一律保留。
+> 3. **自己檢查，不交給用戶驗收**：每一步寫完，照該步驟的自我檢查確認格式正確、規則有效。失敗就還原備份，在最後的總結用一句白話說明哪一項沒裝成。
+> 4. **全程繁體中文，白話、親切**。
 
-先辨識目前入口與作業系統：
+### Step 0：安靜確認環境
 
-- 終端機可用 `command -v claude` 與 `command -v codex` 輔助判斷。
-- 如果正在 ChatGPT 桌面版的 Codex 模式，視為「Codex 桌面版」。
-- 如果兩個指令都有，依照目前對話所在的產品選一個；不確定才問用戶一次。
-- 確認作業系統為 macOS、Linux、WSL 還是 Windows 原生（PowerShell / Git Bash）。
-
-**只修改所選產品的設定。** 除非用戶明確說兩套都要，否則不要同時寫 `~/.claude/` 和 `~/.codex/`。
-
-每次寫檔都要先備份。不要整份覆寫既有設定，要合併進去並保留用戶原本的內容。
-
-## Section A：共同層，讓刪除可以反悔
-
-### A-1. 依系統安裝並測試垃圾桶保護
-
-#### 分支 1：macOS / Linux / WSL
-
-```bash
-command -v trash >/dev/null 2>&1 || brew install trash
-touch /tmp/test-safe-delete.txt
-trash /tmp/test-safe-delete.txt
-test ! -e /tmp/test-safe-delete.txt
-```
-
-如果 Linux / WSL 沒有 Homebrew，可使用 `trash-cli`（`sudo apt install trash-cli`，指令為 `trash-put`）。
-
-#### 分支 2：Windows 原生環境（免裝命令列轉接工具）
-
-在 Windows 上，命令列原生指令（PowerShell 的 `Remove-Item`、CMD 的 `del` / `rd`）預設都是永久刪除且無法反悔。過去曾有人嘗試修改 `$PROFILE` 攔截 `Remove-Item`，但這容易造成權限執行原則衝突、跨 shell 失效與 sandbox 誤報。
-
-最穩健、最安全的做法是**人機分工**：
-1. **使用者手動刪除**：一律在 Windows 檔案總管選取檔案按 `Delete`（或右鍵刪除），檔案會直接進入「資源回收桶」，隨時可以一鍵還原。
-2. **AI Agent 刪除**：在 Section B 與 Section C 透過規則全面禁止 AI 執行命令列永久刪除（`rm`、`del`、`Remove-Item`、`rd`、`rmdir` 等）。當 AI 評估需要刪除檔案時，必須**列出目標檔案的完整路徑**，交由你在檔案總管確認並刪除。
-3. **因此**：Windows 環境直接跳過命令列 trash 安裝，進入 Section B 安裝危險指令黑名單！
+- **系統**：`uname -s`（`Darwin`＝Mac；`MINGW`／`MSYS` 開頭＝Windows Git Bash；Windows PowerShell 用 `$env:OS`）。
+- **工具偵測**：檢查家目錄是否有 `~/.claude` 與 `~/.codex`。兩者都有就兩者都裝。
+- **詢問權限模式（唯一問題）**：詢問用戶要 `Auto` 還是 `Bypass`。Claude Code 用 `AskUserQuestion`；Codex 用純文字選項（1 或 2）。記下答案：`MODE=auto` 或 `MODE=bypassPermissions`。
 
 ---
 
-完成後告訴用戶：
+### Step 1：垃圾桶機制
 
-> 第一層好了。之後我需要刪檔時會先移到垃圾桶（資源回收桶）；真的需要永久刪除時，會先列出目標並請你確認。
+#### macOS / Linux：
+1. 確認有 `trash` 指令：`command -v trash >/dev/null 2>&1 || brew install trash`（macOS 內建或 Homebrew 安裝）。
+2. 在用戶 shell 設定檔（`~/.zshrc` 或 `~/.bashrc`）寫入別名保護日常指令：
+   ```bash
+   # >>> pro-kit-safe-rm >>>
+   alias rm='trash'
+   alias rm!='command rm'
+   # <<< pro-kit-safe-rm <<<
+   ```
+3. AI 自己執行時一律直接使用 `trash <路徑>`。
 
-這一層不代表 AI 永遠不能刪錯，後面還要安裝產品自己的黑名單。
+#### Windows 原生環境（免裝第三方工具）：
+Windows 內建資源回收筒 API，Step 4 會將以下 PowerShell 指令寫入 AI 守則，AI 日後要刪檔時會自動呼叫，檔案會直接進入「資源回收筒」：
+`Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("完整路徑", "OnlyErrorDialogs", "SendToRecycleBin")`
+（資料夾改用 `DeleteDirectory`）。
 
-## Section B：如果是 Claude Code
+---
 
-不是 Claude Code 就跳到 Section C。
+### Step 2：Claude Code（有裝才做）
 
-### B-1. 備份並合併 Deny 規則
-
-目標檔是 `~/.claude/settings.json`。先建立備份，再用 `jq` 合併，不能把原設定整份換掉。
+#### 2a. 快速通行、黑名單與權限模式
+備份 `~/.claude/settings.json` 後，用 `jq` 合併。加入常用只讀與 Git 快速通行，並把危險指令加入 `deny`：
 
 ```bash
-mkdir -p ~/.claude
-test -f ~/.claude/settings.json || printf '{}\n' > ~/.claude/settings.json
-cp ~/.claude/settings.json ~/.claude/settings.json.backup.$(date +%Y%m%d-%H%M%S)
-command -v jq >/dev/null || brew install jq
+S="$HOME/.claude/settings.json"
+mkdir -p "$HOME/.claude/hooks"
+[ -f "$S" ] || printf '{}\n' > "$S"
+cp "$S" "$S.backup.$(date +%Y%m%d-%H%M%S)"
 
 jq '
   .permissions = (.permissions // {}) |
-  .permissions.deny = (((.permissions.deny // []) + [
-    "Bash(rm)",
-    "Bash(rm *)",
-    "Bash(rmdir *)",
-    "Bash(del *)",
-    "Bash(erase *)",
-    "Bash(rd *)",
-    "Bash(Remove-Item *)",
-    "PowerShell(Remove-Item *)",
-    "Bash(rm -rf *)",
-    "Bash(rm -fr *)",
-    "Bash(rm -r *)",
-    "Bash(rm -R *)",
-    "Bash(rm -f *)",
-    "PowerShell(Remove-Item -Recurse *)",
-    "PowerShell(Remove-Item *-Recurse*)",
-    "PowerShell(Remove-Item -Force *)",
-    "PowerShell(Remove-Item *-Force*)",
-    "PowerShell(rm -Recurse *)",
-    "PowerShell(rm *-Recurse*)",
-    "PowerShell(Format-Volume *)",
-    "PowerShell(Clear-Disk *)",
-    "PowerShell(Remove-Partition *)",
-    "PowerShell(Stop-Computer *)",
-    "PowerShell(Restart-Computer *)",
-    "PowerShell(diskpart *)",
-    "PowerShell(format *)",
-    "PowerShell(cmd /c rd *)",
-    "PowerShell(cmd /c del *)",
-    "Bash(sudo *)",
-    "Bash(dd *)",
-    "Bash(mkfs*)",
-    "Bash(diskutil erase*)",
-    "Bash(chmod 777 *)",
-    "Bash(chmod -R 777 *)",
-    "Bash(git reset --hard*)",
-    "Bash(git push --force*)",
-    "Bash(git push -f *)",
-    "Bash(git clean -f*)",
-    "Bash(git branch -D*)",
-    "Bash(shutdown*)",
-    "Bash(reboot*)",
-    "Bash(: >*)",
-    "Bash(truncate *)"
-  ]) | unique)
-' ~/.claude/settings.json > /tmp/claude-settings.new.json &&
-mv /tmp/claude-settings.new.json ~/.claude/settings.json
+  .permissions.allow = ((.permissions.allow // []) - [
+    "Bash(python3:*)", "Bash(python3 *)", "Bash(python *)", "Bash(node:*)", "Bash(node *)",
+    "Bash(npm run:*)", "Bash(npm run *)", "Bash(npm test*)", "Bash(npm install:*)",
+    "Bash(pnpm install)", "Bash(pip3 install:*)", "Bash(gh *)", "Bash(git checkout*)", "WebFetch(*)",
+    "Bash(git push:*)"
+  ]) |
+  .permissions.deny = ((.permissions.deny // []) - [
+    "Bash(git push*)", "PowerShell(git push*)", "Bash(git clean*)", "PowerShell(git clean*)",
+    "Bash(git push *-f*)", "PowerShell(git push *-f*)"
+  ]) |
+  .permissions.allow = ((.permissions.allow + [
+    "WebSearch", "WebFetch", "Bash(ls:*)", "Bash(cd:*)", "Bash(find:*)", "Bash(grep:*)",
+    "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)", "Bash(wc:*)", "Bash(which:*)", "Bash(jq:*)",
+    "Bash(git status)", "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)",
+    "Bash(git branch)", "Bash(git ls-remote:*)", "Bash(git add:*)", "Bash(git commit:*)"
+  ]) | unique) |
+  .permissions.deny = ((.permissions.deny + [
+    "Bash(rm)", "Bash(rm *)", "Bash(rmdir *)", "Bash(del *)", "Bash(erase *)", "Bash(rd *)",
+    "Bash(Remove-Item *)", "PowerShell(Remove-Item *)", "Bash(rm -rf *)", "Bash(rm -fr *)",
+    "Bash(rm -r *)", "Bash(rm -R *)", "Bash(rm -f *)", "Bash(sudo *)", "Bash(dd *)", "Bash(mkfs*)",
+    "Bash(diskutil erase*)", "Bash(diskutil partitionDisk*)", "Bash(diskutil deleteVolume*)",
+    "Bash(chmod 777 *)", "Bash(chmod -R 777 *)", "Bash(git reset --hard*)", "Bash(git reset *--hard*)",
+    "Bash(git push --force*)", "Bash(git push *--force*)", "Bash(git push -f *)", "Bash(git push * -f*)",
+    "Bash(git push --force-with-lease*)", "Bash(git push *--force-with-lease*)", "Bash(git clean -f*)",
+    "Bash(git clean *-f*)", "Bash(git branch -D*)", "Bash(git branch *-D*)", "Bash(shutdown*)",
+    "Bash(reboot*)", "Bash(: >*)", "Bash(truncate *)", "PowerShell(Remove-Item -Recurse *)",
+    "PowerShell(Remove-Item *-Recurse*)", "PowerShell(Remove-Item -Force *)", "PowerShell(Remove-Item *-Force*)",
+    "PowerShell(rm -Recurse *)", "PowerShell(rm *-Recurse*)", "PowerShell(Format-Volume *)",
+    "PowerShell(Clear-Disk *)", "PowerShell(Remove-Partition *)", "PowerShell(Stop-Computer *)",
+    "PowerShell(Restart-Computer *)", "PowerShell(diskpart *)", "PowerShell(format *)",
+    "PowerShell(cmd /c rd *)", "PowerShell(cmd /c del *)", "PowerShell(git reset --hard*)",
+    "PowerShell(git reset *--hard*)", "PowerShell(git push --force*)", "PowerShell(git push *--force*)",
+    "PowerShell(git push -f *)", "PowerShell(git push * -f*)", "PowerShell(git push --force-with-lease*)",
+    "PowerShell(git push *--force-with-lease*)", "PowerShell(git clean -f*)", "PowerShell(git clean *-f*)"
+  ]) | unique) |
+  (if $mode != "" then .permissions.defaultMode = $mode
+   elif (.permissions.defaultMode // "") == "" then .permissions.defaultMode = "auto"
+   else . end)
+' --arg mode "${MODE:-}" "$S" > "$S.pro-kit-tmp" && mv "$S.pro-kit-tmp" "$S"
 ```
 
-### B-2. 選權限模式
+#### 2b. 執行前攔截器（PreToolUse hook）
+建立 `~/.claude/hooks/pro-kit-block-dangerous-commands.sh`（權限 700），並登記進 `~/.claude/settings.json` 的 `hooks.PreToolUse`，攔截常規 rm 與不可逆破壞指令。
 
-先用互動選項詢問，不要替用戶直接開最高權限：
+---
 
-| 模式 | 白話說明 |
-|:--|:--|
-| `Auto`（推薦） | 由 Claude Code 依安全策略自動判斷，搭配工作區與黑名單護欄，兼顧流暢與安全。 |
-| `Accept Edits` | 改檔案可以直接做；執行指令時仍會在關鍵處詢問。 |
-| `Default`（人工審核） | 多數動作都先問，最適合想觀察 AI 怎麼做的新手。 |
-| `Plan` | 只規劃、不動手，適合大改造前先看全貌。 |
-| `Bypass` | 幾乎不詢問。風險最高，嚴禁當成新手預設。 |
+### Step 3：Codex（有裝才做）
 
-依照選擇，把 `permissions.defaultMode` 合併成 `auto`、`acceptEdits`、`default`、`plan` 或 `bypassPermissions`。若用戶選 Bypass，必須再確認一次，並說清楚黑名單只能擋常見寫法，不能保證攔住所有繞法。
+#### 3a. 指令規則 `~/.codex/rules/default.rules`
+管理 `# >>> pro-kit-dangerous-rules >>>` 區塊，設定不可逆指令一律 `decision = "forbidden"`（包含 rm/del/Remove-Item、sudo、dd、mkfs、diskutil erase、chmod 777、git reset --hard、git push --force、git clean -f、git branch -D、shutdown、truncate 等）。
 
-### B-3. 驗證
+#### 3b. 核准與沙盒策略 `~/.codex/config.toml`
+在最頂部加入：
+- **選 Auto**：
+  ```toml
+  # >>> pro-kit-02 permissions >>>
+  approval_policy = "on-request"
+  approvals_reviewer = "auto_review"
+  sandbox_mode = "workspace-write"
+  # <<< pro-kit-02 permissions >>>
+  ```
+- **選 Bypass**：
+  ```toml
+  # >>> pro-kit-02 permissions >>>
+  approval_policy = "never"
+  sandbox_mode = "danger-full-access"
+  # <<< pro-kit-02 permissions >>>
+  ```
 
-```bash
-jq '.permissions | {defaultMode, deny}' ~/.claude/settings.json
+---
+
+### Step 4：寫入工作守則
+
+Claude Code 寫入 `~/.claude/CLAUDE.md`，Codex 寫入 `~/.codex/AGENTS.md`：
+
+```markdown
+<!-- pro-kit-trash:start -->
+## AI 安全三件套
+- 刪除檔案或資料夾前，先確認這是用戶要刪的目標：
+  - Mac：用 `trash <完整路徑>` 移到廢紙簍，不用 `rm`。
+  - Windows：不用 rm、del、Remove-Item（會直接抹掉）。目標在本機硬碟（C:、D: 這類）時，用 PowerShell 移到資源回收筒：
+    `Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("完整路徑", "OnlyErrorDialogs", "SendToRecycleBin")`
+    資料夾改用 `DeleteDirectory`。在 Git Bash 裡，把整段用單引號包起來交給 `powershell -NoProfile -Command`。
+    不確定是不是本機硬碟，用 `[System.IO.DriveInfo]::new("E:\").DriveType` 看，是 `Fixed` 才用。網路磁碟、隨身碟，或這個指令失敗時，不要改用其他刪除方式；把完整路徑列給用戶，請他在檔案總管按 Delete。
+- 要大量修改、搬移或刪除檔案前，如果資料夾有 Git，先在本機 commit 一次當存檔點，並告訴用戶可以回到這個版本。
+- 被安全規則擋下時，改用可還原的做法，或回頭用白話問用戶；不要換成其他指令、腳本或程式碼繞過，也不要自己修改或關掉這些保護。
+- 不做 force push、git reset --hard、git clean -f 這類會丟掉進度的操作。推送到用戶自己的私人備份 repo 可以照做；公開發布、正式上線或變更權限前，先問用戶。
+- 日常的讀檔、查資料、寫檔、存版本直接完成，不必每一步都問；會影響別人或對外的動作，先用一句白話說明再做。
+<!-- pro-kit-trash:end -->
 ```
 
-請用 `claude` 開新對話，再確認設定已載入。不要真的執行危險指令做測試。
+---
 
-> **已知限制（2026-09）**：Claude 桌面版的 Code tab（`CLAUDE_CODE_ENTRYPOINT=claude-desktop`）目前對 `~/.claude/settings.json` 的 `permissions.deny` 黑名單與 hook 支援不完整，實測會被繞過，詳見 [anthropics/claude-code#87657](https://github.com/anthropics/claude-code/issues/87657)。裝完這套黑名單後，高風險操作請在**終端機的 `claude`** 裡進行，不要只依賴桌面版 Code tab。
+### Step 5：白話總結
 
-## Section C：如果是 Codex CLI 或 Codex 桌面版
-
-不是 Codex 就跳過本節。
-
-Codex CLI、Codex 桌面版與 IDE 擴充套件共用 `~/.codex/` 設定。這裡要做兩件不同的事：
-
-1. `.rules` 決定哪些指令永遠禁止。
-2. `config.toml` 決定 AI 平常能碰哪些檔案，以及什麼時候要先問。
-
-### C-1. 建立 `forbidden` 規則
-
-先備份既有規則，再把缺少的規則合併到 `~/.codex/rules/default.rules`。不要刪掉原本的 allow／prompt 規則。
-
-```python
-# 高風險刪除（跨平台）
-prefix_rule(
-    pattern = [["rm", "rm.exe", "Remove-Item", "remove-item", "del", "erase", "rd", "rmdir", "rmdir.exe"]],
-    decision = "forbidden",
-    justification = "禁止永久刪除。Mac 請改用 trash 移到垃圾桶；Windows 請列出目標完整路徑，由使用者在檔案總管處理",
-)
-
-# 系統與磁碟
-prefix_rule(pattern = ["sudo"], decision = "forbidden", justification = "請由本人在終端機手動處理系統管理操作")
-prefix_rule(pattern = ["dd"], decision = "forbidden", justification = "打錯目標可能直接覆寫磁碟")
-prefix_rule(pattern = ["mkfs"], decision = "forbidden", justification = "會格式化磁碟分區")
-prefix_rule(pattern = ["diskutil", "erase"], decision = "forbidden", justification = "會清空磁區")
-
-# Windows 磁碟與提權保護
-prefix_rule(pattern = [["Format-Volume", "diskpart", "format"]], decision = "forbidden", justification = "Windows：會格式化或重新分割磁碟")
-prefix_rule(pattern = ["Start-Process"], decision = "forbidden", justification = "Windows：不要由 AI 提權或另開程序")
-prefix_rule(pattern = [["cmd", "cmd.exe"], "/c", ["del", "erase", "rd", "rmdir"]], decision = "forbidden", justification = "Windows 禁止命令列永久刪除；請交由使用者在檔案總管處理")
-
-# Git 不可逆操作
-prefix_rule(pattern = ["git", "reset", "--hard"], decision = "forbidden", justification = "會清掉未提交的工作，請先用 git stash 或建立 commit")
-prefix_rule(pattern = ["git", "push", ["--force", "--force-with-lease", "-f"]], decision = "forbidden", justification = "會改寫遠端歷史，請由本人確認後手動執行")
-prefix_rule(pattern = ["git", "clean", "-f"], decision = "forbidden", justification = "會刪除未追蹤檔案，請先列出目標")
-prefix_rule(pattern = ["git", "branch", "-D"], decision = "forbidden", justification = "可能刪掉尚未合併的工作")
-
-# 關機與清空檔案
-prefix_rule(pattern = ["shutdown"], decision = "forbidden", justification = "AI 不應自行關機")
-prefix_rule(pattern = ["reboot"], decision = "forbidden", justification = "AI 不應自行重新啟動電腦")
-prefix_rule(pattern = ["truncate"], decision = "forbidden", justification = "會把檔案內容直接清空")
-```
-
-### C-2. 設定沙盒與確認方式
-
-先備份 `~/.codex/config.toml`。如果已經有這兩個欄位，只修改既有值，不要重複新增；其他模型、通知、MCP 設定全部保留。
-
-新手建議值：
-
-```toml
-sandbox_mode = "workspace-write"
-approval_policy = "on-request"
-approvals_reviewer = "auto_review"
-```
-
-白話說明：
-
-- `workspace-write`：AI 可以處理目前工作資料夾，但不能任意寫進整台電腦。
-- `on-request` 搭配 `approvals_reviewer = "auto_review"`（代我核准）：工作區內流暢執行，需要核准的動作交由審核機制把關。若想要每一步由本人親自核准，可設 `approvals_reviewer = "user"`。
-- 不建議新手使用 `danger-full-access` 加上 `never`。那等於活動範圍不設限，也不再詢問。
-
-Codex 桌面版也可以從 Settings 檢查相關設定。檔案改完後要重新啟動 Codex，讓 `.rules` 與 `config.toml` 重新載入。
-
-### C-3. 驗證規則，不執行危險指令
-
-```bash
-codex execpolicy check --pretty \
-  --rules ~/.codex/rules/default.rules \
-  -- git reset --hard
-```
-
-結果應顯示 `forbidden`。這只是在檢查規則，不會真的執行 `git reset --hard`。
-
-## Section D：完成後怎麼回報
-
-請用白話列出：
-
-- 目前設定的是 Claude Code、Codex CLI，還是 Codex 桌面版。
-- `trash` 是否安裝，以及測試是否成功。
-- 寫入哪一套黑名單，以及備份檔位置。
-- 權限模式或沙盒／確認設定。
-- 實際跑過哪些不具破壞性的驗證。
-
-不要宣稱「完全不可能誤刪」。這些規則擋的是常見錯誤，不是萬無一失的防毒軟體。重要專案仍然要用 Git、備份或雲端版本紀錄。
-
-## 常見問題
-
-### 我同時用 Claude Code 和 Codex，怎麼辦？
-
-先把目前這一套設定好並驗證。之後再明確要求 AI 設定另一套。兩邊可以使用相同的安全原則，但設定內容要分別寫入自己的檔案。
-
-### 為什麼不直接全部開到最高權限？
-
-最高權限省掉的是幾次確認，代價是打錯路徑時少了煞車。先用建議設定，等你看懂哪些動作安全，再逐步放寬。
-
-### Windows 怎麼辦？
-
-本設定支援兩種途徑：
-1. **原生 Windows 環境**：採用「人機分工」原則。使用者手動刪除請直接在檔案總管按 `Delete`（移入資源回收桶，最安全可還原）；AI 刪除由 Section B / C 的黑名單徹底禁止命令列刪除指令，AI 必須列出完整路徑交由你在檔案總管處理。
-2. **WSL（Windows Subsystem for Linux）**：若習慣 Linux 環境，亦可在 WSL 內使用 `trash-cli`（`trash-put`）並套用 Linux 版安全設定。
-
-## 官方參考
-
-- Claude Code：[權限與設定文件](https://code.claude.com/docs/en/permissions)
-- Codex：[指令規則文件](https://learn.chatgpt.com/docs/agent-configuration/rules)
-- Codex：[設定參考](https://learn.chatgpt.com/docs/config-file/config-reference)
-
-> [!TIP]
-> **💡 想要上更完整的 AI Agent 陪跑課？**  
-> 享有更完整的聯盟工作流、AI Agent 工作與技能配置包，以及社群陪跑支持，歡迎到這個網頁了解與報名：https://ai.lifehacker.tw/
+依實際裝好的內容調整，用親切白話告知用戶已完成安裝：
+- 🗑️ 刪檔移至垃圾桶／資源回收筒
+- 🚫 危險指令直接被黑名單攔截
+- ⚡ 權限模式（Auto 或 Bypass）已生效
+- 🧠 雷蒙工作守則已寫入，下次開啟對話即全面保護
 
 ---
 
