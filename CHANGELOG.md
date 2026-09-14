@@ -5,6 +5,15 @@
 
 ---
 
+## [v1.3.1] — 2026-09-15
+
+### 🛡 Starter Kit #06 下架 Fable 5 專屬額度欄位
+- 舊版 Section F2 會在背景讀取本機 Claude 登入憑證、自行呼叫未公開的 `/api/oauth/usage`。這不在 Anthropic 允許的憑證用途內（訂閱登入只供 Claude Code 與官方 App 一般使用），也可能被判定為偽裝官方用戶端
+- Section F2 改成「偵測到舊版就協助清除」；想看 Fable 額度請在 Claude Code 打 `/usage`
+- 等官方把單一模型週額度放進狀態列 JSON（[anthropics/claude-code#91920](https://github.com/anthropics/claude-code/issues/91920)）再用正規欄位做回來
+
+---
+
 ## [v1.3] — 2026-07-22
 
 主軸是開源 **Mac 一鍵 AI 環境安裝包（步驟 0）**：雙擊就能把電腦調成 AI 友善基地，站上也有圖解免費導讀可直接分享。
@@ -27,7 +36,7 @@
 主軸是 **Starter Kit #06 狀態列大升級**：新增 Fable 5 專屬額度欄位，並把雷蒙個人版的全部欄位補進公開模板。
 
 ### 🛠 Starter Kit #06 狀態列大升級
-- **新增 Fable 5 專屬額度欄位（選配 Section F2）**：背景腳本讀官方 `/api/oauth/usage`（與 `/usage` 同源、唯讀、不消耗額度）；Pro／沒用 Fable 會自動隱藏
+- **新增 Fable 5 專屬額度欄位（選配 Section F2）**：背景腳本讀官方 `/api/oauth/usage`（與 `/usage` 同源、唯讀、不消耗額度）；Pro／沒用 Fable 會自動隱藏（已於 v1.3.1 下架）
 - **補齊雷蒙個人版全部欄位**：目前時間純時鐘（`SHOW_CLOCK`，可固定時區）與 Session ID 短碼（`SHOW_SESSION_ID`）
 - 示意圖、FAQ、踩坑紀錄同步更新（含 Keychain 殭屍憑證／WAF 假限流等雷區）
 

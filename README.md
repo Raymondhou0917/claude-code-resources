@@ -50,7 +50,7 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 | 03 | [跨 Agent 安全三件套](starter-kit/03-safe-delete.md) | Claude Code／Codex：垃圾桶 + 危險指令黑名單 + 權限護欄 |
 | 04 | [跨 Agent MCP 推薦清單](starter-kit/04-mcp-essentials.md) | Claude Code／Codex 都能讀網頁、操作瀏覽器與串接 Google Workspace |
 | 05 | [線上部署](starter-kit/05-deploy-online.md) | 一句話把作品部署上線 |
-| 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git、時鐘／Session；選配 Fable 5 專屬額度 |
+| 06 | [狀態列設定](starter-kit/06-statusline.md) | 一眼看到模型、額度、Git、時鐘／Session |
 
 ### 🎓 迷你課程
 
