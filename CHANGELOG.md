@@ -5,6 +5,15 @@
 
 ---
 
+## [v1.3.2] — 2026-09-15
+
+### 🛠 Starter Kit #06 單一模型週額度（Fable 等）用官方管道做回來
+- Section F2 回歸，但改成**啟動用戶自己的 `claude`、用官方控制協定 `get_usage` 取 `/usage` 資料**（`rate_limits.model_scoped[]`），腳本不碰登入憑證、不偽造 User-Agent、不打未公開端點
+- 新增 **F2-0 現況查核**：AI 執行前要先確認官方狀態列 JSON 是否已提供該欄位（[#91920](https://github.com/anthropics/claude-code/issues/91920)），有官方做法就走官方的，這節只是備案
+- 明列三條紅線（不撈 Keychain 憑證、不偽造 UA、不打未公開端點），並保留舊版清除步驟
+
+---
+
 ## [v1.3.1] — 2026-09-15
 
 ### 🛡 Starter Kit #06 下架 Fable 5 專屬額度欄位
