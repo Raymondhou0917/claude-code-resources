@@ -1,6 +1,6 @@
 # 安裝包更新紀錄
 
-## 1.2.0 — 2026-10-01（開發分支，尚未發布 ZIP）
+## 1.2.0 — 2026-10-01（開發分支，已簽名測試包／公證待完成）
 
 - 保留四個勾選項目、原安裝順序與完成畫面。
 - Intel 與 macOS 13–14 改用官方下載，不強制安裝 Homebrew；Rosetta 啟動時切回 Apple Silicon 原生程序。
@@ -18,8 +18,10 @@ bash -n env-installer/install-mac.sh
 python3 -m unittest discover -s env-installer/tests -v
 ```
 
-發布前必須完成 Intel 與 Apple Silicon 乾淨環境的全選安裝、重跑、Rosetta、網路失敗測試，以及 App ZIP 重建、Developer ID 簽名、公證與下載回驗。模擬測試不代表實機安裝完成。現有 ZIP 尚未更新，勿作為 1.2.0 交付。
+發布前必須完成 Intel 與 Apple Silicon 乾淨環境的全選安裝、重跑、Rosetta、網路失敗測試，以及 App ZIP 重建、Developer ID 簽名、公證與下載回驗。模擬測試不代表實機安裝完成。`preview/` 提供新版已簽名測試包；原正式 ZIP 未替換，待公證與實機驗證通過後再更新正式下載。
 
 本次驗證：Bash 語法、diff 格式與 13 項隔離回歸測試通過。已核對官方 release／cask 的下載 URL 與 SHA-256；完整 Codex 發行包下載檢查未完成，尚無 Intel 實機或 App 開啟驗證。
 
 上游依據：[Homebrew Intel 安裝限制](https://github.com/Homebrew/install/pull/1140)、[GitHub CLI 發行包](https://github.com/cli/cli/releases)、[Codex 發行包](https://github.com/openai/codex/releases)、[ChatGPT 系統需求](https://help.openai.com/en/articles/9275200-downloading-the-chatgpt-macos-app)。
+
+封裝狀態與檔案雜湊見 [preview/README.md](./preview/README.md)。Apple 公證提交因必要協議未完成而回傳 HTTP 403，目前尚無公證票據。
