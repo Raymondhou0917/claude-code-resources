@@ -3,7 +3,7 @@
 #  雷蒙的 AI 基礎環境安裝包(MAC) ── 開源版
 #  給所有想讓 AI 上工的人：雙擊一次，環境全部就位。
 #
-#  必裝：git → Homebrew → GitHub CLI → GitHub 登入
+#  基礎：git → 軟體安裝工具（依環境分流）→ GitHub CLI → GitHub 登入
 #  選裝路線（開場自己選，不預設）：
 #    Claude 路線 / ChatGPT・Codex 路線 / 兩套都裝 / 只裝基礎環境
 #  可重跑，已裝好的會自動 skip。
@@ -17,13 +17,13 @@
 #  只裝基礎環境，不替使用者決定要用哪家的 AI。
 #
 #  相容性分流：
-#    macOS 14+        → 完整路線（Homebrew）
-#    macOS 13         → 備用路線（官方安裝器，不走 Homebrew）
-#    macOS 12 以下    → 停止，導向 Claude 桌面版（macOS 11+ 可用）
+#    Apple Silicon + macOS 15+ → Homebrew，失敗時改用官方下載
+#    Intel / macOS 13–14       → 官方下載，不依賴 Homebrew
+#    macOS 12 以下    → 停止並提供升級／網頁版指引
 set -euo pipefail
 
 # 版本號：打包成 .app 時會讀這行塞進 Info.plist
-VERSION="1.1.0"
+VERSION="1.2.0"
 
 AD_URL="https://shifu.tw/course/trial/ai-agent-bootcamp"
 
@@ -143,13 +143,123 @@ ZSHENV
   fi
 }
 
+GH_URL="https://github.com/cli/cli/releases/download/v2.102.0/gh_2.102.0_macOS_universal.pkg"
+GH_SHA="1787e65f36626245a6b3cee353a458f6ea4372008548ceb8fb5d5dfb55b006d0"
+CODEX_VERSION="0.159.3"
+CODEX_ARM_URL="https://github.com/openai/codex/releases/download/rust-v0.159.3/codex-package-aarch64-apple-darwin.tar.gz"
+CODEX_ARM_SHA="fad57a5681cabcef21d322af5aec938975cfb711b5f25d4ce4907e6561616d07"
+CODEX_INTEL_URL="https://github.com/openai/codex/releases/download/rust-v0.159.3/codex-package-x86_64-apple-darwin.tar.gz"
+CODEX_INTEL_SHA="fe3096a62b5d8395dd25abf9fe79334cf13c1520b825d236cd2b41eb75a63201"
+CLAUDE_APP_URL="https://downloads.claude.ai/releases/darwin/universal/2.16120.0/Claude-801c07c2fc988dc8ae50cfadd67d4908a4f5cf37.zip"
+CLAUDE_APP_SHA="57c22554696274c78cc2e7c04720d575b36f27a4a2fb4625615c4ae4c8edd880"
+CHATGPT_ARM_URL="https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-26.928.31416.zip"
+CHATGPT_ARM_SHA="87bd4eb365f9ee1e66afdd91ed961f4e91b220d72a8b8c949769229b91926b22"
+CHATGPT_INTEL_URL="https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-x64-26.928.31416.zip"
+CHATGPT_INTEL_SHA="f6289bc8c69f9f5c40fec97249d90ff9b6424eb4d14693647dcf639bd03cb1ab"
+
+# 官方下載使用固定版本與 SHA-256；升版時重新核對發行來源。
+# 不依賴 Python、Node、jq 或 Homebrew，乾淨 Mac 也能執行。
+WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/raymond-install.XXXXXX")"
+cleanup() { rm -rf "$WORK_DIR"; }
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+download() { curl --fail --location --retry 2 --connect-timeout 20 --max-time 600 --proto '=https' --proto-redir '=https' -o "$2" "$1"; }
+verified_download() {
+  download "$1" "$3" || return 1
+  local actual
+  actual="$(shasum -a 256 "$3")" || return 1
+  [[ "${actual%% *}" == "$2" ]] || { warn "下載檔案驗證失敗，請稍後重試。"; return 1; }
+}
+cli_works() { command -v "$1" >/dev/null 2>&1 && "$1" --version >/dev/null 2>&1; }
+
+app_works() {
+  local app="$1" exe minimum
+  [[ -d "$app" ]] || return 1
+  if [[ "$app" == */ChatGPT.app ]] && (( OS_MAJOR < 14 )); then return 1; fi
+  exe="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$app/Contents/Info.plist" 2>/dev/null)" || return 1
+  minimum="$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$app/Contents/Info.plist" 2>/dev/null)" || return 1
+  /usr/bin/awk -v current="$OS_VER" -v minimum="$minimum" 'BEGIN {
+    split(current,c,"."); split(minimum,m,".");
+    for(i=1;i<=3;i++){if(c[i]+0>m[i]+0)exit 0;if(c[i]+0<m[i]+0)exit 1} exit 0
+  }' || return 1
+  /usr/bin/lipo -verify_arch "$CPU_ARCH" "$app/Contents/MacOS/$exe" >/dev/null 2>&1 || return 1
+  /usr/bin/codesign --verify --deep --strict "$app" >/dev/null 2>&1 || return 1
+}
+
+install_official_gh() {
+  verified_download "$GH_URL" "$GH_SHA" "$WORK_DIR/gh.pkg" || return 1
+  /usr/sbin/pkgutil --check-signature "$WORK_DIR/gh.pkg" || return 1
+  sudo /usr/sbin/installer -pkg "$WORK_DIR/gh.pkg" -target / || return 1
+  export PATH="/usr/local/bin:$PATH"
+  hash -r
+}
+
+install_official_codex() {
+  local url sha dest
+  if [[ "$CPU_ARCH" == arm64 ]]; then url="$CODEX_ARM_URL"; sha="$CODEX_ARM_SHA"
+  else url="$CODEX_INTEL_URL"; sha="$CODEX_INTEL_SHA"; fi
+  verified_download "$url" "$sha" "$WORK_DIR/codex.tar.gz" || return 1
+  mkdir -p "$WORK_DIR/codex" || return 1
+  tar -xzf "$WORK_DIR/codex.tar.gz" -C "$WORK_DIR/codex" || return 1
+  # 保留整包的執行檔與 runtime，不能只複製 bin/codex。
+  "$WORK_DIR/codex/bin/codex" --version >/dev/null 2>&1 || return 1
+  dest="$HOME/.local/share/raymond-installer/codex-$CODEX_VERSION-$CPU_ARCH"
+  mkdir -p "$HOME/.local/share/raymond-installer" "$HOME/.local/bin" || return 1
+  # 不覆蓋其他安裝器或使用者的既有檔案。
+  if [[ -e "$HOME/.local/bin/codex" || -L "$HOME/.local/bin/codex" ]]; then
+    warn "既有 Codex 無法執行，請先處理原安裝；本次不覆蓋。"; return 1
+  fi
+  if [[ ! -e "$dest" ]]; then mv "$WORK_DIR/codex" "$dest" || return 1; fi
+  "$dest/bin/codex" --version >/dev/null 2>&1 || return 1
+  ln -s "$dest/bin/codex" "$HOME/.local/bin/codex" || return 1
+  ensure_local_bin
+  hash -r
+}
+
+install_official_app() {
+  local name url sha
+  case "$1" in
+    claude) name=Claude; url="$CLAUDE_APP_URL"; sha="$CLAUDE_APP_SHA" ;;
+    chatgpt)
+      name=ChatGPT
+      # 官方支援頁要求 macOS 14；不因下載檔能解壓就宣稱相容。
+      if (( OS_MAJOR < 14 )); then warn "ChatGPT 桌面版需要 macOS 14 以上；其他工具會繼續安裝。"; return 1; fi
+      if [[ "$CPU_ARCH" == arm64 ]]; then url="$CHATGPT_ARM_URL"; sha="$CHATGPT_ARM_SHA"
+      else url="$CHATGPT_INTEL_URL"; sha="$CHATGPT_INTEL_SHA"; fi ;;
+    *) return 1 ;;
+  esac
+  if [[ -e "/Applications/$name.app" ]]; then
+    warn "既有 $name App 未通過相容性驗證，本次不覆蓋；請依官方下載頁更新。"; return 1
+  fi
+  verified_download "$url" "$sha" "$WORK_DIR/$name.zip" || return 1
+  mkdir -p "$WORK_DIR/$name" || return 1
+  /usr/bin/ditto -x -k "$WORK_DIR/$name.zip" "$WORK_DIR/$name" || return 1
+  app_works "$WORK_DIR/$name/$name.app" || return 1
+  /usr/sbin/spctl --assess --type execute "$WORK_DIR/$name/$name.app" || return 1
+  if [[ -w /Applications ]]; then
+    /usr/bin/ditto "$WORK_DIR/$name/$name.app" "/Applications/$name.app" || return 1
+  else
+    sudo /usr/bin/ditto "$WORK_DIR/$name/$name.app" "/Applications/$name.app" || return 1
+  fi
+  app_works "/Applications/$name.app"
+}
+
 # ── 相容性檢查（先分流，不讓舊 Mac 卡死在半路）─────────
 OS_VER="$(sw_vers -productVersion)"
 OS_MAJOR="${OS_VER%%.*}"
-MODE="full"
-if (( OS_MAJOR >= 14 )); then
+CPU_ARCH="$(uname -m)"
+# Rosetta 回報 x86_64，先切回原生程序，避免抓錯架構。
+if [[ "$CPU_ARCH" == "x86_64" ]] && [[ "$(sysctl -in sysctl.proc_translated 2>/dev/null || true)" == "1" ]]; then
+  cleanup
+  exec /usr/bin/arch -arm64 /bin/bash "$0" "$@"
+fi
+case "$CPU_ARCH" in arm64|x86_64) ;; *) die "暫不支援此處理器：$CPU_ARCH" ;; esac
+MODE="legacy"
+if [[ "$CPU_ARCH" == "arm64" ]] && (( OS_MAJOR >= 15 )); then
   MODE="full"
-elif (( OS_MAJOR == 13 )); then
+elif (( OS_MAJOR >= 13 )); then
   MODE="legacy"
 else
   cat <<OLD
@@ -161,9 +271,9 @@ ${B}═════════════════════════�
 
   你有兩條路：
 
-    ${B}A${N} · 改用「Claude 桌面版」（支援 macOS 11 以上）
-        → 到 claude.com/download 下載，一樣能開始用 AI
-    ${B}B${N} · 把 macOS 升級到 14 以上，再回來雙擊我一次
+    ${B}A${N} · 查看「Claude 桌面版」官方系統需求
+        → 到 claude.com/download 確認相容版本；無法安裝時可先用網頁版
+    ${B}B${N} · 把 macOS 升級到 13 以上，再回來雙擊我一次
 
   🎓 想學怎麼把 AI 練成你的分身？
      完整課程「超級 AI 個體」→ ${AD_URL}
@@ -188,7 +298,7 @@ ${B}═════════════════════════�
   幫你做事，而不是只出一張嘴。
 
   ${B}必裝地基${N}（我自動處理，你看戲就好）：
-    git 時光機 · Homebrew 軟體管家
+    git 時光機 · 軟體安裝工具
     GitHub CLI · GitHub 登入
 
   全程不用寫程式。中途可能請你「輸入 Mac 密碼」
@@ -198,9 +308,7 @@ BANNER
 if [[ "$MODE" == "legacy" ]]; then
   printf '\n'
   warn "偵測到 macOS ${OS_VER}：我會自動改走「備用路線」——"
-  sub "跳過 Homebrew（它已不再完整支援 macOS 13，硬裝很容易失敗）"
-  sub "GitHub CLI 與 Claude Code 改用官方安裝器，結果一樣"
-  sub "桌面版 App 這條路線不代裝，結尾會給你官方下載連結"
+  sub "這台電腦改用官方下載，繼續安裝你勾選的工具，不需要 Homebrew"
 fi
 
 # ── 選裝：挑你的路線 ─────────────────────────────────
@@ -215,12 +323,14 @@ if [[ -z "$TOOLS" ]]; then
 
     printf '\n'
     printf '%s━━━ 挑你要裝的 AI 工具 🎒 ━━━━━━━━━━━━━━━━━━━━━━━━━━%s\n' "$B" "$N"
-    printf '\n  基礎環境（git、Homebrew、GitHub）一定會裝。\n'
+    printf '\n  基礎環境（git、GitHub）一定會裝；軟體管家依電腦自動安排。\n'
     printf '  下面用 %s↑↓%s 移動、%s空白鍵%s 勾選（可複選）、%sEnter%s 確認：\n' "$B" "$N" "$B" "$N" "$B" "$N"
 
     tput civis 2>/dev/null || true
     _mrestore() { tput cnorm 2>/dev/null || true; }
-    trap '_mrestore' EXIT INT TERM
+    trap '_mrestore; cleanup' EXIT
+    trap 'exit 130' INT
+    trap 'exit 143' TERM
     while :; do
       [[ $m_first -eq 0 ]] && printf '\033[7A'
       m_first=0
@@ -251,7 +361,7 @@ if [[ -z "$TOOLS" ]]; then
         '') break ;;
       esac
     done
-    _mrestore; trap - EXIT INT TERM
+    _mrestore; trap cleanup EXIT
     printf '\n'
     SEL_CLAUDE_APP=${m_chk[0]}
     SEL_CLAUDE=${m_chk[1]}
@@ -269,17 +379,9 @@ case "$TOOLS" in
   base)   ;;
 esac
 
-# 備用路線（macOS 13）：桌面版 App 與 Codex CLI 都靠 Homebrew，這裡不代裝，
-# 改成結尾給官方下載連結。Claude Code 有官方安裝器，仍然可以裝。
+export PATH="/usr/local/bin:$PATH"
+ensure_local_bin
 RS_CODEX="之後可再雙擊我一次重試"
-if [[ "$MODE" == "legacy" ]]; then
-  if [[ "$SEL_CLAUDE_APP" -eq 1 ]]; then SEL_CLAUDE_APP=0; ST_CLAUDE_APP="skip"; fi
-  if [[ "$SEL_CHATGPT_APP" -eq 1 ]]; then SEL_CHATGPT_APP=0; ST_CHATGPT_APP="skip"; fi
-  if [[ "$SEL_CODEX" -eq 1 ]]; then
-    SEL_CODEX=0; ST_CODEX="skip"; RS_CODEX="macOS ${OS_VER} 不支援，結尾有替代做法"
-    warn "備用路線裝不了 Codex CLI（它靠 Homebrew）——桌面版 App 也改成結尾給你官方連結。"
-  fi
-fi
 
 LOADOUT=""
 [[ "$SEL_CLAUDE" -eq 1 ]]      && LOADOUT="${LOADOUT}Claude Code、"
@@ -334,48 +436,38 @@ fi
 step "Homebrew"
 ST_BREW="ok"
 if [[ "$MODE" == "legacy" ]]; then
-  if ensure_brew; then
-    ok "你本來就有 Homebrew：$(brew --version | head -1)，太好了，直接請它上工"
-    MODE="full"
-  else
-    ST_BREW="skip"
-    warn "macOS ${OS_VER} 跳過 Homebrew（備用路線），下一站直接裝 GitHub CLI。"
-  fi
-elif ensure_brew; then
-  ok "早就裝好了：$(brew --version | head -1)（這站直接通過 ✨）"
+  ST_BREW="skip"
+  warn "這台 Mac 使用官方下載路線，跳過 Homebrew，繼續安裝其他工具。"
+elif ensure_brew && brew --version >/dev/null 2>&1; then
+  ok "Homebrew 已經裝好了（這站直接通過 ✨）"
 else
   say "正在安裝 Homebrew（Mac 的軟體管家，之後裝東西都靠它）…"
-  wait_hint "全程最花時間的一站，大概 3～5 分鐘。去倒杯水，回來剛剛好 ☕"
-  sub "畫面卡著不動 = 正在下載，不是當機"
-  sub "若要你輸入 Mac 密碼：打字時看不到字是正常的，打完按 Enter"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ensure_brew || die "Homebrew 裝好了但找不到 brew，請依畫面把 PATH 加好後再跑一次。"
-  ok "$(brew --version | head -1)"
+  wait_hint "大概 3～5 分鐘；若要輸入 Mac 密碼，打字時看不到字是正常的。"
+  if download https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh "$WORK_DIR/brew.sh" &&
+     /bin/bash "$WORK_DIR/brew.sh" && ensure_brew && brew --version >/dev/null 2>&1; then
+    ok "Homebrew 就位"
+  else
+    MODE="legacy"; ST_BREW="skip"
+    warn "Homebrew 這次沒裝成功，改用官方下載繼續，不用重新操作。"
+  fi
 fi
 persist_ai_path
 
 # ── 第 3 站：GitHub CLI ──────────────────────────────
 step "GitHub CLI"
 ST_GH="ok"
-if command -v gh >/dev/null 2>&1; then
-  ok "早就裝好了：$(gh --version | head -1)（這站直接通過 ✨）"
-elif [[ "$MODE" == "full" ]]; then
-  say "請管家順手裝一下 gh…"
-  wait_hint "大概 1～2 分鐘。"
-  brew install gh
-  command -v gh >/dev/null 2>&1 || die "gh 安裝失敗，請再跑一次本程式。"
-  ok "$(gh --version | head -1)"
+if cli_works gh; then
+  ok "GitHub CLI 已經裝好了（這站直接通過 ✨）"
 else
-  say "正在下載 GitHub 官方安裝包（備用路線）…"
-  wait_hint "大概 1～2 分鐘。裝的時候會請你輸入 Mac 密碼。"
-  GH_PKG_URL="$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest \
-    | grep -o 'https://[^"]*macOS_universal\.pkg' | head -1)"
-  [[ -n "$GH_PKG_URL" ]] || die "抓不到 gh 安裝包網址，請檢查網路後再跑一次。"
-  GH_PKG="$(mktemp -d)/gh.pkg"
-  curl -fsSL -o "$GH_PKG" "$GH_PKG_URL"
-  sudo installer -pkg "$GH_PKG" -target /
-  command -v gh >/dev/null 2>&1 || die "gh 安裝失敗，請再跑一次本程式。"
-  ok "$(gh --version | head -1)"
+  say "正在安裝 GitHub CLI…"
+  if [[ "$MODE" == "full" ]]; then brew install gh || true; fi
+  if ! cli_works gh; then install_official_gh || true; fi
+  if cli_works gh; then
+    ok "GitHub CLI 就位"
+  else
+    ST_GH="fail"
+    warn "GitHub CLI 沒裝成功，會繼續安裝其他工具；之後再雙擊我一次重試。"
+  fi
 fi
 
 # ── 第 4 站：GitHub 登入 ─────────────────────────────
@@ -383,6 +475,9 @@ step "GitHub 登入"
 if [[ "$WITH_AUTH" -eq 0 ]]; then
   ST_AUTH="skip"
   warn "你選了不登入（--skip-auth），這站跳過。"
+elif [[ "$ST_GH" != "ok" ]]; then
+  ST_AUTH="fail"
+  warn "GitHub CLI 尚未就位，登入留待重跑時完成。"
 elif gh auth status >/dev/null 2>&1; then
   ST_AUTH="ok"
   ok "已經登入 GitHub 了（這站直接通過 ✨）"
@@ -406,7 +501,7 @@ fi
 if [[ "$SEL_CLAUDE" -eq 1 ]]; then
   step "Claude Code"
   ensure_local_bin
-  if command -v claude >/dev/null 2>&1; then
+  if cli_works claude; then
     ST_CLAUDE="ok"
     ok "早就裝好了：$(claude --version 2>/dev/null || echo 'Claude Code')（這站直接通過 ✨）"
   else
@@ -414,14 +509,17 @@ if [[ "$SEL_CLAUDE" -eq 1 ]]; then
       say "來裝你的 AI Agent 本體…"
       wait_hint "大概 1～3 分鐘，裝好就能在終端機打 claude 跟它對話。"
       brew install --cask claude-code || true
-    else
+    fi
+    if ! cli_works claude; then
       say "用 Anthropic 官方安裝器裝 Claude Code（備用路線）…"
       wait_hint "大概 1～3 分鐘。"
-      curl -fsSL https://claude.ai/install.sh | bash || true
+      if download https://claude.ai/install.sh "$WORK_DIR/claude.sh"; then
+        /bin/bash "$WORK_DIR/claude.sh" || true
+      fi
     fi
     ensure_local_bin
     hash -r 2>/dev/null || true
-    if command -v claude >/dev/null 2>&1; then
+    if cli_works claude; then
       ST_CLAUDE="ok"
       ok "Claude Code 就位：$(claude --version 2>/dev/null || echo '已安裝')"
     else
@@ -435,14 +533,15 @@ fi
 # ── 選裝站：Claude 桌面版 ────────────────────────────
 if [[ "$SEL_CLAUDE_APP" -eq 1 ]]; then
   step "Claude 桌面版"
-  if [[ -d "/Applications/Claude.app" ]]; then
+  if app_works "/Applications/Claude.app"; then
     ST_CLAUDE_APP="ok"
     ok "應用程式裡已經有 Claude 了（這站直接通過 ✨）"
   else
     say "下載 Claude 桌面版 App（圖形介面，拖檔案就能用）…"
     wait_hint "大概 1～3 分鐘。"
-    brew install --cask claude || true
-    if [[ -d "/Applications/Claude.app" ]]; then
+    if [[ "$MODE" == "full" ]]; then brew install --cask claude || true; fi
+    if ! app_works "/Applications/Claude.app"; then install_official_app claude || true; fi
+    if app_works "/Applications/Claude.app"; then
       ST_CLAUDE_APP="ok"
       ok "Claude 桌面版就位，第一次打開時用你的 Claude 帳號登入即可"
     else
@@ -455,20 +554,21 @@ fi
 # ── 選裝站：Codex CLI ────────────────────────────────
 if [[ "$SEL_CODEX" -eq 1 ]]; then
   step "Codex CLI"
-  if command -v codex >/dev/null 2>&1; then
+  if cli_works codex; then
     ST_CODEX="ok"
     ok "早就裝好了：$(codex --version 2>/dev/null || echo 'Codex CLI')（這站直接通過 ✨）"
   else
     say "來裝 Codex CLI（用 ChatGPT 帳號跑的 AI Agent）…"
     wait_hint "大概 1～2 分鐘。"
-    brew install codex || true
+    if [[ "$MODE" == "full" ]]; then brew install --cask codex || true; fi
+    if ! cli_works codex; then install_official_codex || true; fi
     hash -r 2>/dev/null || true
-    if command -v codex >/dev/null 2>&1; then
+    if cli_works codex; then
       ST_CODEX="ok"
       ok "Codex CLI 就位，第一次在終端機打 codex 時會請你登入 ChatGPT 帳號"
     else
       ST_CODEX="fail"
-      warn "Codex CLI 沒裝成功 —— 不影響其他步驟，之後可再跑一次或手動 brew install codex。"
+      warn "Codex CLI 沒裝成功 —— 不影響其他步驟，之後可再雙擊我一次重試。"
     fi
   fi
 fi
@@ -476,14 +576,15 @@ fi
 # ── 選裝站：ChatGPT 桌面版 ───────────────────────────
 if [[ "$SEL_CHATGPT_APP" -eq 1 ]]; then
   step "ChatGPT 桌面版"
-  if [[ -d "/Applications/ChatGPT.app" ]]; then
+  if app_works "/Applications/ChatGPT.app"; then
     ST_CHATGPT_APP="ok"
     ok "應用程式裡已經有 ChatGPT 了（這站直接通過 ✨）"
   else
     say "下載 ChatGPT 桌面版 App（在裡面就能開 Codex）…"
     wait_hint "大概 1～3 分鐘。"
-    brew install --cask chatgpt || true
-    if [[ -d "/Applications/ChatGPT.app" ]]; then
+    if [[ "$MODE" == "full" ]]; then brew install --cask chatgpt || true; fi
+    if ! app_works "/Applications/ChatGPT.app"; then install_official_app chatgpt || true; fi
+    if app_works "/Applications/ChatGPT.app"; then
       ST_CHATGPT_APP="ok"
       ok "ChatGPT 桌面版就位，第一次打開時登入你的 ChatGPT 帳號即可"
     else
@@ -497,7 +598,8 @@ fi
 # AI 工具執行指令用的是非 login 殼層（zsh -c），只讀 ~/.zshenv、
 # 不讀 ~/.zprofile。這裡用乾淨環境實測 AI 到底找不找得到工具，
 # 免得工具都裝好了，AI 卻跟學員說「找不到 gh」害人以為裝錯要重做。
-AI_TOOLS="git gh"
+AI_TOOLS="git"
+[[ "$ST_GH" == "ok" ]] && AI_TOOLS="$AI_TOOLS gh"
 [[ "$ST_BREW"   == "ok" ]] && AI_TOOLS="$AI_TOOLS brew"
 [[ "$ST_CLAUDE" == "ok" ]] && AI_TOOLS="$AI_TOOLS claude"
 [[ "$ST_CODEX"  == "ok" ]] && AI_TOOLS="$AI_TOOLS codex"
@@ -509,6 +611,7 @@ AI_MISSING="$(env -i HOME="$HOME" zsh -c '
 
 # ── 完成畫面（只報這趟實際發生的結果）───────────────
 HAS_FAIL=0
+[[ -n "$AI_MISSING" ]] && HAS_FAIL=1
 for s in "$ST_GIT" "$ST_BREW" "$ST_GH" "$ST_AUTH" \
          "$ST_CLAUDE" "$ST_CLAUDE_APP" "$ST_CODEX" "$ST_CHATGPT_APP"; do
   [[ "$s" == "fail" ]] && HAS_FAIL=1
@@ -521,7 +624,8 @@ else
 fi
 
 # 驗貨指令：只列真的裝起來的
-VERIFY="git --version && gh --version"
+VERIFY="git --version"
+[[ "$ST_GH" == "ok" ]] && VERIFY="${VERIFY} && gh --version"
 [[ "$ST_CLAUDE" == "ok" ]] && VERIFY="${VERIFY} && claude --version"
 [[ "$ST_CODEX"  == "ok" ]] && VERIFY="${VERIFY} && codex --version"
 
@@ -531,7 +635,7 @@ printf '════════════════════════
 printf '  這趟的實際結果：\n'
 result_line "$ST_GIT"          "git"
 result_line "$ST_BREW"         "Homebrew"        "備用路線不裝，不影響使用"
-result_line "$ST_GH"           "GitHub CLI"
+result_line "$ST_GH"           "GitHub CLI"       "再雙擊我一次會重試"
 result_line "$ST_AUTH"         "GitHub 登入"     "之後再雙擊我一次就能補登"
 result_line "$ST_CLAUDE"       "Claude Code"     "再雙擊我一次會重試"
 result_line "$ST_CLAUDE_APP"   "Claude 桌面版"   "或手動到 claude.com/download 下載"
@@ -542,7 +646,7 @@ if [[ -z "$AI_MISSING" ]]; then
 else
   printf '    %s!%s AI 殼層驗證%s（AI 可能看不到：%s—— 是 PATH 問題，不是沒裝）%s\n' "$Y" "$N" "$D" "${AI_MISSING}" "$N"
   printf '       %s‧ 打開 AI 工具後，把這句貼給它：%s\n' "$D" "$N"
-  printf '       %s‧ 「請檢查 ~/.zshenv 有沒有把 /opt/homebrew/bin 加進 PATH，我的工具裝在那裡」%s\n' "$D" "$N"
+  printf '       %s‧ 「請檢查 ~/.zshenv 有沒有把 /opt/homebrew/bin 加進 PATH，並檢查 /usr/local/bin 與 ~/.local/bin」%s\n' "$D" "$N"
 fi
 
 cat <<DONE
@@ -556,7 +660,7 @@ DONE
 cat <<DONE
 
 ${B}  ─────────────────────────────────────────────${N}
-  🎓 現在你的 Mac 已經完成基本的 AI 環境安裝！
+  🎓 安裝結果請以上方清單為準。
 
   想知道怎樣養出自己的 AI Agent，把 AI 從工具變成員工！
   馬上報名「超級 AI 個體」線上體驗課 👇
@@ -565,12 +669,5 @@ ${B}  ────────────────────────�
 ${B}════════════════════════════════════════════════════${N}
 DONE
 
-if [[ "$MODE" == "legacy" ]]; then
-  printf '\n'
-  say "備用路線不代裝 App，這幾個自己點官方連結下載就好："
-  [[ "$ST_CLAUDE_APP" == "skip" ]]  && sub "Claude 桌面版：claude.com/download"
-  [[ "$ST_CHATGPT_APP" == "skip" ]] && sub "ChatGPT 桌面版：chatgpt.com/download"
-  [[ "$ST_CODEX" == "skip" ]]       && sub "Codex：先裝 ChatGPT 桌面版，裡面就能開 Codex"
-fi
-
 farewell_close
+exit "$HAS_FAIL"
