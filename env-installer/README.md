@@ -5,7 +5,7 @@
 > 這是專為想開始使用 AI Agent（如 Claude Code、Codex）的新手設計的**開源自動安裝工具**。
 > **這不是程式碼，不用你寫任何指令！** 在 Mac 上下載解壓縮後「點兩下打開」，就能一口氣幫電腦裝好 AI 所需的基本文具與軟體。本課學員把它當**步驟 0**，跑完再進 Pro-Kit 01。
 
-> **v1.2.0 開發分支注意**：新版已打包並完成 Developer ID 簽名，測試包與驗證狀態見 [preview](./preview/README.md)。Apple 公證仍待完成，不可作為正式學員下載；本資料夾原正式 ZIP 保持舊版。
+> **安裝包 v1.2.0**：Intel 與 M 系列共用同一個 ZIP，操作流程不變。已完成 Developer ID 簽名、Apple 公證與解壓後 Gatekeeper 驗證；實機相容性驗證範圍見 [驗證紀錄](./VERIFICATION.md)。
 
 > **這裡就是開源正本**（`env-installer/`）。課程 repo 的 `content/pro-kit/bootstrap/` 與此同步，方便學員在課程路徑內找到。
 
