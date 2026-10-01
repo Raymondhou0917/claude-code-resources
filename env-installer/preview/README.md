@@ -10,7 +10,8 @@
 - Bash 語法、13 項隔離回歸測試：通過
 - Apple 公證：提交回傳 HTTP 403，必要協議尚未生效；無票據
 - Intel / Apple Silicon 乾淨環境完整安裝、Rosetta 實機流程：待驗證
-- 完整外部下載檔驗證：進行中；尚未宣稱所有工具可成功安裝
+- Claude 桌面版與 ChatGPT（arm64／x86_64）官方 ZIP：完整下載、SHA-256、解壓、架構及簽名驗證通過；未啟動 App
+- GitHub CLI／Codex 發行包：下載連線中斷，完整驗證尚未通過；未宣稱所有工具可成功安裝
 
 SHA-256：`1ab0b60b8972e236bf875e03e693b1441a3fb730184fced6330acc501bc3a5c9`
 

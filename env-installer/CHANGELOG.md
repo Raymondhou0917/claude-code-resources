@@ -25,3 +25,5 @@ python3 -m unittest discover -s env-installer/tests -v
 上游依據：[Homebrew Intel 安裝限制](https://github.com/Homebrew/install/pull/1140)、[GitHub CLI 發行包](https://github.com/cli/cli/releases)、[Codex 發行包](https://github.com/openai/codex/releases)、[ChatGPT 系統需求](https://help.openai.com/en/articles/9275200-downloading-the-chatgpt-macos-app)。
 
 封裝狀態與檔案雜湊見 [preview/README.md](./preview/README.md)。Apple 公證提交因必要協議未完成而回傳 HTTP 403，目前尚無公證票據。
+
+補充封裝驗證：Claude 與 ChatGPT 兩種架構的官方 ZIP 已完整下載，SHA-256、解壓、架構及簽名檢查通過；不等於實機 App 開啟或端到端安裝驗證。
