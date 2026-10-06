@@ -6,7 +6,7 @@
   1. <!-- trial-sessions:start --> 與 <!-- trial-sessions:end --> 之間的場次 <li>
   2. <span class="bootcamp-side-count">…</span> 的報名人數
 
-抓不到、格式對不上、場次是 0 筆，一律 exit 1 且不寫檔——網站維持原樣，由 workflow 發 Discord 通知。
+抓不到、格式對不上、場次是 0 筆，一律 exit 1 且不寫檔——網站維持原樣，workflow 會標成失敗。
 場次過期的隱藏交給前端 JS（index.html 底部），所以就算某天沒跑，網站也不會掛著過期場次。
 
 用法：
@@ -124,7 +124,7 @@ def main() -> int:
         new = src[: m.start()] + render_sessions(sessions, m.group("indent"), m.group("note")) + src[m.end() :]
         new = COUNT_RE.sub(lambda c: c.group(1) + render_count(count) + c.group(2), new, count=1)
     except SyncError as e:
-        e = " ".join(str(e).split())  # 壓成一行：GITHUB_OUTPUT 與 Discord 訊息都不能有換行
+        e = " ".join(str(e).split())  # 壓成一行：GITHUB_OUTPUT 不能有換行
         print(f"::error::{e}")
         if out:
             with open(out, "a") as f:
