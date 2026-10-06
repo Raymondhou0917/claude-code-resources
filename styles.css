@@ -3947,3 +3947,213 @@ div.course-lesson,
 }
 #twLightbox.open img { transform: scale(1); }
 
+
+/* ===== AI Agent 陪跑課（學員作品區塊結尾） ===== */
+.bootcamp {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 3rem auto 0;
+  padding: 1.75rem;
+  background: var(--beige-light);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 18px rgba(26, 26, 26, 0.06), 0 1px 4px rgba(26, 26, 26, 0.04);
+  text-align: left;
+  scroll-margin-top: 90px;
+}
+.bootcamp-title {
+  font-family: 'GlowSansTCWide', 'Noto Sans TC', 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.45;
+  margin: 0 0 0.5rem;
+}
+.bootcamp-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0 0 1rem;
+}
+.bootcamp-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.bootcamp-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.bootcamp-points svg {
+  flex: none;
+  margin-top: 0.2rem;
+  color: var(--orange);
+}
+.bootcamp-side {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 10px rgba(26, 26, 26, 0.05), 0 1px 2px rgba(26, 26, 26, 0.04);
+  padding: 1.1rem 1.2rem;
+}
+.bootcamp-side-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+.bootcamp-side-label {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--dark);
+}
+.bootcamp-side-count {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+.bootcamp-sessions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bootcamp-sessions li {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--beige-mid);
+}
+.bootcamp-sessions li strong { color: var(--dark); }
+.bootcamp-side-note {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0.6rem 0 0.9rem;
+}
+.bootcamp-cta {
+  margin-top: auto;
+  display: block;
+  text-align: center;
+  background: var(--orange);
+  color: #fff !important;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.bootcamp-cta:hover { background: var(--orange-hover); }
+@media (max-width: 768px) {
+  .bootcamp {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+    margin-top: 2.25rem;
+    gap: 1.1rem;
+  }
+  .bootcamp-title { font-size: 1.2rem; }
+}
+
+/* ===== 兩堂課怎麼選（迷你課 vs 陪跑課） ===== */
+/* 一張完整卡：封面滿版貼齊上緣、被卡片圓角裁切；hover 時整張卡一起傾斜（JS），封面白光掃過 */
+.pick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  max-width: 820px;
+  margin: 2rem auto 0;
+  text-align: left;
+  align-items: stretch;
+}
+.pick-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(26, 26, 26, 0.06), 0 1px 4px rgba(26, 26, 26, 0.04);
+  transform: perspective(1200px) rotateX(0) rotateY(0);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+  will-change: transform;
+}
+.pick-card:hover { box-shadow: 0 16px 36px rgba(26, 26, 26, 0.10), 0 4px 10px rgba(26, 26, 26, 0.05); }
+.pick-cover { display: block; position: relative; overflow: hidden; }
+.pick-cover img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.pick-card:hover .waitlist-hero-shine { transform: translateX(150%); }
+.pick-body { display: flex; flex-direction: column; flex: 1; padding: 1rem 1.1rem 1.1rem; }
+.pick-tag {
+  align-self: flex-start;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  background: rgba(61, 46, 31, 0.06);
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+}
+.pick-card--bootcamp .pick-tag { color: var(--orange); background: var(--orange-light); }
+.pick-name {
+  font-family: 'GlowSansTCWide', 'Noto Sans TC', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--dark);
+  margin: 0.4rem 0 0;
+}
+.pick-points { list-style: none; margin: 0.75rem 0 1.1rem; padding: 0; display: grid; gap: 0.45rem; }
+.pick-points li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; line-height: 1.6; color: var(--text); }
+.pick-check { flex: none; margin-top: 0.15rem; color: var(--text-tertiary); }
+.pick-card--bootcamp .pick-check { color: var(--orange); }
+.pick-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  border-radius: 10px;
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid rgba(61, 46, 31, 0.2);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.pick-btn svg { flex: none; transition: transform 0.2s ease; }
+.pick-btn:hover { border-color: var(--orange); color: var(--orange); }
+.pick-btn:hover svg { transform: translate(2px, -2px); }
+.pick-card--bootcamp .pick-btn {
+  background: var(--orange);
+  color: #fff;
+  border-color: transparent;
+  animation: pick-breathe 2.8s ease-in-out infinite;
+}
+.pick-card--bootcamp .pick-btn:hover { background: var(--orange-hover); color: #fff; animation-play-state: paused; }
+/* 滿版按鈕用 scale 呼吸會太晃，只讓光暈呼吸 */
+@keyframes pick-breathe {
+  0%, 100% { box-shadow: 0 4px 14px rgba(218, 123, 74, 0.25); }
+  50% { box-shadow: 0 8px 24px rgba(218, 123, 74, 0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pick-card--bootcamp .pick-btn { animation: none; }
+}
+@media (max-width: 780px) {
+  .pick-grid { grid-template-columns: 1fr; gap: 1.5rem; max-width: 440px; }
+}
