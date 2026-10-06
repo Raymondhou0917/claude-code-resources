@@ -1,0 +1,62 @@
+# 每天從 shifu.tw 同步「免費線上體驗課」場次與報名人數到 index.html
+# 有變動 → 開 PR 並立即 squash 合併 → Zeabur 自動部署
+# 失敗 → 網站不動，發通知到 Discord #business（secret: DISCORD_WEBHOOK_BUSINESS）
+# 需要 repo 設定：Settings → Actions → General → 勾選「Allow GitHub Actions to create and approve pull requests」
+name: 同步體驗課場次
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # UTC 00:00 = 台北 08:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-trial-sessions
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 抓 shifu.tw 並更新 index.html
+        id: sync
+        run: python3 .github/scripts/sync_trial_sessions.py
+
+      - name: 開 PR 並合併
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUMMARY: ${{ steps.sync.outputs.summary }}
+        run: |
+          branch="bot/trial-sessions-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -am "chore: 同步體驗課 $SUMMARY"
+          git push origin "$branch"
+          gh pr create --base master --head "$branch" \
+            --title "chore: 同步體驗課 $SUMMARY" \
+            --body "由「同步體驗課場次」workflow 自動建立，資料來源：https://shifu.tw/course/trial/ai-agent-bootcamp"
+          # PR 剛建立時 GitHub 可能還在算能不能合併，失敗就等一下重試
+          for i in 1 2 3 4 5; do
+            gh pr merge "$branch" --squash --delete-branch && exit 0
+            sleep 10
+          done
+          echo "::error::PR 建立了但合併失敗" && exit 1
+
+      - name: "失敗通知 Discord #business"
+        if: failure()
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BUSINESS }}
+          REASON: ${{ steps.sync.outputs.error }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          [ -z "$WEBHOOK" ] && { echo "::warning::沒有設定 DISCORD_WEBHOOK_BUSINESS，略過通知"; exit 0; }
+          msg=$(python3 -c 'import json,os; r=os.environ.get("REASON") or "開 PR／合併步驟失敗"; print(json.dumps({"content": "⚠️ cc.lifehacker.tw 體驗課場次同步失敗\n原因：" + r + "\n網站維持原樣（過期場次會自動隱藏），請手動確認：https://shifu.tw/course/trial/ai-agent-bootcamp\nLog：" + os.environ["RUN_URL"]}))')
+          curl -sS -f -X POST -H "Content-Type: application/json" -H "User-Agent: cc-lifehacker-trial-sync" -d "$msg" "$WEBHOOK"
