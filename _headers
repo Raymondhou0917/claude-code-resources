@@ -1,0 +1,9 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:preview.:project.pages.dev/*
+  X-Robots-Tag: noindex

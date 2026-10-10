@@ -25,3 +25,9 @@ log.txt
 
 # Image/font optimization backups (originals, kept locally only)
 **/_originals-backup/
+
+# Cloudflare public build and local credentials
+dist/
+.wrangler/
+.env
+.env.*
