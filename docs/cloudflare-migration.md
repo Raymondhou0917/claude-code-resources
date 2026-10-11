@@ -24,3 +24,9 @@
 ## 還原
 
 若切換有問題，先恢復原 Zeabur 服務與保存的 Git trigger，再依搬遷證據恢復原 DNS 記錄。先確認原站健康，才切回流量；不刪除 Cloudflare 專案。若僅內容 regression，Pages 可 rollback 到上一個健康 deployment。
+
+## 正式完成紀錄
+
+2026-10-10 22:07 America/Lima（UTC 2026-10-11 03:07）：Pages 自訂網域、驗證與憑證均 active。正式 HTTPS、16 個引用資產、robots／sitemap 正常；未知 URL、`.env`、`AGENTS.md`、build script 均 404，正式沒有 noindex。先前獨立 preview UI／下載／FAQ 驗收通過。
+
+已重新核對 Zeabur project `69d45bda327f44a3cdec19b4`、environment `69d45bda474db8a99d6dd1a8`、service `69d45bdf327f44a3cdec19b7` 的 repo／domain，再解除 Git trigger 並暫停服務。原 project／設定保留，不刪除；後續部署由 CF Git integration 負責。
