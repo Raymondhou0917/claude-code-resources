@@ -49,7 +49,7 @@ https://raw.githubusercontent.com/Raymondhou0917/claude-code-resources/master/st
 
 | # | 名稱 | 說明 | 難度 |
 |:--|:-----|:-----|:-----|
-| 05 | [線上部署懶人包](05-deploy-online.md) | Zeabur + Cloudflare，讓作品被全世界看到（互動式選裝） | ⭐⭐ |
+| 05 | [線上部署懶人包](05-deploy-online.md) | 靜態網頁丟 Cloudflare Pages、後端／Bot 丟 Railway，讓作品被全世界看到（互動式選裝） | ⭐⭐ |
 
 ### 更多主題持續更新中...
 
