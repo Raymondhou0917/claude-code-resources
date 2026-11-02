@@ -7,7 +7,7 @@
 
 > **安裝包 v1.2.1**：修正用第三方解壓縮工具解開後顯示「已損毀」的問題。Intel 與 M 系列共用同一個 ZIP，操作流程不變。已完成 Developer ID 簽名、Apple 公證與解壓後 Gatekeeper 驗證；實機相容性驗證範圍見 [驗證紀錄](./VERIFICATION.md)。
 
-> **這裡就是開源正本**（`env-installer/`）。課程 repo 的 `content/pro-kit/bootstrap/` 與此同步，方便學員在課程路徑內找到。
+> **這裡就是開源正本**（`env-installer/`）。課程 Pro-Kit 00（`content/pro-kit/00-env-setup.md`）直接連到這裡下載，不另存副本。
 
 ---
 
@@ -112,10 +112,10 @@ ChatGPT 桌面版依官方需求限 macOS 14 以上；不相容或未裝成功�
 <details>
 <summary>給技術協作者的維護說明（學員可略過）</summary>
 
-- **開源 SSOT**：[`claude-code-resources/env-installer/`](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)。本課 `content/pro-kit/bootstrap/` 與其同步。
+- **開源 SSOT**：[`claude-code-resources/env-installer/`](https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer)。課程 repo 不另存副本，Pro-Kit 00 直接連到這裡。
 - `install-mac.sh` 是安裝邏輯與終端機文案的腳本正本；`.app` 打包、簽名與公證的工具鏈在 ShiFu 內部（打包時以本檔覆蓋其 `install-mac.sh` 並改 App 名稱後重建）。
 - 定位是**開源版**（不綁課程內容、不連課程 repo）：只在**開場品牌**與**完成畫面 CTA** 導流到課程；`AD_URL` 一處改全部。
-- 簽名＋公證過的 ZIP 直接發佈在本資料夾（`env-installer/`）；課程 repo 的 `content/pro-kit/bootstrap/dist/` 仍列入 `.gitignore`、不進 git。
+- 簽名＋公證過的 ZIP 直接發佈在本資料夾（`env-installer/`），下載連結固定指向 master 上的同名檔，改版時覆蓋 ZIP 即可，不用改課程連結。
 
 </details>
 

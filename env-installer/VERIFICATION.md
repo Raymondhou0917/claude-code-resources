@@ -9,6 +9,7 @@
 - Developer ID 簽名、Apple 公證（Accepted）、staple。
 - 最終 ZIP 分別用 `unzip`、`ditto -x -k`、帶 quarantine 的 `ditto -x -k` 三種方式解壓：`codesign --verify --deep --strict`、`stapler validate` 均通過，Gatekeeper 回覆 `accepted / Notarized Developer ID`。舊 1.2.0 ZIP 用 `unzip` 解壓會回 `a sealed resource is missing or invalid`。
 - Bash 語法與 13 項隔離回歸測試通過。
+- 實機安裝尚待驗證的項目同 1.2.0（見下方「尚待驗證」），這一版沒有另外做實機測試。
 
 公證提交 ID：`e4e67ebb-dc49-4f85-81bf-638fd923a92e`
 
