@@ -1,11 +1,11 @@
 # ⚡ AI 基礎環境安裝包（開源版）：一鍵把電腦備好「AI 辦公室」
 
-> **文件 ver. 3.3** ｜ **腳本 v1.2.0** ｜ **Last edited: 2026-10-01**
+> **文件 ver. 3.3** ｜ **腳本 v1.2.1** ｜ **Last edited: 2026-11-02**
 > ⭐ 初學者友善｜10～15 分鐘｜零程式基礎適用
 > 這是專為想開始使用 AI Agent（如 Claude Code、Codex）的新手設計的**開源自動安裝工具**。
 > **這不是程式碼，不用你寫任何指令！** 在 Mac 上下載解壓縮後「點兩下打開」，就能一口氣幫電腦裝好 AI 所需的基本文具與軟體。本課學員把它當**步驟 0**，跑完再進 Pro-Kit 01。
 
-> **安裝包 v1.2.0**：Intel 與 M 系列共用同一個 ZIP，操作流程不變。已完成 Developer ID 簽名、Apple 公證與解壓後 Gatekeeper 驗證；實機相容性驗證範圍見 [驗證紀錄](./VERIFICATION.md)。
+> **安裝包 v1.2.1**：修正用第三方解壓縮工具解開後顯示「已損毀」的問題。Intel 與 M 系列共用同一個 ZIP，操作流程不變。已完成 Developer ID 簽名、Apple 公證與解壓後 Gatekeeper 驗證；實機相容性驗證範圍見 [驗證紀錄](./VERIFICATION.md)。
 
 > **這裡就是開源正本**（`env-installer/`）。課程 repo 的 `content/pro-kit/bootstrap/` 與此同步，方便學員在課程路徑內找到。
 
