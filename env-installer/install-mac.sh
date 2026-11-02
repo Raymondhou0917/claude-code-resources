@@ -23,7 +23,7 @@
 set -euo pipefail
 
 # 版本號：打包成 .app 時會讀這行塞進 Info.plist
-VERSION="1.2.0"
+VERSION="1.2.1"
 
 AD_URL="https://shifu.tw/course/trial/ai-agent-bootcamp"
 
