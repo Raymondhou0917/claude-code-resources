@@ -1,4 +1,4 @@
-# Claude Code 學習資源｜免費教學 + Starter Kit 設定包
+# AI Agent 學習資源｜免費教學 + Starter Kit 設定包
 
 > 精選 Claude Code／Codex 中文學習資源，非工程師也能上手。  
 > 免費教學文章 + 可直接丟給 AI 執行的設定包 + Mac 一鍵環境安裝包。
@@ -13,7 +13,10 @@
 
 ### 📖 學習資源網站
 
-一頁式的 AI Agent 學習入口（[cc.lifehacker.tw](https://cc.lifehacker.tw)），包含：
+AI Agent 自學入口（[cc.lifehacker.tw](https://cc.lifehacker.tw)），包含：
+
+- **四步自學路徑** — 認識 AI Agent → 安裝工具 → 第一個任務 → Starter Kit，每一步附教材與完成目標
+- **獨立免費導讀** — [AI Agent 入門](https://cc.lifehacker.tw/learn/ai-agent-basics/)與 [Mac 安裝圖解](https://cc.lifehacker.tw/learn/mac-setup/)，無 JavaScript 也能閱讀；舊 `#lesson-1`、`#lesson-2` 連結自動轉到新頁
 
 - **精選免費資源** — 安裝教學、應用案例、技術文件，依場景分類
 - **免費導讀** —〈AI Agent 是什麼？〉、〈Mac 一鍵環境安裝包〉圖解（[直接開安裝包教學](https://cc.lifehacker.tw/#lesson-2)）
@@ -75,6 +78,15 @@ AI 執行時會自動：詢問你的個人化偏好 → 偵測既有配置並確
 
 **方法 4：看完整 70 分鐘 Claude Code 超詳細入門教學影片**  
 → [https://youtu.be/xo7dE80ktu4](https://youtu.be/xo7dE80ktu4)
+
+## 網站維護
+
+- 首頁：`index.html`；共用樣式：`styles.css`。
+- 免費導讀正本：`learn/ai-agent-basics/index.html`、`learn/mac-setup/index.html`；閱讀樣式：`learn/learn.css`。直接編輯 HTML，不再維護原 `course-articles.js` 彈窗內容。
+- `python3 scripts/build-public.py` 產生 `dist/`，只發布 allowlist 中的內容；`dist/` 已有檔案時，先移到 repo 外暫存，再重新建置。
+- Sitemap 包含首頁與兩篇導讀，各頁 `lastmod` 依自己的 Git 內容日期產生；尚未 commit 的新預覽頁不填入日期。
+- 標題字型保留 Glow Sans TC Wide。建置會核對全站中文字與 `fonts/coverage.json`，缺字就停止；新增文案後若提示缺字，從 [Glow Sans v0.93](https://github.com/welai/glow-sans/releases/tag/v0.93) 取得 TC Wide 的 Bold／ExtraBold OTF，用安裝了 `fonttools[woff]` 的 Python 執行 `python3 scripts/subset-fonts.py /path/to/otfs`，再遞增 `styles.css` 兩個字型 URL 的版本號。完整原檔放 repo 外，`_originals-backup` 不發布。
+- 字型腳本依 [上游 issue #22](https://github.com/welai/glow-sans/issues/22) 補回「值、告、教、清、真」的 Unicode 字形對應，保留網站原文字碼；授權見 `fonts/OFL.txt`。
 
 ## 版本更新
 

@@ -10,6 +10,7 @@
 - 根檔案與子目錄 allowlist 在 script；不公開 `.git`、`.env`、scripts、docs、測試。新公開檔案須明確加 allowlist。
 - 本機 dist 已存在時 build fail closed；先把舊 dist 移到 repo 外的暫存目錄，再重建。
 - sitemap lastmod 取內容檔 Git commit 時間，重新部署不虛報更新。
+- 2026-11-03 自學改版：`learn/` 的兩篇導讀為獨立靜態 HTML，首頁舊 `#lesson-1`／`#lesson-2` 由 JavaScript 轉往新頁並保留 query；sitemap 各頁分別取得 Git 內容日期。
 - Pages 預覽／pages.dev 有 noindex header；正式 canonical 指向原網址。
 - 真實 404：未存在路徑使用 404.html，不把未知 URL 回成首頁 200。
 

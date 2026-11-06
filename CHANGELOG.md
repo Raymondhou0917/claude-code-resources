@@ -5,6 +5,15 @@
 
 ---
 
+## [Unreleased] — 2026-11-03
+
+- 首頁新增四步免費自學路徑，保留原有「AI Agent 學習資源」站名、課綱與 CTA。
+- 兩篇免費導讀改為 `learn/` 獨立靜態頁，保留原文、圖解與下載，補上閱讀目錄、前後導航、獨立 metadata 與 Article／Breadcrumb schema；舊錨點連結自動轉址。
+- 更新發布 allowlist 與各頁 sitemap 日期，補齊品牌 Apple touch icon／Web App manifest；移除原彈窗與執行期 Markdown 相依。
+- 統一站名，精簡自學路徑與導讀頁首，修復區塊重疊；重新產生全站標題字集，加入建置時的缺字檢查。
+
+---
+
 ## [v1.3.2] — 2026-09-15
 
 ### 🛠 Starter Kit #06 單一模型週額度（Fable 等）用官方管道做回來

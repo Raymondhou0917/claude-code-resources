@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code／Codex Mac 安裝教學｜一鍵環境安裝包與圖解</title>
+  <meta name="description" content="給 AI Agent 新手的 Mac 一鍵環境安裝教學：準備 Git、Homebrew、GitHub，再依需要選擇 Claude 或 Codex 工具，附 16 張操作截圖與 Windows 說明。">
+  <meta name="author" content="雷蒙三十 Raymond">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cc.lifehacker.tw/learn/mac-setup/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Claude Code／Codex Mac 安裝教學｜一鍵環境安裝包與圖解">
+  <meta property="og:description" content="給 AI Agent 新手的 Mac 一鍵環境安裝教學：準備 Git、Homebrew、GitHub，再依需要選擇 Claude 或 Codex 工具，附 16 張操作截圖與 Windows 說明。">
+  <meta property="og:url" content="https://cc.lifehacker.tw/learn/mac-setup/">
+  <meta property="og:site_name" content="AI Agent 學習資源｜雷蒙三十">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://cc.lifehacker.tw/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code／Codex Mac 安裝教學｜一鍵環境安裝包與圖解">
+  <meta name="twitter:description" content="給 AI Agent 新手的 Mac 一鍵環境安裝教學：準備 Git、Homebrew、GitHub，再依需要選擇 Claude 或 Codex 工具，附 16 張操作截圖與 Windows 說明。">
+  <meta name="twitter:image" content="https://cc.lifehacker.tw/images/og-image.jpg">
+  <link rel="icon" type="image/svg+xml" href="/images/icons/claude-color.svg">
+  <link rel="apple-touch-icon" href="/images/icons/brand-touch.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#F4EBE1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/learn/learn.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B37GWLVFYZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B37GWLVFYZ');
+  </script>
+
+  <!-- Meta Pixel Code（開課快手-lifehacker.tw，全站共用 Pixel） -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '373761211634972');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=373761211634972&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lifehacker.tw/#organization",
+      "name": "雷蒙三十",
+      "alternateName": [
+        "Lifehacker",
+        "雷蒙三十 Lifehacker"
+      ],
+      "url": "https://lifehacker.tw/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://image.lifehacker.tw/lifehacker-pic/logo-raymond-30.png"
+      },
+      "founder": {
+        "@id": "https://raymondhouch.com/#person"
+      },
+      "sameAs": [
+        "https://www.youtube.com/c/yuiraymond",
+        "https://www.facebook.com/raymondhou0917/",
+        "https://www.instagram.com/yuiraymond/",
+        "https://www.threads.net/@raymond0917",
+        "https://x.com/Raymond_Hou_"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://raymondhouch.com/#person",
+      "name": "侯智薰",
+      "alternateName": [
+        "雷蒙",
+        "Raymond Hou"
+      ],
+      "url": "https://raymondhouch.com/",
+      "jobTitle": "創辦人／數位工作顧問",
+      "worksFor": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "sameAs": [
+        "https://raymondhouch.com/",
+        "https://wiki.lifehacker.tw/",
+        "https://www.youtube.com/c/yuiraymond",
+        "https://www.facebook.com/raymondhou0917/",
+        "https://www.instagram.com/yuiraymond/",
+        "https://www.threads.net/@raymond0917",
+        "https://x.com/Raymond_Hou_"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cc.lifehacker.tw/#website",
+      "url": "https://cc.lifehacker.tw/",
+      "name": "AI Agent 學習資源",
+      "inLanguage": "zh-Hant-TW",
+      "publisher": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "description": "非工程師的 AI Agent 學習資源，提供 Claude Code、Codex 免費教學、四步學習路徑與設定包。",
+      "alternateName": [
+        "Claude Code 中文教學",
+        "Codex 中文教學"
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://cc.lifehacker.tw/learn/mac-setup/#article",
+      "headline": "Mac 一鍵環境安裝包：把電腦調成 AI 友善基地",
+      "description": "給 AI Agent 新手的 Mac 一鍵環境安裝教學：準備 Git、Homebrew、GitHub，再依需要選擇 Claude 或 Codex 工具，附 16 張操作截圖與 Windows 說明。",
+      "inLanguage": "zh-Hant-TW",
+      "mainEntityOfPage": "https://cc.lifehacker.tw/learn/mac-setup/",
+      "author": {
+        "@id": "https://raymondhouch.com/#person"
+      },
+      "publisher": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://cc.lifehacker.tw/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AI Agent 學習資源",
+          "item": "https://cc.lifehacker.tw/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mac 一鍵環境安裝包",
+          "item": "https://cc.lifehacker.tw/learn/mac-setup/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body class="guide-page">
+  <a href="#guide-content" class="guide-skip">跳到文章內容</a>
+  <header class="guide-header">
+    <nav class="guide-nav" aria-label="主要導覽">
+      <a class="guide-brand" href="/">AI Agent 學習資源</a>
+      <a href="/#path">回到自學路徑 →</a>
+    </nav>
+  </header>
+  <main class="guide-shell">
+    <div class="guide-layout">
+      <article class="guide-article" id="guide-content">
+        <h1>Mac 一鍵環境安裝包：把電腦調成 AI 友善基地</h1>
+        <div class="guide-content">
+
+<p>這是「超級 AI 個體」課程開源的 <strong>步驟 0</strong>：給所有想開始用 AI Agent 的人，不綁付費內容。</p>
+<p>雙擊 App 大約 10～15 分鐘，把地基裝好；開場用 checkbox 勾選要裝的 Claude／Codex（可複選）。下面每一步都有截圖，照著做即可。</p>
+<hr/>
+<h2 id="section-1">它會裝什麼</h2>
+<p><strong>必裝地基（自動）</strong></p>
+<ol>
+<li>git（版本控制／時光機）</li>
+<li>Homebrew（Mac 軟體管家；舊系統可能走備用路線）</li>
+<li>GitHub CLI（<code>gh</code>）</li>
+<li>GitHub 登入</li>
+</ol>
+<p><strong>挑你要裝的 AI 工具</strong>（↑↓ 移動、空白鍵勾選、可複選；都不勾＝只裝基礎）</p>
+<div aria-label="可左右捲動的比較表" class="guide-table" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th style="text-align: left;">選項</th>
+<th style="text-align: left;">說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">☐ Claude 桌面版</td>
+<td style="text-align: left;">Claude 官方桌面 App</td>
+</tr>
+<tr>
+<td style="text-align: left;">☐ Claude 終端機版</td>
+<td style="text-align: left;">Claude Code</td>
+</tr>
+<tr>
+<td style="text-align: left;">☐ ChatGPT 桌面版</td>
+<td style="text-align: left;">ChatGPT 官方桌面 App</td>
+</tr>
+<tr>
+<td style="text-align: left;">☐ Codex 終端機版</td>
+<td style="text-align: left;">Codex CLI</td>
+</tr>
+</tbody>
+</table></div>
+<p>已經裝過的會自動跳過，可重跑。完成畫面依<strong>實際結果</strong>打勾，不會假裝成功。</p>
+<blockquote>
+<p>桌面版自己會提示更新；安裝包<strong>不會</strong>幫你排程 <code>brew upgrade</code>。</p>
+</blockquote>
+<hr/>
+<h2 id="section-2">下載</h2>
+<p>已簽名＋公證的 Mac 安裝包：</p>
+<p>→ <a data-track-cta="guide-installer-download" download="" href="/env-installer/%E9%9B%B7%E8%92%99%E7%9A%84%20AI%20%E5%9F%BA%E7%A4%8E%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E5%8C%85%28MAC%29.zip">下載「雷蒙的 AI 基礎環境安裝包(MAC).zip」</a></p>
+<p>文字版與 Windows 做法：<a href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md">env-installer/README.md</a></p>
+<hr/>
+<h2 id="section-3">圖解操作步驟</h2>
+<p>跟著截圖走。中途只會請你「輸入 Mac 密碼」和「開瀏覽器登入 GitHub」，都是正常關卡。</p>
+<h3>一、下載到打開</h3>
+<p><strong>1. 解壓縮</strong>：下載到的 zip，瀏覽器通常會自動解壓成 App（沒有的話雙擊它）。</p>
+<p><img alt="解壓縮下載的 zip" decoding="async" height="1041" loading="lazy" src="/env-installer/images/01-download-unzip.webp" width="1600"/></p>
+<p><strong>2. 雙擊 App</strong>：解壓後會出現星光背包圖示的 App，雙擊它。</p>
+<p><img alt="雙擊 App" decoding="async" height="1041" loading="lazy" src="/env-installer/images/02-open-app.webp" width="1600"/></p>
+<p><strong>3. 打開</strong>：已簽名＋公證，系統顯示「已檢查，未偵測到惡意軟體」時按「打開」。</p>
+<p><img alt="確認打開" decoding="async" height="1041" loading="lazy" src="/env-installer/images/03-gatekeeper-allow.webp" width="1600"/></p>
+<h3>二、開場：挑你要裝的 AI 工具</h3>
+<p>基礎環境一定會裝。AI 工具用 <strong>↑↓ 移動、空白鍵勾選（可複選）、Enter 確認</strong>；都不勾＝只裝基礎環境。</p>
+<p><img alt="勾選要裝的 AI 工具" decoding="async" height="1041" loading="lazy" src="/env-installer/images/04-select-tools.webp" width="1600"/></p>
+<h3>三、基礎環境</h3>
+<p><strong>5. 輸入 Mac 密碼</strong>：安裝 Homebrew 時會請你輸入電腦密碼。打字時看不到字是正常的，打完按 Enter。</p>
+<p><img alt="輸入 Mac 密碼" decoding="async" height="1041" loading="lazy" src="/env-installer/images/05-enter-mac-password.webp" width="1600"/></p>
+<p><strong>6. 按 Enter 繼續</strong>：Homebrew 會列出要安裝的位置，按 Enter 讓它繼續。這一站最久，約 3～5 分鐘，畫面卡著是在下載、不是當機。</p>
+<p><img alt="Homebrew 按 Enter 繼續" decoding="async" height="1041" loading="lazy" src="/env-installer/images/06-homebrew-continue.webp" width="1600"/></p>
+<h3>四、登入 GitHub</h3>
+<p><strong>7. 開始 GitHub 登入</strong>：進到「GitHub 登入」這一站，跟著往下選。</p>
+<p><img alt="GitHub 登入引導" decoding="async" height="1041" loading="lazy" src="/env-installer/images/07-github-login-overview.webp" width="1600"/></p>
+<p><strong>8. 選 GitHub.com</strong>：用方向鍵選 <code>GitHub.com</code>。</p>
+<p><img alt="選 GitHub.com" decoding="async" height="1041" loading="lazy" src="/env-installer/images/08-github-choose-host.webp" width="1600"/></p>
+<p><strong>9. 選 HTTPS</strong>：協定選 <code>HTTPS</code>。</p>
+<p><img alt="選 HTTPS 協定" decoding="async" height="1041" loading="lazy" src="/env-installer/images/09-github-choose-protocol.webp" width="1600"/></p>
+<p><strong>10. 複製一次性驗證碼</strong>：終端機會顯示一組 one-time code，先複製起來，按 Enter 會自動開瀏覽器。</p>
+<p><img alt="複製一次性驗證碼" decoding="async" height="1041" loading="lazy" src="/env-installer/images/10-github-copy-code.webp" width="1600"/></p>
+<p><strong>11. 瀏覽器：Device Activation</strong>：瀏覽器打開後按「Continue」。</p>
+<p><img alt="Device Activation" decoding="async" height="1041" loading="lazy" src="/env-installer/images/11-browser-device-activation.webp" width="1600"/></p>
+<p><strong>12. 貼上驗證碼</strong>：把剛剛複製的驗證碼貼進去，按 Continue。</p>
+<p><img alt="貼上驗證碼" decoding="async" height="1041" loading="lazy" src="/env-installer/images/12-browser-paste-code.webp" width="1600"/></p>
+<p><strong>13. 授權</strong>：確認權限後按綠色的「Authorize github」。</p>
+<p><img alt="授權 GitHub CLI" decoding="async" height="1041" loading="lazy" src="/env-installer/images/13-browser-authorize.webp" width="1600"/></p>
+<p><strong>14. 連結完成</strong>：看到「Congratulations, you're all set!」就代表登入好了，可關掉瀏覽器回到終端機。</p>
+<p><img alt="連結完成" decoding="async" height="1041" loading="lazy" src="/env-installer/images/14-browser-connected.webp" width="1600"/></p>
+<h3>五、其他工具與完成</h3>
+<p><strong>15. 繼續安裝你勾選的工具</strong>：接著會自動裝你勾的 AI 工具，跟著跑就好。</p>
+<p><img alt="安裝其他工具" decoding="async" height="1041" loading="lazy" src="/env-installer/images/15-install-other-tools.webp" width="1600"/></p>
+<p><strong>16. 完成</strong>：最後畫面會依<strong>實際結果</strong>逐項打勾。看到這張就全部裝好了，按 Enter 關閉視窗即可。</p>
+<p><img alt="完成安裝" decoding="async" height="1041" loading="lazy" src="/env-installer/images/16-done.webp" width="1600"/></p>
+<hr/>
+<h2 id="section-4">常見「以為壞了」</h2>
+<ul>
+<li><strong>打密碼沒有字</strong>：正常，打完按 Enter。</li>
+<li><strong>畫面卡住</strong>：多半在下載（Homebrew 最久約 3～5 分鐘）。</li>
+<li><strong>系統擋 App</strong>：已公證的正式版通常不會；若遇到，對 App 按右鍵 → 打開。</li>
+</ul>
+<hr/>
+<h2 id="section-5">舊 Mac？</h2>
+<div aria-label="可左右捲動的比較表" class="guide-table" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th style="text-align: left;">macOS</th>
+<th style="text-align: left;">行為</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">14+</td>
+<td style="text-align: left;">完整 Homebrew 路線</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">自動改官方安裝器備用路線</td>
+</tr>
+<tr>
+<td style="text-align: left;">12 以下</td>
+<td style="text-align: left;">友善停止，導向 Claude 桌面版</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="windows">Windows</h2>
+<p>一鍵 App 還沒有。PowerShell 可先：</p>
+<pre><code class="language-powershell">winget install --id Git.Git -e
+winget install --id GitHub.cli -e
+irm https://claude.ai/install.ps1 | iex
+gh auth login
+</code></pre>
+<p>細節見 <a href="https://github.com/Raymondhou0917/claude-code-resources/blob/master/env-installer/README.md#windows-%E5%90%8C%E5%AD%B8%E6%80%8E%E9%BA%BC%E8%BE%A6">README 的 Windows 段落</a>。</p>
+<h3>熟手：直接跑腳本</h3>
+<pre><code class="language-bash">cd env-installer
+chmod +x install-mac.sh
+./install-mac.sh
+</code></pre>
+<p>只要工具、不登入 GitHub：<code>./install-mac.sh --skip-auth</code><br/>
+指定工具、不進選單：<code>./install-mac.sh --tools=claude|codex|both|base</code></p>
+<hr/>
+<h2 id="section-7">裝完之後</h2>
+<ul>
+<li>依你勾選的工具，終端機打 <code>claude</code> 或 <code>codex</code>，或開對應桌面 App 登入。</li>
+<li>想把 AI 練成自己的分身：<a href="https://shifu.tw/course/trial/ai-agent-bootcamp">超級 AI 個體體驗課</a></li>
+<li>觀念還沒搞懂？先看免費導讀：<a href="/learn/ai-agent-basics/">AI Agent 是什麼？</a></li>
+</ul>
+        </div>
+        <nav class="guide-next" aria-label="接著學習">
+          <h2>下一步：完成第一個小任務</h2>
+          <p>回到自學路徑第三步，選一支實戰影片跟著做，再檢查自己的成果。</p>
+          <a href="/#path" data-track-cta="guide-next">回到四步自學路徑 →</a>
+          <a href="/#starter-kit" data-track-cta="guide-starter-kit">免費 Starter Kit →</a>
+        </nav>
+      </article>
+      <aside class="guide-toc" aria-label="文章目錄">
+        <details open><summary>本篇內容</summary><ol><li><a href="#section-1">它會裝什麼</a></li><li><a href="#section-2">下載</a></li><li><a href="#section-3">圖解操作步驟</a></li><li><a href="#section-4">常見「以為壞了」</a></li><li><a href="#section-5">舊 Mac？</a></li><li><a href="#windows">Windows</a></li><li><a href="#section-7">裝完之後</a></li></ol></details>
+      </aside>
+    </div>
+    <footer class="guide-footer">© 雷蒙三十 · <a href="/">AI Agent 學習資源</a> · <a href="/#course">完整課程</a></footer>
+  </main>
+  <script>
+    if (window.matchMedia('(max-width: 800px)').matches) document.querySelector('.guide-toc details').open = false;
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('[data-track-cta]');
+      if (link && typeof gtag === 'function') gtag('event', 'cta_click', { cta_location: link.dataset.trackCta, destination: link.href, campaign: 'ai-agent-self-study' });
+    });
+  </script>
+</body>
+</html>

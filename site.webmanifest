@@ -1,0 +1,18 @@
+{
+  "name": "AI Agent 學習資源｜雷蒙三十",
+  "short_name": "AI Agent 學習資源",
+  "lang": "zh-TW",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAF6F0",
+  "theme_color": "#F4EBE1",
+  "icons": [
+    {
+      "src": "/images/icons/brand-touch.png",
+      "sizes": "1180x1180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

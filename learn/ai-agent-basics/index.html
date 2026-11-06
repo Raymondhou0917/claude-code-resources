@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-TW" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent 是什麼？非工程師的入門導讀｜雷蒙三十</title>
+  <meta name="description" content="用白話認識 AI Agent、聊天型 AI 與代理型 AI 的差別，了解 Claude Code、Codex 的工作方式，開始規劃你的第一個 AI 任務。">
+  <meta name="author" content="雷蒙三十 Raymond">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cc.lifehacker.tw/learn/ai-agent-basics/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent 是什麼？非工程師的入門導讀｜雷蒙三十">
+  <meta property="og:description" content="用白話認識 AI Agent、聊天型 AI 與代理型 AI 的差別，了解 Claude Code、Codex 的工作方式，開始規劃你的第一個 AI 任務。">
+  <meta property="og:url" content="https://cc.lifehacker.tw/learn/ai-agent-basics/">
+  <meta property="og:site_name" content="AI Agent 學習資源｜雷蒙三十">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://cc.lifehacker.tw/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent 是什麼？非工程師的入門導讀｜雷蒙三十">
+  <meta name="twitter:description" content="用白話認識 AI Agent、聊天型 AI 與代理型 AI 的差別，了解 Claude Code、Codex 的工作方式，開始規劃你的第一個 AI 任務。">
+  <meta name="twitter:image" content="https://cc.lifehacker.tw/images/og-image.jpg">
+  <link rel="icon" type="image/svg+xml" href="/images/icons/claude-color.svg">
+  <link rel="apple-touch-icon" href="/images/icons/brand-touch.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#F4EBE1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/learn/learn.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B37GWLVFYZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B37GWLVFYZ');
+  </script>
+
+  <!-- Meta Pixel Code（開課快手-lifehacker.tw，全站共用 Pixel） -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '373761211634972');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=373761211634972&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lifehacker.tw/#organization",
+      "name": "雷蒙三十",
+      "alternateName": [
+        "Lifehacker",
+        "雷蒙三十 Lifehacker"
+      ],
+      "url": "https://lifehacker.tw/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://image.lifehacker.tw/lifehacker-pic/logo-raymond-30.png"
+      },
+      "founder": {
+        "@id": "https://raymondhouch.com/#person"
+      },
+      "sameAs": [
+        "https://www.youtube.com/c/yuiraymond",
+        "https://www.facebook.com/raymondhou0917/",
+        "https://www.instagram.com/yuiraymond/",
+        "https://www.threads.net/@raymond0917",
+        "https://x.com/Raymond_Hou_"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://raymondhouch.com/#person",
+      "name": "侯智薰",
+      "alternateName": [
+        "雷蒙",
+        "Raymond Hou"
+      ],
+      "url": "https://raymondhouch.com/",
+      "jobTitle": "創辦人／數位工作顧問",
+      "worksFor": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "sameAs": [
+        "https://raymondhouch.com/",
+        "https://wiki.lifehacker.tw/",
+        "https://www.youtube.com/c/yuiraymond",
+        "https://www.facebook.com/raymondhou0917/",
+        "https://www.instagram.com/yuiraymond/",
+        "https://www.threads.net/@raymond0917",
+        "https://x.com/Raymond_Hou_"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cc.lifehacker.tw/#website",
+      "url": "https://cc.lifehacker.tw/",
+      "name": "AI Agent 學習資源",
+      "inLanguage": "zh-Hant-TW",
+      "publisher": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "description": "非工程師的 AI Agent 學習資源，提供 Claude Code、Codex 免費教學、四步學習路徑與設定包。",
+      "alternateName": [
+        "Claude Code 中文教學",
+        "Codex 中文教學"
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://cc.lifehacker.tw/learn/ai-agent-basics/#article",
+      "headline": "AI Agent 是什麼？為什麼連 OpenAI 都把 ChatGPT 砍了？",
+      "description": "用白話認識 AI Agent、聊天型 AI 與代理型 AI 的差別，了解 Claude Code、Codex 的工作方式，開始規劃你的第一個 AI 任務。",
+      "inLanguage": "zh-Hant-TW",
+      "mainEntityOfPage": "https://cc.lifehacker.tw/learn/ai-agent-basics/",
+      "author": {
+        "@id": "https://raymondhouch.com/#person"
+      },
+      "publisher": {
+        "@id": "https://lifehacker.tw/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://cc.lifehacker.tw/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AI Agent 學習資源",
+          "item": "https://cc.lifehacker.tw/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI Agent 是什麼？",
+          "item": "https://cc.lifehacker.tw/learn/ai-agent-basics/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body class="guide-page">
+  <a href="#guide-content" class="guide-skip">跳到文章內容</a>
+  <header class="guide-header">
+    <nav class="guide-nav" aria-label="主要導覽">
+      <a class="guide-brand" href="/">AI Agent 學習資源</a>
+      <a href="/#path">回到自學路徑 →</a>
+    </nav>
+  </header>
+  <main class="guide-shell">
+    <div class="guide-layout">
+      <article class="guide-article" id="guide-content">
+        <h1>AI Agent 是什麼？為什麼連 OpenAI 都把 ChatGPT 砍了？</h1>
+        <div class="guide-content">
+
+<p>你一定用過 ChatGPT 或 Claude 網頁：問一句、答一句。</p>
+<p>但 2026 年大廠真正在推的，已經不是「更好的聊天框」，而是 <strong>AI Agent</strong>：能讀你的檔案、用工具、把一整件事做完的代理人。</p>
+<p>這篇用最白話講清楚三件事：Agent 是什麼、跟聊天差在哪、為什麼連 OpenAI 都把舊的 ChatGPT 桌面程式整併掉。</p>
+<hr/>
+<h2 id="section-1">先講結論</h2>
+<div aria-label="可左右捲動的比較表" class="guide-table" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">聊天型 AI（Lv1）</th>
+<th style="text-align: left;">AI Agent（Lv3）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>像什麼</strong></td>
+<td style="text-align: left;">顧問：給你答案</td>
+<td style="text-align: left;">實習生：接手任務</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>你在做什麼</strong></td>
+<td style="text-align: left;">一直問、一直複製貼上</td>
+<td style="text-align: left;">給目標、給規則，讓它跑</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>典型入口</strong></td>
+<td style="text-align: left;">ChatGPT 的 Chat、claude.ai 網頁</td>
+<td style="text-align: left;">Claude Code、ChatGPT 的 Codex／Work</td>
+</tr>
+</tbody>
+</table></div>
+<p>一句話：<strong>聊天是「給你答案」；Agent 是「幫你做事」。</strong></p>
+<hr/>
+<h2 id="section-2">為什麼說 OpenAI「把 ChatGPT 砍了」？</h2>
+<p>2026 年 7 月起，OpenAI 將官方桌面端以 Codex 為主體，將 AI 應用的主力方向調整成 AI Agent。</p>
+<p>原本大家習慣的純聊天型 AI（ChatGPT），被改名為「ChatGPT Classic」（傳統版）。</p>
+<p>這款新的桌面版應用，已整合了 Codex 的功能，主要提供兩大模式：</p>
+<ul>
+<li><strong>Work／Codex</strong>：Agent 模式（規劃、用工具、交成果），吃獨立的訂閱額度</li>
+<li><strong>Chat</strong>：問答（你熟悉的聊天，變成輔助任務執行用）</li>
+</ul>
+<p>Anthropic 也一樣：從網頁聊天，走到桌面、Cowork、再到 <strong>Claude Code</strong> 這種能動本機專案的 Agent。</p>
+<p>大廠的共識很清楚：</p>
+<blockquote>
+<p>把「專門寫程式的 Coding Agent」變成「通用 AI 代理人」。</p>
+</blockquote>
+<p>模型當然還在變強，但真正拉開差距的，是你有沒有一套<strong>能替你執行任務的 Agent</strong>。</p>
+<hr/>
+<h2 id="section-3">三層地圖：你現在站在哪？</h2>
+<p>不用背產品名，先分層：</p>
+<p><strong>Lv1｜聊天型</strong><br/>
+代表：ChatGPT 的 Chat、claude.ai。<br/>
+適合：臨時問一句。你的角色是操作員，每一步都要自己下指令。</p>
+<p><strong>Lv2｜協作型</strong><br/>
+代表：NotebookLM、Claude Cowork、做簡報／整理文件的 AI。<br/>
+適合：丟進多份資料，一起完成一個領域任務。你的角色是管理者。</p>
+<p><strong>Lv3｜代理型（本篇重點）</strong><br/>
+代表：<strong>Claude Code</strong>、<strong>ChatGPT Codex</strong>（或日常用 Work）。<br/>
+適合：丟一個完整目標，讓它規劃步驟、用工具、交成果。你的角色是定規則、驗收結果。</p>
+<p>Lv3 學會之後，Lv1／Lv2 的能力通常都涵蓋得到，還多出「真的能接手工作」的那一層。</p>
+<hr/>
+<h2 id="section-4">Agent 到底是什麼？（不是更強的模型）</h2>
+<p>常見迷思：<strong>Agent ≠ 比較強的 LLM</strong>。</p>
+<p>Claude、GPT、Gemini 是大腦（模型）。Agent 是一套運作方式：</p>
+<blockquote>
+<p><strong>Agent = LLM（大腦）＋ Harness（規則與工作環境）＋ Tools（手腳）</strong></p>
+</blockquote>
+<p>Harness 白話說就是：員工手冊、資料怎麼放、做事流程、能不能動哪些檔案。<br/>
+模型人人租得到；真正屬於你的，是你替它設計的那套工作環境。</p>
+<hr/>
+<h2 id="section-5">我該選 Claude 還是 ChatGPT？</h2>
+<p>短期不用焦慮「選錯廠牌」：</p>
+<ol>
+<li><strong>先選一個約 USD 20 的方案試一個月</strong>（常見起點：Claude Pro 或 ChatGPT Plus）。</li>
+<li><strong>拿不定主意就兩個都試</strong>，用一陣子比看十篇評測準。</li>
+<li>新手入口常見是：</li>
+<li>Claude → <strong>Claude 桌面 App</strong>／Claude Code</li>
+<li>OpenAI → <strong>ChatGPT 桌面 App</strong> → 開 <strong>Codex</strong> 或 <strong>Work</strong></li>
+</ol>
+<p>兩邊概念同一套；檔名與介面不同（例如規則檔一邊叫 <code>CLAUDE.md</code>，一邊常寫 <code>AGENTS.md</code>）。</p>
+<hr/>
+<h2 id="section-6">下一步：先把電腦變成「AI 友善基地」</h2>
+<p>觀念對了，再來裝工具。</p>
+<p>如果你是 Mac，可以用我們開源的一鍵環境安裝包：裝 git、Homebrew、GitHub，再開場用 checkbox 勾選要裝的 Claude／Codex 桌面版或終端機版。</p>
+<p>→ <a href="/learn/mac-setup/">繼續閱讀 Mac 一鍵環境安裝圖解</a>，或直接看 GitHub：<br/>
+<a href="https://github.com/Raymondhou0917/claude-code-resources/tree/master/env-installer">env-installer 使用說明</a></p>
+<p>想系統性把 AI 練成自己的分身：<br/>
+<a href="https://shifu.tw/course/trial/ai-agent-bootcamp">超級 AI 個體｜體驗課</a></p>
+<hr/>
+<h2 id="section-7">延伸閱讀</h2>
+<ul>
+<li>課程附錄級地圖（產品名會變，以官方為準）：可對照 Claude Code × ChatGPT Codex 雙棲說法</li>
+<li>完整比較若你還在選工具：可再讀雷蒙站上的 Claude／Cowork／NotebookLM 相關長文</li>
+</ul>
+<p><em>產品名稱變很快；這篇講的是「聊天 → Agent」的方向，細節以各官網為準。</em></p>
+        </div>
+        <nav class="guide-next" aria-label="接著學習">
+          <h2>下一步：把工具準備好</h2>
+          <p>Mac 跟著圖解安裝；Windows 也有對應操作說明。</p>
+          <a href="/learn/mac-setup/" data-track-cta="guide-next">閱讀安裝圖解 →</a>
+          <a href="/#starter-kit" data-track-cta="guide-starter-kit">免費 Starter Kit →</a>
+        </nav>
+      </article>
+      <aside class="guide-toc" aria-label="文章目錄">
+        <details open><summary>本篇內容</summary><ol><li><a href="#section-1">先講結論</a></li><li><a href="#section-2">為什麼說 OpenAI「把 ChatGPT 砍了」？</a></li><li><a href="#section-3">三層地圖：你現在站在哪？</a></li><li><a href="#section-4">Agent 到底是什麼？（不是更強的模型）</a></li><li><a href="#section-5">我該選 Claude 還是 ChatGPT？</a></li><li><a href="#section-6">下一步：先把電腦變成「AI 友善基地」</a></li><li><a href="#section-7">延伸閱讀</a></li></ol></details>
+      </aside>
+    </div>
+    <footer class="guide-footer">© 雷蒙三十 · <a href="/">AI Agent 學習資源</a> · <a href="/#course">完整課程</a></footer>
+  </main>
+  <script>
+    if (window.matchMedia('(max-width: 800px)').matches) document.querySelector('.guide-toc details').open = false;
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('[data-track-cta]');
+      if (link && typeof gtag === 'function') gtag('event', 'cta_click', { cta_location: link.dataset.trackCta, destination: link.href, campaign: 'ai-agent-self-study' });
+    });
+  </script>
+</body>
+</html>
