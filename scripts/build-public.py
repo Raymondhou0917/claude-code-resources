@@ -20,7 +20,7 @@ for name, coverage in json.loads((ROOT / 'fonts/coverage.json').read_text()).ite
         raise SystemExit(f'{name}: missing glyphs {"".join(sorted(missing))}; run scripts/subset-fonts.py')
 OUT.mkdir(exist_ok=True)
 FILES = ['index.html', 'styles.css', 'robots.txt', 'sitemap.xml', '404.html', '_headers', 'site.webmanifest']
-DIRS = ['images', 'fonts', 'starter-kit', 'env-installer', 'learn']
+DIRS = ['assets/ramka', 'images', 'fonts', 'starter-kit', 'env-installer', 'learn']
 ALLOWED = {".html", ".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".woff2", ".md", ".sh", ".zip"}
 for name in FILES:
     shutil.copy2(ROOT / name, OUT / name)
@@ -30,7 +30,7 @@ for folder in DIRS:
             continue
         if any(part in {"tests", "_originals-backup"} for part in src.parts):
             continue
-        if src.suffix.lower() not in ALLOWED and src != ROOT / 'fonts/OFL.txt':
+        if src.suffix.lower() not in ALLOWED and src != ROOT / 'fonts/OFL.txt' and not (src.parent == ROOT / 'assets/ramka' and (src.name.endswith('.LEGAL.txt') or src.name == 'THIRD-PARTY-LICENSES.txt')):
             continue
         target = OUT / src.relative_to(ROOT)
         target.parent.mkdir(parents=True, exist_ok=True)

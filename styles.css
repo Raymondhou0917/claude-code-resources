@@ -3915,23 +3915,6 @@ div.course-lesson,
 .tw-card--reel iframe { display: block; width: 100%; height: 640px; border: 0; background: #fff; }
 .tw-card--reel:hover { border-color: var(--orange); box-shadow: 0 6px 20px rgba(218,123,74,0.15); }
 /* 放大 lightbox（淡黑遮罩 + 淡入/縮放動畫）*/
-#twLightbox {
-  position: fixed; inset: 0; z-index: 9999;
-  background: rgba(0, 0, 0, 0.82);
-  display: flex; align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-#twLightbox.open { opacity: 1; visibility: visible; }
-#twLightbox img {
-  max-width: 95%; max-height: 92vh; border-radius: 8px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  transform: scale(0.9);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-#twLightbox.open img { transform: scale(1); }
-
-
 /* ===== AI Agent 陪跑課（學員作品區塊結尾） ===== */
 .bootcamp {
   display: grid;

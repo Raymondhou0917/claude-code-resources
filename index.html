@@ -1605,7 +1605,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           <figcaption class="tw-author"><span class="tw-name">ARO Huang</span><span class="tw-date">2026／05／21</span></figcaption>
         </figure>
 
-        <a class="tw-card tw-card--img" href="images/tm-shot-1.webp" onclick="return openTwImg(event,'images/tm-shot-1.webp')">
+        <a class="tw-card tw-card--img" href="images/tm-shot-1.webp">
           <img src="images/tm-shot-1.webp" alt="學員見證截圖：Pro-kit 升級分享" loading="lazy">
         </a>
 
@@ -1653,7 +1653,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           <figcaption class="tw-author"><span class="tw-name">黃詩婷</span><span class="tw-date">2026／05／13</span></figcaption>
         </figure>
 
-        <a class="tw-card tw-card--img" href="images/tm-shot-2.webp" onclick="return openTwImg(event,'images/tm-shot-2.webp')">
+        <a class="tw-card tw-card--img" href="images/tm-shot-2.webp">
           <img src="images/tm-shot-2.webp" alt="學員見證截圖：pro-kit 升級成果" loading="lazy">
         </a>
 
@@ -1697,7 +1697,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           <figcaption class="tw-author"><span class="tw-name">Miles</span><span class="tw-date">2026／05／01</span></figcaption>
         </figure>
 
-        <a class="tw-card tw-card--img" href="images/tm-shot-3.webp" onclick="return openTwImg(event,'images/tm-shot-3.webp')">
+        <a class="tw-card tw-card--img" href="images/tm-shot-3.webp">
           <img src="images/tm-shot-3.webp" alt="學員見證截圖：品捷 Discord 使用心得" loading="lazy">
         </a>
 
@@ -1741,7 +1741,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           <figcaption class="tw-author"><span class="tw-name">Rhodia</span><span class="tw-date">2026／04／25</span></figcaption>
         </figure>
 
-        <a class="tw-card tw-card--img" href="images/tm-shot-4.webp" onclick="return openTwImg(event,'images/tm-shot-4.webp')">
+        <a class="tw-card tw-card--img" href="images/tm-shot-4.webp">
           <img src="images/tm-shot-4.webp" alt="學員見證截圖：pro-kit 觀念拆解" loading="lazy">
         </a>
 
@@ -1795,7 +1795,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           <figcaption class="tw-author"><span class="tw-name">Retsnom</span><span class="tw-date">2026／04／21</span></figcaption>
         </figure>
 
-        <a class="tw-card tw-card--img" href="images/tm-shot-5.webp" onclick="return openTwImg(event,'images/tm-shot-5.webp')">
+        <a class="tw-card tw-card--img" href="images/tm-shot-5.webp">
           <img src="images/tm-shot-5.webp" alt="學員見證截圖：Threads 跨平台分享" loading="lazy">
         </a>
 
@@ -2291,9 +2291,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   </section>
 
   <!-- 學員見證截圖放大 -->
-  <div id="twLightbox" onclick="this.classList.remove('open')">
-    <img id="twLightboxImg" src="" alt="學員見證截圖">
-  </div>
 
   <!-- ===== Footer ===== -->
   <footer class="footer">
@@ -2501,12 +2498,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
       var card = btn.closest('.tw-card');
       var open = card.classList.toggle('open');
       btn.textContent = open ? '收合' : '展開全文';
-    }
-    function openTwImg(e, src) {
-      e.preventDefault();
-      document.getElementById('twLightboxImg').src = src;
-      document.getElementById('twLightbox').classList.add('open');
-      return false;
     }
 
     // 複製 Starter Kit RAW 連結
@@ -2851,6 +2842,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
       }
     })();
   </script>
+<script defer src="assets/ramka/ramka-bootstrap.js?v=20261111-1" data-ramka-selector=".tw-card--img img" data-ramka-exclude=".brand-watermark img"></script>
 </body>
 
 </html>
