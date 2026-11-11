@@ -1,0 +1,25 @@
+Bundled license information:
+
+react/cjs/react-jsx-runtime.production.js:
+  /**
+   * @license React
+   * react-jsx-runtime.production.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
+
+@ramka/react/dist/render/merge-props.js:
+@ramka/react/dist/render/use-render.js:
+  /*!
+   * Adapted from Base UI (@base-ui/react), MIT licensed.
+   * Copyright (c) 2019 Material-UI SAS — see THIRD-PARTY-NOTICES.md.
+   */
+
+@ramka/react/dist/render/use-merged-refs.js:
+  /*!
+   * Adapted from Base UI (@base-ui/utils), MIT licensed.
+   * Copyright (c) 2019 Material-UI SAS — see THIRD-PARTY-NOTICES.md.
+   */
